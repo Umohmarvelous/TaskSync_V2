@@ -1,0 +1,31 @@
+0 verbose cli C:\Program Files\nodejs\node.exe C:\Users\hp\AppData\Roaming\npm\node_modules\npm\bin\npm-cli.js
+1 info using npm@11.4.2
+2 info using node@v22.11.0
+3 silly config load:file:C:\Users\hp\AppData\Roaming\npm\node_modules\npm\npmrc
+4 silly config load:file:C:\Users\hp\Documents\TaskSync_V2\tasksync_v2\.npmrc
+5 silly config load:file:C:\Users\hp\.npmrc
+6 silly config load:file:C:\Users\hp\AppData\Roaming\npm\etc\npmrc
+7 verbose title npm exec install shadcn@latest add carousel
+8 verbose argv "exec" "--" "install" "shadcn@latest" "add" "carousel"
+9 verbose logfile logs-max:10 dir:C:\Users\hp\Documents\TaskSync_V2\tasksync_v2\clean\_logs\2025-06-30T21_36_41_606Z-
+10 verbose logfile C:\Users\hp\Documents\TaskSync_V2\tasksync_v2\clean\_logs\2025-06-30T21_36_41_606Z-debug-0.log
+11 silly logfile start cleaning logs, removing 1 files
+12 silly logfile done cleaning log files
+13 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+14 http fetch GET https://registry.npmjs.org/install attempt 1 failed with ECONNRESET
+15 http fetch GET https://registry.npmjs.org/install attempt 2 failed with ECONNRESET
+16 http fetch GET 200 https://registry.npmjs.org/install 127982ms attempt #3 (cache miss)
+17 verbose stack Error: could not determine executable to run
+17 verbose stack     at getBinFromManifest (C:\Users\hp\AppData\Roaming\npm\node_modules\npm\node_modules\libnpmexec\lib\get-bin-from-manifest.js:17:23)
+17 verbose stack     at exec (C:\Users\hp\AppData\Roaming\npm\node_modules\npm\node_modules\libnpmexec\lib\index.js:205:15)
+17 verbose stack     at async Npm.exec (C:\Users\hp\AppData\Roaming\npm\node_modules\npm\lib\npm.js:208:9)
+17 verbose stack     at async module.exports (C:\Users\hp\AppData\Roaming\npm\node_modules\npm\lib\cli\entry.js:67:5)
+18 verbose pkgid install@0.13.0
+19 error could not determine executable to run
+20 verbose cwd C:\Users\hp\Documents\TaskSync_V2\tasksync_v2
+21 verbose os Windows_NT 10.0.19045
+22 verbose node v22.11.0
+23 verbose npm  v11.4.2
+24 verbose exit 1
+25 verbose code 1
+26 error A complete log of this run can be found in: C:\Users\hp\Documents\TaskSync_V2\tasksync_v2\clean\_logs\2025-06-30T21_36_41_606Z-debug-0.log
