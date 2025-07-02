@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { usePathname, useRouter } from "next/navigation"
 
-export default function DashboardHeader() {
+export function DashboardHeader() {
     const pathname = usePathname()
     const router = useRouter()
     const showBackButton = pathname !== "/"
@@ -34,28 +34,25 @@ export default function DashboardHeader() {
                 </div>
             </div>
 
-            <div className="flex items-center space-x-4">
-                <Button variant="ghost" size="icon">
-                    <Bell className="w-5 h-5" />
-                </Button>
+            <Button variant="ghost" size="icon">
+                <Bell className="w-5 h-5" />
+            </Button>
 
-                <Button className="bg-slate-800 hover:bg-slate-700 text-white">
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Task
-                </Button>
+            <Button className="bg-slate-800 hover:bg-slate-700 text-white">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Task
+            </Button>
 
-                <div className="flex items-center space-x-3">
-                    <Avatar>
-                        <AvatarImage src="/placeholder-user.jpg" alt="Jane Smith" />
-                        <AvatarFallback>JS</AvatarFallback>
-                    </Avatar>
-                    <div className="hidden md:block">
-                        <p className="text-sm font-medium">Jane Smith</p>
-                        <p className="text-xs text-gray-500">Freelancer</p>
-                    </div>
+            <div className="flex items-center space-x-3">
+                <Avatar>
+                    <AvatarImage src="/placeholder-user.jpg" alt="Jane Smith" />
+                    <AvatarFallback>JS</AvatarFallback>
+                </Avatar>
+                <div className="hidden md:block">
+                    <p className="text-sm font-medium">Jane Smith</p>
+                    <p className="text-xs text-gray-500">Freelancer</p>
                 </div>
             </div>
         </header>
     )
-}
-
+} 
