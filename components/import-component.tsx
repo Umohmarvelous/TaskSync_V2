@@ -1,7 +1,7 @@
 export function ImportContent() {
     return (
         <div className="flex flex-col items-center justify-center h-full p-6">
-            <div className="text-center space-y-6">
+            <div className="text-center space-y-6 mt-30">
                 <div className="flex justify-center">
                     <div className="relative">
                         <div className="w-24 h-16 bg-gray-400 rounded-lg"></div>

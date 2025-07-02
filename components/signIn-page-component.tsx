@@ -4,9 +4,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Header } from "./header"
-import { ChromeIcon, FacebookIcon, TwitterIcon } from "lucide-react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { FacebookOutlined, FacebookTwoTone, Google, X } from "@mui/icons-material"
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -17,7 +17,7 @@ export default function Login() {
     e.preventDefault();
     // Dummy validation: you can replace with real API call
     if (email === "user@example.com" && password === "password123") {
-      router.push("/trashPage");
+      router.push("/dashboardPage/dashboardHomePage");
     } else {
       router.push("/errorPage");
     }
@@ -41,12 +41,12 @@ export default function Login() {
           <form className="space-y-6 w-80 flex flex-col items-center justify-self-center" onSubmit={handleSubmit}>
             <div className="w-full">
               <Label htmlFor="email" className="mb-3">Email Address</Label>
-              <Input id="email" type="email" placeholder="Enter email to get started" className="mt-1" value={email} onChange={e => setEmail(e.target.value)} />
+              <Input id="email" type="email" placeholder="Enter email" required className="mt-1" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
 
             <div className="w-full">
               <Label htmlFor="password" className="mb-3">Password</Label>
-              <Input id="password" type="password" placeholder="Enter your password" className="mt-1" value={password} onChange={e => setPassword(e.target.value)} />
+              <Input id="password" type="password" placeholder="Enter your password" required className="mt-1" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
 
             <div className="flex items-center justify-between w-full mt-0">
@@ -61,27 +61,23 @@ export default function Login() {
               </a>
             </div>
 
-            <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2 mt-2">Sign in</button>
+            <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2">Sign in</button>
 
-            {/* <hr className="border-gray-400 border-1 w-full my-2" /> */}
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-500 border-2" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-gray-50 text-gray-500">or continue with</span>
-              </div>
+            <div className="relative flex items-center justify-center w-full mt-5 text-sm">
+              <hr className="w-full border-gray-500" />
+              <span className="px-2 bg-gray-50 text-gray-500 w-100 flex self-center justify-self-center">or continue with</span>
+              <hr className="w-full border-gray-500" />
             </div>
 
             <div className="flex justify-center gap-4">
-              <Button variant="outline" size="icon" className="rounded-full bg-transparent">
-                <ChromeIcon size={'15px'} />
+              <Button variant="outline" size="icon" className="cursor-pointer border-black rounded-full bg-transparent">
+                <Google />
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full bg-transparent">
-                <FacebookIcon size={'15px'} />
+              <Button variant="outline" size="icon" className="cursor-pointer hover:bg-black rounded-full bg-black flex items-center justify-center">
+                <FacebookOutlined style={{ fontSize: '40px', color: '#f9fafb' }} />
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full bg-transparent">
-                <TwitterIcon size={'15px'} />
+              <Button variant="outline" size="icon" className="cursor-pointer border-black rounded-full bg-transparent">
+                <X className="" />
               </Button>
             </div>
           </form>

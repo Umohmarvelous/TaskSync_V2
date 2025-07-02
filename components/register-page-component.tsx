@@ -1,11 +1,9 @@
 "use client"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
-import Link from "next/link"
 import { useRouter } from "next/navigation"
 
 export function RegistrationForm() {
@@ -19,6 +17,9 @@ export function RegistrationForm() {
         e.preventDefault()
         // Simple password match validation
         if (password !== confirmPassword) {
+            router.push('/errorPage')
+            return
+        } else if (!password) {
             router.push('/errorPage')
             return
         }
@@ -63,12 +64,12 @@ export function RegistrationForm() {
 
                         <div className="w-full">
                             <Label htmlFor="password" className="mb-2">Password</Label>
-                            <Input id="password" type="password" placeholder=" " className="mt-1" value={password} onChange={e => setPassword(e.target.value)} />
+                            <Input id="password" type="password" placeholder=" " required className="mt-1" value={password} onChange={e => setPassword(e.target.value)} />
                         </div>
 
                         <div className="w-full">
                             <Label htmlFor="confirmPassword" className="mb-2" >Confirm password</Label>
-                            <Input id="confirmPassword" type="password" className="mt-1" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
+                            <Input id="confirmPassword" type="password" required className="mt-1" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} />
                         </div>
 
                         <div className="w-full">
@@ -77,7 +78,7 @@ export function RegistrationForm() {
                         </div>
 
                         <div className="flex w-full items-center space-x-2">
-                            <Checkbox id="terms" className="border-black" />
+                            <Checkbox id="terms" required className="border-black" />
                             <Label htmlFor="terms" className="text-sm font-normal">
                                 I Agree to the terms & condition
                             </Label>

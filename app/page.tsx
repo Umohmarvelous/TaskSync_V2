@@ -1,5 +1,5 @@
 import { Sidebar } from "@/components/side-bar-component"
-import { Header } from "@/components/header"
+import { DashboardHeader } from "@/components/dashboard-header-component"
 import { HomeContent } from "@/components/home-component"
 import { ForgotPassword } from "@/components/forgot-password-component"
 import { UserTypeSelection } from "@/components/user-type-selection"
@@ -10,7 +10,7 @@ export default function HomePage() {
     // <div className="min-h-auto bg-gray-50">
     //   <Sidebar />
     //   <div className="ml-64">
-    //     <Header />
+    //     <DashboardHeader/>
     //     <main className="pt-16">
     //       <HomeContent />
     //     </main>

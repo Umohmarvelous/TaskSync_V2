@@ -3,12 +3,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Header } from "./header"
-import { ChromeIcon, FacebookIcon, TwitterIcon } from "lucide-react"
+import { FacebookOutlined, Google, X } from "@mui/icons-material"
 
 export function LoginWithTestimonial() {
     return (
         <div className="min-h-screen bg-gray-50">
-            <Header />
+            <DashboardHeader />
             <div className="flex min-h-[calc(100vh-88px)]">
                 {/* Left side - Testimonial */}
                 <div className="flex-1 relative">
@@ -60,24 +60,21 @@ export function LoginWithTestimonial() {
                                 </span>
                             </div>
 
-                            <div className="relative">
-                                <div className="absolute inset-0 flex items-center">
-                                    <div className="w-full border-t border-gray-300" />
-                                </div>
-                                <div className="relative flex justify-center text-sm">
-                                    <span className="px-2 bg-gray-50 text-gray-500">Or continue with</span>
-                                </div>
+                            <div className="relative flex items-center justify-center w-full mt-5 text-sm">
+                                <hr className="w-full border-gray-500" />
+                                <span className="px-2 bg-gray-50 text-gray-500 w-100 flex self-center justify-self-center">or continue with</span>
+                                <hr className="w-full border-gray-500" />
                             </div>
 
                             <div className="flex justify-center gap-4">
-                                <Button variant="outline" size="icon" className="rounded-full bg-transparent">
-                                    <ChromeIcon size={'15px'} />
+                                <Button variant="outline" size="icon" className="cursor-pointer border-black rounded-full bg-transparent">
+                                    <Google />
                                 </Button>
-                                <Button variant="outline" size="icon" className="rounded-full bg-transparent">
-                                    <FacebookIcon size={'15px'} />
+                                <Button variant="outline" size="icon" className="cursor-pointer hover:bg-black rounded-full bg-black flex items-center justify-center">
+                                    <FacebookOutlined style={{ fontSize: '40px', color: '#f9fafb' }} />
                                 </Button>
-                                <Button variant="outline" size="icon" className="rounded-full bg-transparent">
-                                    <TwitterIcon size={'15px'} />
+                                <Button variant="outline" size="icon" className="cursor-pointer border-black rounded-full bg-transparent">
+                                    <X className="" />
                                 </Button>
                             </div>
                         </form>

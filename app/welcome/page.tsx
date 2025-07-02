@@ -53,8 +53,7 @@ export default function Welcome() {
                 sx={{
                     width: 'auto',
                     borderRadius: '0px',
-                    paddingTop: '30px',
-                    // border: '2px solid red',
+                    paddingTop: '20px',
                 }}>
                 <Item
                     sx={{
@@ -64,7 +63,9 @@ export default function Welcome() {
                         boxShadow: 'none',
                         backgroundColor: '#f5f5f5',
                         borderRadius: '0px',
-                        maxWidth: '100%'
+                        maxWidth: '100%',
+                        paddingLeft: '10px',
+                        paddingRight: '20px',
                     }}>
                     <h3 style={{
                         width: '167px',
@@ -81,16 +82,12 @@ export default function Welcome() {
                     <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        gap: '40px',
+                        gap: '15px',
                         alignItems: 'center',
                     }}>
-
-
                         <a href="http://" style={{
                             width: '73px',
                             height: '21px',
-                            top: '74px',
-                            left: '948px',
                             fontFamily: 'Lexend',
                             fontWeight: '400',
                             fontSize: '17px',
@@ -100,10 +97,8 @@ export default function Welcome() {
                             listStyle: 'none',
                             textDecoration: 'none',
                             margin: '0px',
-                            paddingRight: '87px'
                         }}>Features</a>
                         <div style={{
-                            paddingRight: '59px',
                             width: '40px',
                             height: '40px',
                         }}>
@@ -121,20 +116,9 @@ export default function Welcome() {
                         </div>
 
                         <NoSsr>
-                            <a href="/onBoardingScreens">
-                                < Button
-                                    style={{
-                                        backgroundColor: '#FE5722',
-                                        color: 'white',
-                                        width: '150px',
-                                        height: '50px',
-                                        borderRadius: '20px',
-                                        border: 'hidden'
-                                    }}
-                                >
-                                    Get Started
-                                </Button >
-                            </a>
+                            <Link href="/onBoardingScreens">
+                                <ButtonComp buttonName="Get Started" />
+                            </Link>
                         </NoSsr>
                     </div>
                 </Item>
@@ -238,13 +222,13 @@ export default function Welcome() {
                         maxWidth: '100%'
                     }}>
                     <h3 style={{
-                        width: '565px',
+                        width: '665px',
                         height: '44px',
                         fontWeight: '400',
                         fontSize: '35px',
                         lineHeight: '100%',
                         letterSpacing: '0%',
-                        marginBottom: '31px',
+                        marginBottom: '15px',
                         marginTop: '57px',
                         alignSelf: 'flex-start',
                         display: 'flex',
@@ -430,16 +414,16 @@ export default function Welcome() {
                     paddingBottom: "52px",
                 }}>
                     <h2 style={{
-                        width: '410px',
+                        width: 'auto',
                         height: '46px',
                         fontFamily: 'lexend',
                         fontWeight: '700',
                         fontSize: '30px',
-                        lineHeight: '100%',
+                        position: 'relative',
                         letterSpacing: '0%',
                         color: '#000000',
                         textAlign: "left",
-                        paddingLeft: '50px',
+                        paddingLeft: '46px',
                         boxShadow: 'none',
                     }}>Connect Multiple integrations</h2>
 
@@ -448,14 +432,13 @@ export default function Welcome() {
                         width: '429px',
                         height: '46px',
                         fontFamily: 'lexend',
+                        position: 'relative',
                         fontWeight: '400',
                         fontSize: '17px',
-                        lineHeight: '100%',
                         letterSpacing: '0%',
                         color: '#000',
                         paddingLeft: '46px',
                         boxShadow: 'none',
-
                     }}>Ensure your company's data is completely secure and that you are in compliance with the latest standards</h3>
                 </Item>
 
@@ -696,7 +679,8 @@ export default function Welcome() {
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                        alignItems: 'center'
+                        alignItems: 'center',
+                        paddingLeft: '20px'
                     }}>
                         <div>
                             <h3 style={{
@@ -737,31 +721,33 @@ export default function Welcome() {
                                 color: '#FFFFFF'
                             }}>Get the best working experience that you never
                                 feel before</h5>
+                            <Link href="/onBoardingScreens">
+                                <Button
+                                    // onClick={() => navigate('First')}
+                                    type='button' style={{
+                                        width: '339px',
+                                        height: '62px',
+                                        // position:'absolute',
+                                        // top: '330px',
+                                        // left: '63px',
+                                        borderRadius: '15px',
+                                        padding: '10px',
+                                        gap: '10px',
+                                        backgroundColor: '#FE5722',
+                                        border: 'none',
 
-                            <Button
-                                // onClick={() => navigate('First')}
-                                type='button' style={{
-                                    width: '339px',
-                                    height: '62px',
-                                    // position:'absolute',
-                                    // top: '330px',
-                                    // left: '63px',
-                                    borderRadius: '15px',
-                                    padding: '10px',
-                                    gap: '10px',
-                                    backgroundColor: '#FE5722',
-                                    border: 'none',
-
-                                }} ><h3 style={{
-                                    width: '118px',
-                                    height: '25px',
-                                    fontFamily: 'Lexend',
-                                    fontWeight: '700',
-                                    fontSize: '20px',
-                                    lineHeight: '100%',
-                                    letterSpacing: '0%',
-                                    color: '#FFFFFF'
-                                }}>Get Started</h3></Button>
+                                    }} ><h3 style={{
+                                        width: '118px',
+                                        height: '25px',
+                                        fontFamily: 'Lexend',
+                                        fontWeight: '700',
+                                        fontSize: '20px',
+                                        lineHeight: '100%',
+                                        letterSpacing: '0%',
+                                        color: '#FFFFFF'
+                                    }}>Get Started</h3>
+                                </Button>
+                            </Link>
                         </div>
                         {/* <Image
                             // style={{

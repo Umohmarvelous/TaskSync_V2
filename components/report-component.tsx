@@ -3,11 +3,11 @@
 export function ReportContent() {
     return (
         <div className="flex flex-col items-center justify-center h-full p-6">
-            <div className="text-center space-y-6 relative overflow-hidden rounded-lg p-8">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-100/30 to-transparent -skew-x-12 animate-shimmer"></div>
+            <div className="text-center space-y-6 relative overflow-hidden rounded-lg p-8 mt-30">
+                {/* <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-100/30 to-transparent -skew-x-12 animate-shimmer"></div> */}
                 <div className="flex justify-center">
-                    <div className="flex items-end space-x-2">
-                        <div className="w-8 h-12 bg-gray-400 rounded"></div>
+                    <div className="flex items-end space-x-2 ">
+                        <div className="w-8 h-12 bg-gray-400 rounded "></div>
                         <div className="w-8 h-8 bg-gray-400 rounded"></div>
                         <div className="w-8 h-16 bg-gray-400 rounded"></div>
                         <div className="w-8 h-12 bg-gray-400 rounded"></div>

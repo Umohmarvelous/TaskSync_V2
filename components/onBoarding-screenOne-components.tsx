@@ -2,12 +2,13 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { ArrowLeftCircle } from "lucide-react"
+import { ArrowDropDownCircleRounded, ChevronLeft } from "@mui/icons-material"
+import { ArrowLeftCircle, ArrowLeftCircleIcon, ChevronLeftCircle } from "lucide-react"
+import Link from "next/link"
 
 export default function OnboardingStepOne() {
     return (
         <div className="min-h-screen flex">
-            {/* Left side - Gradient background */}
             <div className="flex-1 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 flex items-center justify-center p-12">
                 <div className="text-white max-w-md">
                     <h1 className="text-5xl font-light italic mb-8">
@@ -19,10 +20,11 @@ export default function OnboardingStepOne() {
                 </div>
             </div>
 
-            {/* Right side - Form */}
             <div className="flex-1 bg-white flex items-center justify-center p-8">
                 <div className="w-full max-w-md space-y-6">
-                    <ArrowLeftCircle href="/onBoardingScreens" size={'30px'} color="white" className="bg-orange-500 hover:bg-orange-600 rounded-xl cursor-pointer" />
+                    <Link href="/onBoardingScreens">
+                        <ChevronLeft className="bg-orange-500 hover:bg-orange-600 rounded-xl text-2xl cursor-pointer text-white my-6"/>
+                    </Link>
                     <div className="text-center mb-8">
                         <h2 className="text-2xl font-bold text-gray-900">Welcome to Tasksync</h2>
                         <p>Get started with strealined task management - sign up and take control of your projects today."</p>

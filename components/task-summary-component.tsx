@@ -8,13 +8,14 @@ import {
     Search,
     Users,
     MessageSquare,
-    Share,
     Upload,
     MoreHorizontal,
     ChevronDown,
     Plus,
     Calendar,
     ChevronUp,
+    Share2,
+    UserPlus2,
 } from "lucide-react"
 import { ShimmerCard } from "./shimmer-card"
 import { MotionContainer } from "./motion-component"
@@ -72,8 +73,8 @@ export function TaskSummaryContent() {
                                 </Avatar>
                             </div>
 
-                            <Button variant="ghost" size="icon">
-                                <Users className="w-4 h-4" />
+                            <Button variant="outline" className="rounded-full bg-slate-400" size="sm">
+                                <UserPlus2 className="w-3 h-3 " />
                             </Button>
                         </div>
 
@@ -87,7 +88,7 @@ export function TaskSummaryContent() {
                                 Give feedback
                             </Button>
                             <Button variant="ghost" size="sm">
-                                <Share className="w-4 h-4 mr-2" />
+                                <Share2 className="w-4 h-4 mr-2" />
                                 Share
                             </Button>
                             <Button variant="ghost" size="sm">
@@ -104,7 +105,7 @@ export function TaskSummaryContent() {
 
             {/* CPM Task Flow Section */}
             <ShimmerCard shimmerIntensity="light">
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="bg-blue-100 rounded-lg p-6">
                     <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-3">
                             <Button
@@ -113,25 +114,25 @@ export function TaskSummaryContent() {
                                 onClick={() => setIsTaskFlowExpanded(!isTaskFlowExpanded)}
                                 className="w-6 h-6"
                             >
-                                {isTaskFlowExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+                                {isTaskFlowExpanded ? <ChevronDown className="w-4 h-4 text-gray-500" /> : <ChevronUp className="w-4 h-4" />}
                             </Button>
-                            <h3 className="font-medium">CPM Task Flow 1</h3>
-                            <Button variant="ghost" size="sm" className="text-gray-500">
+                            <h3 className="font-medium text-gray-500">CPM Task Flow 1</h3>
+                            <Button variant="ghost" size="sm" className="text-gray-400">
                                 <Calendar className="w-4 h-4 mr-1" />
                                 Add Date
                             </Button>
-                            <span className="text-sm text-gray-500">( 0 issues )</span>
+                            <span className="text-sm text-gray-400">( 0 issues )</span>
                         </div>
-                        <Button className="bg-blue-100 text-blue-700 hover:bg-blue-200">Start Task flow</Button>
+                        <Button className="bg-blue-200 text-gray-600 hover:bg-blue-300">Start Task flow</Button>
                     </div>
 
                     {isTaskFlowExpanded && (
-                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
+                        <div className="border-2 border-dashed border-gray-400 rounded-2xl p-12 text-center">
                             <div className="space-y-4">
-                                <h4 className="font-medium text-lg">
-                                    Plan your <span className="font-bold">task flow</span>
+                                <h4 className="font-medium text-lg text-gray-400">
+                                    Plan your <span className="font-bold text-gray-600">task flow</span>
                                 </h4>
-                                <p className="text-gray-600">
+                                <p className="text-gray-600 text-center">
                                     Drag issues from <span className="font-medium">backlog</span> section, or create new issues to plan
                                     the work for this task flow.
                                 </p>
@@ -161,12 +162,12 @@ export function TaskSummaryContent() {
                                 onClick={() => setIsSubtaskExpanded(!isSubtaskExpanded)}
                                 className="w-6 h-6"
                             >
-                                {isSubtaskExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
+                                {isSubtaskExpanded ? <ChevronDown className="w-4 h-4 text-gray-500" /> : <ChevronUp className="w-4 h-4" />}
                             </Button>
-                            <h3 className="font-medium text-gray-600">Subtask summary</h3>
-                            <span className="text-sm text-gray-500">(1 issues)</span>
+                            <h3 className="font-medium text-gray-500">Subtask summary</h3>
+                            <span className="text-sm text-gray-400">(1 issues)</span>
                         </div>
-                        <Button className="bg-blue-100 text-blue-700 hover:bg-blue-200">Create Task flow</Button>
+                        <Button className="bg-blue-200 text-gray-600 hover:bg-blue-300">Create Task flow</Button>
                     </div>
 
                     {isSubtaskExpanded && (
@@ -189,7 +190,7 @@ export function TaskSummaryContent() {
                                         <span className="text-gray-700">{task.title}</span>
                                     </div>
 
-                                    <Badge className="bg-slate-800 text-white">{task.profile}</Badge>
+                                    <Badge className="bg-slate-800 text-white mr-40">{task.profile}</Badge>
 
                                     <Badge variant="outline" className="border-gray-300">
                                         {task.status}

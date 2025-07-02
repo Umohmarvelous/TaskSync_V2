@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Plus, Search, Users, MessageSquare, Share, MoreHorizontal } from "lucide-react"
+import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2 } from "lucide-react"
 import { ShimmerCard } from "./shimmer-card"
 
 const taskColumns = [
@@ -36,12 +36,12 @@ export function ActiveTaskContent() {
     return (
         <div className="p-6 space-y-6">
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
-                <div className="space-y-2">
+            <div className="flex flex-col sm:flex-col sm:items-start sm:justify-between space-y-4 sm:space-y-0">
+                <div className="space-y-2 mb-5">
                     <p className="text-gray-600">Project/ HerTechTrail (HTT)</p>
                 </div>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-6 w-full justify-between">
                     <div className="flex items-center space-x-2">
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
@@ -59,8 +59,8 @@ export function ActiveTaskContent() {
                                 <AvatarFallback>I</AvatarFallback>
                             </Avatar>
                         </div>
-                        <Button variant="ghost" size="icon">
-                            <Users className="w-4 h-4" />
+                        <Button variant="outline" className="rounded-full bg-slate-400" size="sm">
+                            <UserPlus2 className="w-3 h-3 " />
                         </Button>
                     </div>
 

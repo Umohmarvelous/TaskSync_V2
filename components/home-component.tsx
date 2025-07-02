@@ -5,11 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, BarChart3 } from "lucide-react"
+import Image from "next/image"
 
 export function HomeContent() {
     return (
-        <div className="p-6 space-y-8 min-h-screen bg-gray-50">
-            {/* Welcome Section */}
+        <div className="p-6 space-y-8 min-h-screen bg-gray-50 w-auto">
             <div className="flex items-center space-x-4 mb-8">
                 <Avatar className="w-16 h-16">
                     <AvatarImage src="/placeholder-user.jpg" alt="Jane Smith" />
@@ -21,28 +21,23 @@ export function HomeContent() {
                 </div>
             </div>
 
-            {/* Welcome Banner */}
-            <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-lg p-6 flex items-center justify-between relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 animate-shimmer"></div>
-                <div>
+            <div className="bg-gradient-to-r h-fit w-auto from-blue-100 to-[#c9d4dd] rounded-lg flex items-center justify-between relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r z-90 from-transparent via-white/20 to-transparent -skew-x-12 animate-shimmer"></div>
+                <div className="p-6 py-2 lg:py-6 ">
                     <h2 className="text-2xl font-bold mb-2">Welcome</h2>
-                    <h3 className="text-xl font-semibold mb-2">To TaskSyn</h3>
+                    <h3 className="text-xl font-semibold mb-2">To TaskSync</h3>
                     <p className="text-gray-600">Simplifying task, enhancing productivity</p>
                 </div>
-                <div className="hidden md:block">
+                <div className="hidden md:block h-fit w-fit">
                     <div className="w-48 h-32 bg-gradient-to-br from-pink-200 to-blue-200 rounded-lg flex items-center justify-center">
-                        <div className="text-center">
-                            <div className="w-16 h-16 bg-white rounded-lg mx-auto mb-2 flex items-center justify-center">
-                                <BarChart3 className="w-8 h-8 text-blue-500" />
-                            </div>
-                            <p className="text-xs text-gray-600">Workspace</p>
+                        <div className="text-center w-full h-fit">
+                            <Image src="/dummy-image.PNG" alt="User with phone" width={550} height={400} className="h-fit w-full relative object-cover rounded-2xl" />
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Action Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {[
                     {
                         title: "Create Profile",
@@ -73,9 +68,8 @@ export function HomeContent() {
                         </Card>
                     </div>
                 ))}
-            </div>
+            </div> */}
 
-            {/* Workspace Overview */}
             <div className="space-y-6 pb-8">
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">My workspace</h2>
@@ -84,7 +78,7 @@ export function HomeContent() {
                     </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {[
                         { title: "Landing page", priority: "High", color: "bg-yellow-100 text-yellow-800" },
                         { title: "CPM", priority: "Low", color: "bg-green-100 text-green-800" },
@@ -116,7 +110,6 @@ export function HomeContent() {
                 </div>
             </div>
 
-            {/* My Task Section */}
             <div className="space-y-6 pb-8">
                 <div className="flex items-center justify-between">
                     <h2 className="text-xl font-semibold">My Task</h2>
