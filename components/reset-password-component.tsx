@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
-import { Header } from "./header"
+import { DashboardHeader } from "@/tasksync_v2/components/dashboard-header-component"
 
 export function PasswordReset() {
     return (

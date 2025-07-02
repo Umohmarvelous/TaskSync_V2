@@ -2,13 +2,11 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Header } from "./header"
 import { FacebookOutlined, Google, X } from "@mui/icons-material"
 
 export function LoginWithTestimonial() {
     return (
         <div className="min-h-screen bg-gray-50">
-            <DashboardHeader />
             <div className="flex min-h-[calc(100vh-88px)]">
                 {/* Left side - Testimonial */}
                 <div className="flex-1 relative">
