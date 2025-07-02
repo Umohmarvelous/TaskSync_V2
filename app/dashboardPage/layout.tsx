@@ -1,5 +1,5 @@
 
-import { DashboardHeader } from "@/tasksync_v2/components/dashboard-header-component";
+import { DashboardHeader } from "@/components/dashboard-header-component";
 import "./globals.css";
 import { Sidebar } from "@/components/side-bar-component";
 
