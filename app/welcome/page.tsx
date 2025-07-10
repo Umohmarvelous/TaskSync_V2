@@ -38,6 +38,7 @@ const Item = styled(Paper)(({ theme }) => ({
     }),
 }));
 
+import SimpleCarousel from "@/components/SimpleCarousel";
 
 export default function Welcome() {
     return (
@@ -116,7 +117,7 @@ export default function Welcome() {
                         </div>
 
                         <NoSsr>
-                            <Link href="/onBoardingScreens">
+                            <Link href="/onBoardingScreens/signin">
                                 <ButtonComp buttonName="Get Started" />
                             </Link>
                         </NoSsr>
@@ -185,7 +186,7 @@ export default function Welcome() {
                         margin: '0px',
                         paddingBottom: '29px'
 
-                    }}>No credit card needed  ✦  Unlimited time on Free plan</h4>
+                    }}>No credit card needed ✦ Unlimited time on Free plan</h4>
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
@@ -193,7 +194,7 @@ export default function Welcome() {
                         gap: '10px',
                         marginTop: '20px',
                     }}>
-                        <a href="/onBoardingScreens">
+                        <a href="/onBoardingScreens/signin">
                             <ButtonComp buttonName="Get Started" />
                         </a>
 
@@ -551,111 +552,53 @@ export default function Welcome() {
                         letterSpacing: '0%',
                     }}>Reviews</h3>
                     <h4 style={{
-                        margin: '0px',
-                        width: '257px',
-                        height: '67px',
-                        fontFamily: 'lexend',
-                        fontWeight: '700',
-                        fontSize: '25px',
                         lineHeight: '100%',
                         letterSpacing: '0%',
                         color: '#183F63'
                     }}>What our customers are saying</h4>
-                    <div style={{
-                    }}>
-
-                        <Carousel
-                            opts={{
-                                align: "start",
-                                loop: true,
-                            }}
-                            style={{
-                                marginTop: '97px',
-                            }}
-                            className="w-full max-w-sm h-auto" >
-                            <CarouselContent style={{
-                                width: '439px',
-                                height: 'auto',
-                                borderRadius: '15px',
-                                gap: '30px',
-                                border: '0px',
-                            }}>
-                                {Array.from({ length: 5 }).map((_, index) => (
-                                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                                        <div className="p-1">
-                                            <Card style={{
+                    <Carousel className="w-full max-w-4xl mx-auto mt-8">
+                        <CarouselContent>
+                            {Array.from({ length: 5 }).map((_, index) => (
+                                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                                    <div className="p-1">
+                                        <Card style={{
+                                            borderRadius: '15px',
+                                            width: '100%',
+                                            height: 'auto',
+                                            border: 'none',
+                                        }}>
+                                            <CardContent className="flex flex-col items-center justify-center p-6" style={{
                                                 borderRadius: '15px',
-                                                width: 'auto',
-                                                height: 'auto',
-                                                border: 'none',
+                                                backgroundColor: '#11375C',
+                                                color: '#fff',
+                                                minHeight: 200,
+                                                width: '100%',
                                             }}>
-                                                <CardContent className="flex aspect-square items-center justify-center p-6"
-                                                    style={{
-                                                        borderRadius: '15px',
-                                                        backgroundColor: '#11375C',
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        justifyContent: ' space-around'
-                                                    }}>
-                                                    <span className="text-3xl font-semibold">
-                                                        {/* {index + 1} */}
-                                                        <h2 style={{
-                                                            width: '379px',
-                                                            height: '91px',
-                                                            top: '75px',
-                                                            left: '12px',
-                                                            fontFamily: 'lexend',
-                                                            fontWeight: '300',
-                                                            fontSize: '15px',
-                                                            lineHeight: '100px',
-                                                            letterSpacing: '0%',
-                                                            color: '#FFFFFF'
-                                                        }}>Our team has been working on tasksync for amost 2 months because our office still closed. It’s been an AWESOME! experience for me. Thank you Tasksync and team</h2>
-
-                                                    </span>
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'row',
-                                                        justifyContent: ' space-around',
-                                                        border: '2px solid red'
-                                                    }}>
-                                                        {/* {people.map((item) => (
-                                                            <ImageListItem>
-                                                                <img
-                                                                    key={item.img}
-                                                                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                                                                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                                                                    alt={item.contactName}
-                                                                    loading="lazy"
-                                                                />
-                                                            </ImageListItem>
-                                                        ))} */}
-                                                        {/* <ImageListItemBar position='bottom' title={item.contactInfo} /> */}
-
-                                                        <div>
-                                                            <h3>Pedro Ibanez</h3>
-                                                            <h4>UI Designer at Perxels</h4>
-                                                        </div>
-                                                    </div >
-                                                </CardContent>
-                                            </Card>
-                                        </div>
-                                    </CarouselItem>
-                                ))}
-
-                            </CarouselContent>
-                            <CarouselPrevious style={{
-                                left: '30px',
-                                height: '100px',
-                                border: 'none',
-                            }} />
-                            <CarouselNext style={{
-                                right: '30px',
-                                height: '100px',
-                                border: 'none',
-                            }} />
-                        </Carousel>
-                    </div>
+                                                <h2 style={{
+                                                    width: '100%',
+                                                    fontFamily: 'lexend',
+                                                    fontWeight: '300',
+                                                    fontSize: '15px',
+                                                    lineHeight: '1.5',
+                                                    letterSpacing: '0%',
+                                                    color: '#FFFFFF',
+                                                    marginBottom: 16,
+                                                }}>
+                                                    Our team has been working on tasksync for almost 2 months because our office still closed. It's been an AWESOME! experience for me. Thank you Tasksync and team
+                                                </h2>
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <h3>Pedro Ibanez</h3>
+                                                    <h4>UI Designer at Perxels</h4>
+                                                </div>
+                                            </CardContent>
+                                        </Card>
+                                    </div>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
                 </Item>
 
 
@@ -721,7 +664,7 @@ export default function Welcome() {
                                 color: '#FFFFFF'
                             }}>Get the best working experience that you never
                                 feel before</h5>
-                            <Link href="/onBoardingScreens">
+                            <Link href="/onBoardingScreens/signin">
                                 <Button
                                     // onClick={() => navigate('First')}
                                     type='button' style={{
