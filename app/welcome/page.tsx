@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import ButtonComp from '@/components/button-component';
 // import React, { createContext } from 'react';
+import Image from "next/image"
 
 
 import { styled } from '@mui/material/styles';
@@ -15,18 +16,16 @@ import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
     CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
+    CarouselItem
 } from "@/components/ui/carousel"
 
 
 // Icon
-import { Facebook, Image, Instagram, PlayArrowOutlined, YouTube } from '@mui/icons-material';
+import { Facebook, Instagram, PlayArrow, PlayArrowOutlined, PlayArrowRounded, PlayArrowTwoTone, YouTube } from '@mui/icons-material';
 import { NoSsr } from '@mui/material';
 
 // 
-const Item = styled(Paper)(({ theme }) => ({
+const div = styled(Paper)(({ theme }) => ({
     backgroundColor: '#fff',
     ...theme.typography.body2,
     padding: theme.spacing(1),
@@ -39,71 +38,62 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 import SimpleCarousel from "@/components/SimpleCarousel";
+import { CalendarDaysIcon, HomeIcon } from 'lucide-react';
+
+
 
 export default function Welcome() {
+
+    const ProfileContent = ({ title }: any) => {
+        return (
+            <div className='w-full flex align-center justify-start flex-row gap-3'>
+                <Image
+                    src="/user-photo.png"
+                    width={100}
+                    height={100}
+                    alt="Picture of the author"
+                    className='w-13 h-13 flex self-end rounded-4xl'
+                />
+                <div className='text-white space-y-3 text-bold'>
+                    <h3>Pedro Ibanez</h3>
+                    <h4>UI Designer at Perxels</h4>
+                </div>
+            </div>
+        )
+
+    }
+
+    const inks = [
+
+        {
+            name: "Our team has been working on tasksync for almost 2 months because our office still closed. It's been an AWESOME! experience for me. \n Thank you Tasksync and team",
+            icon: HomeIcon,
+        },
+        {
+            name: "I got the best experience when managing my tasks on tasksync. The interaction between other platforms are seamless and fast. I'd definitely recommend it anytime!",
+            icon: CalendarDaysIcon,
+        },
+        {
+            name: "Just Three words : Tasksync is awesome!",
+            icon: CalendarDaysIcon,
+        },
+        {
+            name: "Can't stop using tasksync!",
+            icon: CalendarDaysIcon,
+
+        }
+    ];
+
     return (
-        <Box
-            style={{
-                backgroundColor: '#f5f5f5',
-                margin: '0',
-                width: 'auto',
-                borderRadius: '0px',
-            }}>
-            <Grid container
-                direction="column"
-                sx={{
-                    width: 'auto',
-                    borderRadius: '0px',
-                    paddingTop: '20px',
-                }}>
-                <Item
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        boxShadow: 'none',
-                        backgroundColor: '#f5f5f5',
-                        borderRadius: '0px',
-                        maxWidth: '100%',
-                        paddingLeft: '10px',
-                        paddingRight: '20px',
-                    }}>
-                    <h3 style={{
-                        width: '167px',
-                        height: '44px',
-                        fontFamily: 'lexend',
-                        fontWeight: '700',
-                        fontSize: '35px',
-                        lineHeight: '100%',
-                        letterSpacing: '0%',
-                        color: '#2E2E2E'
-                    }}>TaskSync</h3>
+        <div className='pt-6 w-full bg-[#f5f5f5] rounden-0 m-0  '>
+            <div className='w-full rounded-0 border-0 pt-[20px]'>
+                <div className='flex justify-between rounded-0 max-w-full pl-10 pr-10 bg-[#f5f5f5]'>
+                    <h3 className='w-[167px] h-[44px] font-sans font-bold text-[35px] text-[#2e2e2e]'>TaskSync</h3>
 
-
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        gap: '15px',
-                        alignItems: 'center',
-                    }}>
-                        <a href="http://" style={{
-                            width: '73px',
-                            height: '21px',
-                            fontFamily: 'Lexend',
-                            fontWeight: '400',
-                            fontSize: '17px',
-                            lineHeight: '100%',
-                            letterSpacing: '0%',
-                            color: '#000',
-                            listStyle: 'none',
-                            textDecoration: 'none',
-                            margin: '0px',
-                        }}>Features</a>
-                        <div style={{
-                            width: '40px',
-                            height: '40px',
-                        }}>
-                            <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <div className='flex items-center justify-between space-x-[15px]'>
+                        <Link href='/' className='text-zinc-600 font-sans font-bold w-[73px] h-[21px] text-[17px] list-none decoration-0 m-0'>Features</Link>
+                        <div className='flex items-center justify-center w-[40px] h-[40px]'>
+                            <svg width="25" height="25" viewBox="0 0 40 40" fill="none" >
                                 <g clipPath="url(#clip0_1_454)">
                                     <path d="M20 6.875C17.3423 6.875 14.7443 7.6631 12.5345 9.13963C10.3247 10.6162 8.60243 12.7148 7.58537 15.1702C6.56832 17.6256 6.30221 20.3274 6.8207 22.934C7.33919 25.5406 8.61899 27.935 10.4983 29.8142C12.3775 31.6935 14.7719 32.9733 17.3785 33.4918C19.9851 34.0103 22.6869 33.7442 25.1423 32.7271C27.5977 31.7101 29.6963 29.9878 31.1729 27.778C32.6494 25.5682 33.4375 22.9702 33.4375 20.3125C33.4375 16.7487 32.0218 13.3308 29.5018 10.8108C26.9817 8.29073 23.5639 6.875 20 6.875ZM29.8313 27.5C28.9402 26.9776 27.9977 26.5482 27.0188 26.2187C27.486 24.4957 27.7421 22.7223 27.7813 20.9375H32.1563C32.0404 23.3054 31.2319 25.5873 29.8313 27.5ZM7.82813 20.9375H12.2188C12.2567 22.7232 12.5117 24.4977 12.9781 26.2219C11.9992 26.5514 11.0567 26.9807 10.1656 27.5031C8.75991 25.5909 7.94707 23.3078 7.82813 20.9375ZM10.1688 13.125C11.0598 13.6474 12.0023 14.0768 12.9813 14.4062C12.514 16.1293 12.2579 17.9027 12.2188 19.6875H7.84376C7.95965 17.3196 8.76806 15.0377 10.1688 13.125ZM20.625 15.5062C22.3716 15.4655 24.1074 15.2201 25.7969 14.775C26.2413 16.3764 26.4879 18.0262 26.5313 19.6875H20.625V15.5062ZM20.625 14.2562V8.18438C22.5938 8.55313 24.3406 10.625 25.4156 13.5844C23.85 13.9924 22.2425 14.2179 20.625 14.2562ZM19.375 8.18438V14.2562C17.7576 14.2179 16.15 13.9924 14.5844 13.5844C15.6594 10.625 17.4063 8.55313 19.375 8.18438ZM19.375 15.5062V19.6875H13.4688C13.5121 18.0262 13.7587 16.3764 14.2031 14.775C15.8926 15.2201 17.6284 15.4655 19.375 15.5062ZM13.4688 20.9375H19.375V25.1187C17.6284 25.1595 15.8926 25.4049 14.2031 25.85C13.7587 24.2486 13.5121 22.5988 13.4688 20.9375ZM19.375 26.3687V32.4406C17.4063 32.0719 15.6594 30 14.5844 27.0406C16.15 26.6326 17.7576 26.4071 19.375 26.3687ZM20.625 32.4406V26.3687C22.2425 26.4071 23.85 26.6326 25.4156 27.0406C24.3406 30 22.5938 32.0719 20.625 32.4406ZM20.625 25.1187V20.9375H26.5313C26.4879 22.5988 26.2413 24.2486 25.7969 25.85C24.1074 25.4049 22.3716 25.1595 20.625 25.1187ZM27.7813 19.6875C27.7433 17.9018 27.4883 16.1273 27.0219 14.4031C28.0008 14.0736 28.9433 13.6443 29.8344 13.1219C31.2457 15.0323 32.064 17.3155 32.1875 19.6875H27.7813ZM29.0313 12.1406C28.2712 12.5727 27.4717 12.9316 26.6438 13.2125C26.1099 11.5942 25.2458 10.1045 24.1063 8.8375C25.9956 9.5165 27.6883 10.6511 29.0344 12.1406H29.0313ZM15.8906 8.84063C14.7511 10.1076 13.887 11.5974 13.3531 13.2156C12.5252 12.9347 11.7257 12.5758 10.9656 12.1437C12.3108 10.6546 14.0024 9.52008 15.8906 8.84063ZM10.9656 28.4844C11.7257 28.0523 12.5252 27.6934 13.3531 27.4125C13.887 29.0308 14.7511 30.5205 15.8906 31.7875C14.0024 31.108 12.3108 29.9735 10.9656 28.4844ZM24.1094 31.7844C25.2489 30.5174 26.113 29.0276 26.6469 27.4094C27.4749 27.6903 28.2743 28.0492 29.0344 28.4812C27.6892 29.9704 25.9976 31.1049 24.1094 31.7844Z" fill="black" />
                                     <path d="M20.0001 2.46472e-07C16.5071 0.000591336 13.0751 0.916023 10.0458 2.65518C7.01643 4.39433 4.49542 6.89656 2.73366 9.91279C0.9719 12.929 0.0308273 16.3541 0.00411229 19.847C-0.0226027 23.34 0.865972 26.779 2.58139 29.8219L0.022018 39.1969C-0.00581333 39.2905 -0.011327 39.3893 0.00591892 39.4854C0.0231649 39.5815 0.0626907 39.6722 0.121327 39.7503C0.179964 39.8284 0.25608 39.8917 0.343572 39.935C0.431064 39.9784 0.527498 40.0006 0.625143 40C0.679044 40.0004 0.732724 39.9931 0.784518 39.9781L10.2814 37.4781C12.9506 38.9628 15.9245 39.8165 18.9748 39.9735C22.0252 40.1306 25.071 39.5869 27.8786 38.3842C30.6862 37.1815 33.1811 35.3517 35.1718 33.0352C37.1625 30.7186 38.5962 27.9769 39.3629 25.0203C40.1296 22.0637 40.209 18.9708 39.5949 15.9788C38.9807 12.9868 37.6895 10.1751 35.8201 7.7596C33.9508 5.34406 31.553 3.38877 28.8107 2.0437C26.0685 0.698628 23.0545 -0.000479235 20.0001 2.46472e-07ZM20.0001 38.75C16.7279 38.7444 13.5142 37.8825 10.6783 36.25C10.583 36.196 10.4753 36.168 10.3658 36.1688C10.3121 36.1688 10.2586 36.1751 10.2064 36.1875L1.51264 38.4938L3.85327 29.9C3.87503 29.8201 3.88071 29.7367 3.86998 29.6547C3.85925 29.5726 3.83233 29.4935 3.79077 29.4219C1.71549 25.8513 0.877149 21.6954 1.4059 17.5995C1.93464 13.5035 3.8009 9.69679 6.7149 6.77025C9.6289 3.84371 13.4276 1.96112 17.5212 1.41479C21.6148 0.868453 25.7743 1.68894 29.3538 3.74886C32.9332 5.80878 35.7325 8.99287 37.3169 12.8068C38.9013 16.6206 39.1822 20.8509 38.1159 24.8408C37.0497 28.8307 34.696 32.3569 31.4202 34.872C28.1445 37.3871 24.13 38.7503 20.0001 38.75Z" fill="black" />
@@ -117,348 +107,78 @@ export default function Welcome() {
                         </div>
 
                         <NoSsr>
-                            <Link href="/onBoardingScreens/signin">
+                            <Link href="/onBoardingScreens">
                                 <ButtonComp buttonName="Get Started" />
                             </Link>
                         </NoSsr>
                     </div>
-                </Item>
+                </div>
 
 
-                {/* SecongItem in top bar */}
-                <Item style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    boxShadow: 'none',
-                    backgroundColor: '#f5f5f5',
-                    borderRadius: '0px',
-                    paddingBottom: '0px',
-                    maxWidth: '100%'
-                }}>
-                    <h3 style={{
-                        width: '690px',
-                        height: '138px',
-                        paddingBottom: '30px',
-                        margin: '0px',
-                        fontFamily: 'lexend',
-                        textAlign: 'center',
-                        // fontWeight: '800',
-                        fontSize: '55px',
-                        lineHeight: '100%',
-                        letterSpacing: '0%',
-                        color: '#000',
-                        fontWeight: '400',
-                    }}>Your <b style={{
-                        fontFamily: 'lexend',
-                        fontWeight: '800',
-                        fontSize: '55px',
-                        lineHeight: '100%',
-                        letterSpacing: '0%',
-                        textAlign: 'center',
-                        color: '#000',
-                    }}>mobile workspace </b>
+                {/* -------------------------------- */}
+                <div className='flex items-center justify-center pl-10 pr-10 h-auto flex-col bg-[#f5f5f5] space-y-[20px] pb-0 rounded-0'>
+                    <h3 className='w-[650px] h-auto pb-[20px] pt-10 m-0 font-sans text-center text-[55px] text-zinc-600 font-normal'>Your <b className='font-sans font-extrabold text-[55px] text-black'>mobile workspace </b>
                         at the palm of your hands</h3>
-                    <h4 style={{
-                        width: '994px',
-                        height: '25px',
-                        fontFamily: 'Lexend',
-                        fontWeight: '400',
-                        fontSize: '20px',
-                        lineHeight: '5%',
-                        letterSpacing: ' 0%',
-                        color: '#000',
-                        margin: '0px',
-                        paddingTop: '29px',
-                        paddingBottom: '10px'
-                    }}>"Enhance workflows and achieve clear visibility across teams to make confident strategic decisions."</h4>
-                    <h4 style={{
-                        width: '825px',
-                        height: '25px',
-                        fontFamily: 'Lexend',
-                        fontWeight: '400',
-                        fontSize: '20px',
-                        lineHeight: '100%',
-                        letterSpacing: "0%",
-                        textAlign: 'center',
-                        color: '#000',
-                        margin: '0px',
-                        paddingBottom: '29px'
+                    <h4 className='w-[994px] h-auto font-sans font-medium text-[17px] text-center text-zinc-600 m-0 pt-[18px]'>"Enhance workflows and achieve clear visibility across teams to make confident strategic decisions."</h4>
+                    <h4 className='w-[825px] h-auto font-sans text-[17px] font-medium text-center text-zinc-600 m-0 pt-[18px]'>No credit card needed ✦ Unlimited time on Free plan</h4>
 
-                    }}>No credit card needed ✦ Unlimited time on Free plan</h4>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        flexDirection: 'row',
-                        gap: '10px',
-                        marginTop: '20px',
-                    }}>
-                        <a href="/onBoardingScreens/signin">
-                            <ButtonComp buttonName="Get Started" />
-                        </a>
-
-                        <a href="/dashBoard">
-                            <ButtonComp buttonName="Go to Dashboard" />
-                        </a>
+                    <div className='flex items-center justify-center flex-row mt-[35px] space-x-[10px]'>
+                        <Link href="/onBoardingScreens"><ButtonComp buttonName="Get Started" /></Link>
+                        <Link href="/onBoardingScreens/firstpage"><ButtonComp buttonName="Go to Dashboard" /></Link>
                     </div>
-                </Item>
+                </div>
 
 
-                {/* --------------------> */}
-                <Item
-                    sx={{
-                        color: '#000',
-                        fontFamily: 'lexend',
-                        boxShadow: 'none',
-                        paddingTop: '0px',
-                        paddingBottom: '98.75px',
-                        backgroundColor: '#f5f5f5',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexDirection: 'column',
-                        display: 'flex',
-                        justifySelf: 'center',
-                        borderRadius: '0px',
-                        maxWidth: '100%'
-                    }}>
-                    <h3 style={{
-                        width: '665px',
-                        height: '44px',
-                        fontWeight: '400',
-                        fontSize: '35px',
-                        lineHeight: '100%',
-                        letterSpacing: '0%',
-                        marginBottom: '15px',
-                        marginTop: '57px',
-                        alignSelf: 'flex-start',
-                        display: 'flex',
-                        paddingLeft: '99px',
-                        // paddingRight:'776px'
-                    }}>What would you like to manage? </h3>
-                    <div style={{
-                        width: 'auto',
-                        height: '353.25px',
-                        gap: '20.93px',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        // paddingLeft: '110px',
-                        // paddingRight: '115.87px'
-                    }}>
-                        <Image style={{
-                            width: '809.2041625976562px',
-                            height: '353.25px',
-                            borderRadius: '26.17px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            backgroundColor: '#fff'
-                        }} />
-                        <Box
-                            sx={{
-                                width: '348px',
-                                height: '353.25px',
-                                borderRadius: '26.17px',
-                                backgroundColor: '#99C2EF',
-                                display: 'flex',
-                                alignItems: 'center',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            <h3 style={{
-                                width: '234px',
-                                height: '31px',
-                                top: '91px',
-                                left: '74.86px',
-                                fontFamily: 'lexend',
-                                fontWeight: '700',
-                                fontSize: '25px',
-                                lineHeight: '100%',
-                                letterSpacing: '0%',
-                                color: '#000000'
-                            }}>Task Management</h3>
-                            <h6
-                                style={{
-                                    width: '211px',
-                                    height: '105px',
-                                    top: '141px',
-                                    left: '66.86px',
-                                    fontFamily: 'lexend',
-                                    fontWeight: '300',
-                                    fontSize: '17px',
-                                    lineHeight: '100%',
-                                    letterSpacing: '0%',
-                                    textAlign: 'center',
-                                    color: '#000000',
-                                }}
-                            >enhances efficiency by allowing teams to organize, prioritize, and track work activities, ensuring that critical tasks are completed on time</h6>
-                        </Box>
+                {/* -------------------------------> */}
+                <div className='text-black font-sans relative pt-0 p-10 bg-[#f5f5f5] block items-start justify-center flex-col rounded-0 w-auto md:h-auto h-auto'>
+                    <h3 className='h-auto text-[25px] mb-[20px] mt-[47px] text-left text-zinc-600 font-sans w-full pl-[39px] text-bold'>What would you like to <b className='font-extrabold text-black'> manage?</b></h3>
+                    <div className='w-full h-auto flex flex-col sm:flex-row justify-evenly gap-[20.93px]' >
+                        <Image
+                            src="/Capture02.png"
+                            width={500}
+                            height={500}
+                            // [809.2041625976562px]
+                            alt="Picture of the author"
+                            // style={{width:'800px', height:'500px'}}
+                            className='w-fit h-[353.25px]  text-black rounded-[26.17px] bg-white'
+                        />
+                        <div className='w-auto md:w-100 h-[363px] pl-10 pr-10 rounded-[26.17px] bg-[#99C2EF] flex items-center flex-col justify-center'>
+                            <h3 className='h-auto font-sans font-bold text-[25px] text-black text-center'>Task Management</h3>
+                            <h6 className='h-auto font-sans text-[15px] text-center text-zinc-600 font-normal pt-3'>enhances efficiency by allowing teams to organize, prioritize, and track work activities, ensuring that critical tasks are completed on time</h6>
+                        </div>
                     </div>
-                </Item>
+                </div>
 
 
                 {/* -------------------> */}
-                <Item
-                    style={{
-                        width: 'auto',
-                        padding: '0px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '30px',
-                        backgroundColor: '#f5f5f5',
-                        boxShadow: 'none',
-                        paddingBottom: '83px',
-                        borderRadius: '0px',
-                    }}>
-                    <div
-                        style={{
-
-                            width: '541.6500244140625px',
-                            height: '363px',
-                            // top: '1063px',
-                            // left: '719px',
-                            borderRadius: '26.17px',
-                            backgroundColor: '#99C2EF',
-                            display: 'flex',
-                            alignItems: 'center',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            border: 'none',
-                        }}
-                    >
-                        <h3 style={{
-                            width: '308px',
-                            height: '31px',
-                            top: '64px',
-                            left: '100px',
-                            fontFamily: 'lexend',
-                            fontWeight: '700',
-                            fontSize: '25px',
-                            lineHeight: '100%',
-                            letterSpacing: '0%',
-                            color: '#000'
-                        }}>Reporting and Analytics</h3>
-                        <h3 style={{
-                            width: '320px',
-                            height: '84px',
-                            fontFamily: 'lexend',
-                            fontWeight: '300',
-                            fontSize: '17px',
-                            lineHeight: '100%',
-                            letterSpacing: '2px',
-                            textAlign: 'center',
-                            color: '#000',
-                        }}>provides valuable insights into performance metrics, enabling management to make data-driven decisions and optimize workflows effectively.</h3>
+                <div className='w-auto h-auto  relative sm:flex-row flex-col p-10 flex items-center justify-center rounded-0 gap-5 mb-[83px]'>
+                    <div className='flex items-center justify-center space-y-5 flex-col w-auto md:w-100 h-[363px] pl-10 pr-10 rounded-[26.17px] bg-[#99C2EF] border-0'>
+                        <h3 className=' h-auto font-arial font-bold text-[25px]  text-center text-black'> Reporting and Analytics</h3>
+                        <h3 className=' h-auto font-arial font-normal text-[15px] text-center text-zinc-600'>provides valuable insights into performance metrics, enabling management to make data-driven decisions and optimize workflows effectively.</h3>
                     </div>
                     <Image
-                        sx={{
-                            width: ' 541.6500244140625px',
-                            height: '363px',
-                            borderRadius: '26.17px',
-                            backgroundColor: '#fff',
-                        }}
+                        src="/Capture.png"
+                        width={500}
+                        height={500}
+                        alt="Picture of the author"
+                        className='w-fit h-[363px] flex items-center justify-center rounded-[26.17px] bg-white'
                     />
-                </Item>
+                </div>
 
-                <Item sx={{
-                    backgroundColor: '#101010',
-                    height: '542px',
-                    borderRadius: '0px',
-                    color: '#fff',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center ',
-                    flexDirection: 'column',
-                }}>
-                    <div>
-                        <h6 style={{
-                            width: '584px',
-                            height: '62px',
-                            top: '97px',
-                            left: '427px',
-                            fontFamily: 'lexend',
-                            fontWeight: '400',
-                            fontSize: '25px',
-                            lineHeight: '100%',
-                            letterSpacing: '0%',
-                            textAlign: 'center',
-                            marginBottom: '94px'
-
-                        }}>Core solutions that span across <br /> All other platforms linked in <span style={{
-                            fontFamily: 'lexend',
-                            fontWeight: '800',
-                            fontSize: '25px',
-                            lineHeight: '100%',
-                            letterSpacing: '0%',
-                            textAlign: 'center',
-                        }}> ONE WORK SPACE. </span>
-                        </h6>
-                        <PlayArrowOutlined
-                            style={{
-                                width: '106px',
-                                height: '106px',
-                                borderRadius: '30px',
-                            }}
-                        />
-                    </div>
-                </Item>
+                <div className='p-20 w-full h-[542px] relative flex items-center justify-center flex-col text-white bg-[#101010] rounded-0'>
+                    <h6 className='w-fit auto font-normal text-[25px] text-center mb-[94px]'>Core solutions that span across <br /> All other platforms linked in <span className='font-sans font-extrabold text-[25px] align-center'> ONE WORK SPACE. </span>
+                    </h6>
+                    <PlayArrowOutlined className='relative rounded-[20px] border-3 border-white text-white' style={{width:'76px', height:'76px'}} />
+                </div>
 
 
+                <div className='w-full bg-[#f5f5f5] pt-[90px] pb-[62px] p-10'>
+                    <h2 className='w-auto font-sans text-[30px] font-bold text-black text-left pl-0 md:pl-[46px] '>Connect Multiple integrations</h2>
+                    <h3 className='text-left w-auto md:w-[429px] font-sans text-[15px] pt-3 font-medium text-zinc-600 pl-0 md:pl-[46px]'>Ensure your company's data is completely secure and that you are in compliance with the latest standards</h3>
+                </div>
 
-                <Item sx={{
-                    backgroundColor: '#f5f5f5',
-                    boxShadow: 'none',
-                    paddingTop: '115px',
-                    paddingBottom: "52px",
-                }}>
-                    <h2 style={{
-                        width: 'auto',
-                        height: '46px',
-                        fontFamily: 'lexend',
-                        fontWeight: '700',
-                        fontSize: '30px',
-                        position: 'relative',
-                        letterSpacing: '0%',
-                        color: '#000000',
-                        textAlign: "left",
-                        paddingLeft: '46px',
-                        boxShadow: 'none',
-                    }}>Connect Multiple integrations</h2>
-
-                    <h3 style={{
-                        textAlign: "left",
-                        width: '429px',
-                        height: '46px',
-                        fontFamily: 'lexend',
-                        position: 'relative',
-                        fontWeight: '400',
-                        fontSize: '17px',
-                        letterSpacing: '0%',
-                        color: '#000',
-                        paddingLeft: '46px',
-                        boxShadow: 'none',
-                    }}>Ensure your company's data is completely secure and that you are in compliance with the latest standards</h3>
-                </Item>
-
-
-
-                <Item
-                    sx={{
-                        backgroundColor: '#f5f5f5',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: '10px',
-                        justifyContent: 'space-around',
-                        alignItems: 'center',
-                        paddingLeft: '52px',
-                        paddingRight: "52px",
-                        boxShadow: 'none',
-                        paddingBottom: '79px'
-                    }}>
-                    <svg width="150" height="100" viewBox="0 0 150 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div className='w-full bg-[#f5f5f5] flex flex-row justify-around items-center space-x-5 pl-[72px] pr-[72px] pb-[59px]'>
+                    <svg width="120" height="80" viewBox="0 0 150 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd" d="M58.363 51.1651C58.363 46.4164 61.0037 43.1017 65.8078 43.1017C68.7348 43.1017 71.1337 44.3276 72.4333 45.5284C72.778 45.8204 72.9123 46.3951 72.7515 46.8897L71.6935 49.7894C71.4979 50.2627 71 50.2021 70.7455 50.0311C69.8197 49.416 68.3037 48.3781 66.9277 48.1861C66.5855 48.1381 66.2277 48.1132 65.8652 48.1236C64.637 48.1591 63.6127 48.7179 63.2499 49.9456C63.1768 50.1896 63.1374 50.4331 63.1337 50.6751C63.1019 52.2927 64.8168 52.8762 66.8962 53.3417C70.7649 54.2107 73.6887 55.6971 73.6887 60.9126C73.6887 65.3422 70.9844 69.3467 65.7349 69.2239C62.2637 69.1322 59.8014 67.5979 58.4812 66.1032C58.4367 66.0532 57.9339 65.3819 58.2027 64.5774C58.5114 63.5391 59.0299 62.3471 59.4389 61.7214C59.6664 61.3147 60.266 61.2504 60.5764 61.5047C61.6645 62.3907 63.4398 63.8102 65.5174 63.9021L65.9993 63.9061C67.8558 63.8477 68.9789 62.9266 68.9549 61.3714C68.9344 60.0017 67.4629 59.2031 65.137 58.6237C61.3988 57.7004 58.3923 56.0871 58.3923 51.1612M92.3457 57.9212C89.7098 57.9671 87.2934 58.9112 87.2234 61.6109C87.2234 63.7516 88.5484 64.8042 90.4109 64.6667C92.1957 64.4417 93.5574 63.4267 94.1572 62.0817C94.3799 61.5814 94.4118 59.7159 94.3989 58.9176C94.3958 58.7506 94.1398 58.4259 94.0268 58.3651C93.4668 58.0567 93.0515 57.9607 92.3453 57.9234M83.5753 47.0484C84.8082 45.6037 87.234 43.3546 91.1475 43.4734C96.2857 43.6131 99.001 46.7712 99.2538 54.3067C99.3572 57.4212 99.1855 66.1092 99.1413 68.2731C99.1618 68.4209 99.1258 68.5726 99.045 68.6789C99.0048 68.7315 98.9558 68.7705 98.902 68.7927C98.8482 68.815 98.7912 68.8198 98.7358 68.8067L95.0355 68.8172C94.5823 68.7881 94.5297 68.4942 94.5233 68.1839L94.4963 66.8956C94.4915 66.6372 94.3055 66.6456 94.2575 66.6872C93.0518 68.3551 91.0763 69.1889 88.9763 69.1889C85.785 69.1889 82.6038 66.7292 82.6132 61.8576C82.6228 56.8692 85.3222 54.4076 88.2874 53.8279C90.1869 53.4569 92.3279 53.7862 93.9474 54.6306C94.0508 54.6846 94.2624 54.6056 94.2655 54.4136C94.2718 53.7781 94.2495 52.5669 94.1543 51.9914C93.9155 50.5281 92.985 49.3502 91.0284 49.0314C90.6259 48.9656 90.2194 48.9514 89.8147 48.9897C88.2588 49.1501 86.388 50.7406 85.6118 51.3347C85.4288 51.4742 85.1443 51.3722 85.0518 51.2159C84.6 50.4492 83.4612 48.2097 83.3735 47.8514C83.2859 47.4931 83.4102 47.1947 83.5693 47.0071L83.5753 47.0484ZM100.918 56.3117C100.886 49.3534 104.586 43.4834 110.594 43.4292C114.342 43.3982 117.066 45.6242 117.546 46.6749C117.642 46.9209 117.594 47.1272 117.525 47.3754C117.04 48.6165 116.474 49.7994 115.836 50.9109C115.593 51.3192 115.327 50.9692 115.022 50.7022C114.17 49.9581 112.551 49.0489 110.959 49.0489C108.07 49.0489 105.916 51.6462 105.942 56.4222C105.964 61.0082 108.01 63.5242 110.968 63.6139C112.507 63.6639 113.999 62.5051 114.786 61.5566C115.037 61.2691 115.298 61.4106 115.586 61.7066C116.151 62.4632 116.961 63.6307 117.411 64.4162C117.705 64.8626 117.486 65.3004 117.379 65.4756C116.16 67.4972 113.806 69.1962 110.691 69.2192C104.169 69.2816 100.934 63.2699 100.904 56.2867M132.035 68.9109C132.34 68.8816 135.608 68.2892 136.611 67.9892C136.86 67.9142 136.949 67.6412 136.811 67.3682L133.237 60.3432L129.841 54.6379C129.723 54.4292 129.729 54.2209 129.857 54.0542L136.07 45.8909C136.63 45.0987 136.293 44.7551 135.819 44.5692C134.899 44.2109 133.414 43.7626 132.569 43.5269C132.213 43.4289 131.783 43.4644 131.455 43.8812L124.281 53.2099C124.042 53.5224 123.905 53.4532 123.904 53.0054L123.75 32.9834C123.744 32.6706 123.457 32.4351 123.296 32.4251L119.55 32.4146C119.313 32.4704 119.126 32.7096 119.078 33.0191C118.887 36.7857 119.157 64.4371 119.272 68.3062C119.275 68.5767 119.435 68.7996 119.641 68.8191C120.463 68.8814 122.498 68.8774 123.449 68.8544C123.917 68.8544 123.974 68.4231 123.974 68.4231L124.044 61.0017C124.044 61.0017 124.092 60.6726 124.172 60.5851L125.829 58.3084C125.925 58.1876 126.074 58.1961 126.17 58.3667C126.639 59.1964 127.978 61.8939 129.219 64.3034L131.499 68.6201C131.67 68.9411 131.871 68.9537 132.024 68.9474L132.035 68.9109Z" fill="black" />
                         <path fillRule="evenodd" clipRule="evenodd" d="M76.4882 68.9088L79.9211 68.9171C80.0486 68.9275 80.174 68.87 80.2698 68.7573C80.3168 68.702 80.3549 68.6347 80.3819 68.5594C80.4088 68.484 80.4242 68.4022 80.4269 68.3188C80.6337 62.895 80.5444 37.0718 80.4141 32.9965C80.4031 32.642 80.2869 32.5106 80.1041 32.4795C79.2768 32.3335 76.9193 32.369 76.1637 32.6255C76.0243 32.6638 75.9243 32.8245 75.9237 33.011C75.7391 43.521 75.8632 67.752 75.9031 68.2106C75.9429 68.6693 76.1256 68.8923 76.4868 68.909L76.4882 68.9088Z" fill="black" />
                         <path fillRule="evenodd" clipRule="evenodd" d="M20.625 61.125C20.625 58.2275 22.2975 55.895 24.375 55.895C26.4525 55.895 28.125 58.2275 28.125 61.125V73.9984C28.125 76.8957 26.4525 79.2284 24.375 79.2284C22.2975 79.2284 20.625 76.8957 20.625 73.9984V61.125Z" fill="#E01E5A" />
@@ -470,7 +190,7 @@ export default function Welcome() {
                         <path fillRule="evenodd" clipRule="evenodd" d="M14.375 55.895H18.125V60.895C18.125 63.665 16.4525 65.895 14.375 65.895C12.2975 65.895 10.625 63.665 10.625 60.895C10.625 58.125 12.2975 55.895 14.375 55.895Z" fill="#E01E5A" />
                         <path fillRule="evenodd" clipRule="evenodd" d="M28.125 34.2285V39.2285H24.375C22.2975 39.2285 20.625 36.9985 20.625 34.2285C20.625 31.4585 22.2975 29.2285 24.375 29.2285C26.4525 29.2285 28.125 31.4585 28.125 34.2285Z" fill="#36C5F1" />
                     </svg>
-                    <svg width="61" height="61" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="41" height="41" viewBox="0 0 61 61" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_1_409)">
                             <path d="M44.2047 0H35.3292L43.2083 12.2203L26.5452 0H17.662L25.5463 16.0125L8.88058 0H0L7.75208 20.6663L0 61H8.88058L25.5438 17.7535L17.662 61H26.5426L43.2083 13.9639L35.3266 61H44.2047L61 9.333L44.2047 0Z" fill="black" />
                         </g>
@@ -480,7 +200,7 @@ export default function Welcome() {
                             </clipPath>
                         </defs>
                     </svg>
-                    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="70" height="70" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_1_391)">
                             <path d="M0 40C0 17.9087 17.9087 0 40 0C62.0913 0 80 17.9087 80 40C80 62.0913 62.0913 80 40 80C17.9087 80 0 62.0913 0 40Z" fill="white" />
                             <path d="M58.2278 20H39.0166C39.0166 22.3 39.9303 24.5058 41.5566 26.1322C43.1829 27.7585 45.3888 28.6722 47.6888 28.6722H51.2278V32.0888C51.2308 36.8742 55.1093 40.7525 59.8944 40.7555V21.6667C59.8944 20.7462 59.1483 20 58.2278 20Z" fill="#2684FF" />
@@ -511,7 +231,7 @@ export default function Welcome() {
                             </linearGradient>
                         </defs>
                     </svg>
-                    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg width="58" height="58" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M51 45.5813V53.125C50.9967 54.2512 50.5479 55.3302 49.7516 56.1266C48.9552 56.9229 47.8762 57.3717 46.75 57.375H19.125V44.625H38.25V34L51 45.5813Z" fill="#00AC47" />
                         <path d="M51 23.375V45.5813L38.25 34V23.375H51Z" fill="#31A950" />
                         <path d="M19.125 10.625V23.375H6.375L19.125 10.625Z" fill="#EA4435" />
@@ -529,257 +249,98 @@ export default function Welcome() {
                         <path d="M105.4 23.7439C100.952 23.7439 97.2168 27.2839 97.2168 32.5039C97.2168 38.0299 101.38 41.3069 105.817 41.3069C109.529 41.3069 111.817 39.2769 113.167 37.4569L110.134 35.4389C109.347 36.6589 108.031 37.8539 105.836 37.8539C103.37 37.8539 102.236 36.5039 101.533 35.1939L113.296 30.3139L112.696 28.8839C111.56 26.0839 108.908 23.7439 105.4 23.7439ZM105.553 27.1179C107.156 27.1179 108.309 27.9699 108.799 28.9919L100.943 32.2749C100.603 29.7329 103.013 27.1179 105.543 27.1179H105.553Z" fill="#DB3236" />
                         <path d="M91.6001 40.7869H95.4641V14.9299H91.6001V40.7869Z" fill="#3CBA54" />
                     </svg>
-                </Item>
+                </div>
 
 
-                <Item sx={{
-                    textAlign: 'left',
-                    paddingLeft: '52px',
-                    boxShadow: 'none',
-                    backgroundColor: '#f5f5f5',
-                }}>
-                    <h3 style={{
-                        color: '#212832',
-                        backgroundColor: '#f5f5f5',
-                        width: '123px',
-                        height: '38px',
-                        marginTop: '0px',
-                        marginBottom: '20px',
-                        fontFamily: 'lexend',
-                        fontWeight: '700',
-                        fontSize: '30px',
-                        lineHeight: '100%',
-                        letterSpacing: '0%',
-                    }}>Reviews</h3>
-                    <h4 style={{
-                        lineHeight: '100%',
-                        letterSpacing: '0%',
-                        color: '#183F63'
-                    }}>What our customers are saying</h4>
-                    <Carousel className="w-full max-w-4xl mx-auto mt-8">
-                        <CarouselContent>
-                            {Array.from({ length: 5 }).map((_, index) => (
-                                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                                    <div className="p-1">
-                                        <Card style={{
-                                            borderRadius: '15px',
-                                            width: '100%',
-                                            height: 'auto',
-                                            border: 'none',
-                                        }}>
-                                            <CardContent className="flex flex-col items-center justify-center p-6" style={{
-                                                borderRadius: '15px',
-                                                backgroundColor: '#11375C',
-                                                color: '#fff',
-                                                minHeight: 200,
-                                                width: '100%',
-                                            }}>
-                                                <h2 style={{
-                                                    width: '100%',
-                                                    fontFamily: 'lexend',
-                                                    fontWeight: '300',
-                                                    fontSize: '15px',
-                                                    lineHeight: '1.5',
-                                                    letterSpacing: '0%',
-                                                    color: '#FFFFFF',
-                                                    marginBottom: 16,
-                                                }}>
-                                                    Our team has been working on tasksync for almost 2 months because our office still closed. It's been an AWESOME! experience for me. Thank you Tasksync and team
-                                                </h2>
-                                                <div style={{ textAlign: 'center' }}>
-                                                    <h3>Pedro Ibanez</h3>
-                                                    <h4>UI Designer at Perxels</h4>
-                                                </div>
-                                            </CardContent>
-                                        </Card>
-                                    </div>
+                <div className='text-left bg-[#f5f5f5] w-full pl-10'>
+                    <h3 className='text-[#212832] pl-0 md:pl-[52px] text-[30px] bg-[#f5f5f5] w-[123px] h-[38px] mt-0 mb-[15px] font-arial font-bold '>Reviews</h3>
+                    <h6 className='text-[15px] w-65 text-[#183F63] pl-0 md:pl-[52px] font-bold'>What our customers are saying</h6>
+                    {/* Array.from({ length: 5 }) */}
+                    <Carousel className="w-auto mt-8 pl-0 md:pl-10">
+                        <CarouselContent className='w-auto ml-0 space-x-6'>
+                            {inks.map((item, index) => (
+                                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 pl-0">
+                                    <Card className="flex justify-between p-6 items-center rounded-[15px] w-[95%] h-85 bg-[#11375C] cursor-pointer">
+                                        <CardContent className=' h-auto font-sans font-normal text-[15px] text-white mb-0 pt-5'>
+                                            {item.name}
+                                        </CardContent>
+                                        <ProfileContent title={item} />
+                                    </Card>
                                 </CarouselItem>
                             ))}
                         </CarouselContent>
-                        <CarouselPrevious />
-                        <CarouselNext />
                     </Carousel>
-                </Item>
+                </div>
 
 
-
-
-                <Item sx={{
-                    height: 'auto',
-                    padding: '0px',
-                    columnGap: '90px',
-                    borderRadius: '0px',
-                    border: '0px',
-                    backgroundColor: '#f5f5f5',
-                    marginTop: '290px',
-
-                }}>
-                    <div style={{
-                        width: 'auto',
-                        height: '438px',
-                        backgroundColor: '#11375C',
-                        textAlign: 'left',
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        paddingLeft: '20px'
-                    }}>
-                        <div>
-                            <h3 style={{
-                                width: '189px',
-                                height: '25px',
-                                top: '76px',
-                                left: '63px',
-                                fontFamily: 'Lexend',
-                                fontWeight: '600',
-                                fontSize: '20px',
-                                lineHeight: '100%',
-                                letterSpacing: '0%',
-                                color: '#fff'
-                            }}>Become a member</h3>
-                            <h3 style={{
-                                width: '398px',
-                                height: '93px',
-                                top: '126px',
-                                left: '63px',
-                                fontFamily: 'Lexend',
-                                fontWeight: '700',
-                                fontSize: '35px',
-                                lineHeight: '100%',
-                                letterSpacing: '0%',
-                                color: '#FFFFFF'
-                            }}>Ready to try different
+                <div className='h-auto p-0 gap-x-[90px] rounded-0 border-0 bg-[#f5f5f5] mt-[150px]'>
+                    <div className='w-auto h-100 bg-[#11375c] text-left flex items-center justify-between flex-row pl-10 pr-10'>
+                        <div className='pb-10 pt-10'>
+                            <div className='flex items-center flex-row justify-between w-65 mb-5'>
+                                <h3 className='w-[189px] flex self-end font-sans font-semibold text-[16px] text-white'>Become a member</h3>
+                                <div className='border-2 border-white w-33 h-1 flex self-center mt-2'></div>
+                            </div>
+                            <h3 className='w-[378px] font-sans font-bold text-[30px] text-white'>Ready to try different
                                 work experience now?</h3>
-                            <h5 style={{
-                                width: '407px',
-                                height: '47px',
-                                top: '246px',
-                                left: '63px',
-                                fontFamily: 'Lexend',
-                                fontWeight: '600',
-                                fontSize: '17px',
-                                lineHeight: '100%',
-                                letterSpacing: '0%',
-                                color: '#FFFFFF'
-                            }}>Get the best working experience that you never
+                            <h5 className='w-[320px] font-sans font-semibold text-[14px] pt-8 pb-8 text-white'>Get the best working experience that you never
                                 feel before</h5>
-                            <Link href="/onBoardingScreens/signin">
-                                <Button
-                                    // onClick={() => navigate('First')}
-                                    type='button' style={{
-                                        width: '339px',
-                                        height: '62px',
-                                        // position:'absolute',
-                                        // top: '330px',
-                                        // left: '63px',
-                                        borderRadius: '15px',
-                                        padding: '10px',
-                                        gap: '10px',
-                                        backgroundColor: '#FE5722',
-                                        border: 'none',
-
-                                    }} ><h3 style={{
-                                        width: '118px',
-                                        height: '25px',
-                                        fontFamily: 'Lexend',
-                                        fontWeight: '700',
-                                        fontSize: '20px',
-                                        lineHeight: '100%',
-                                        letterSpacing: '0%',
-                                        color: '#FFFFFF'
-                                    }}>Get Started</h3>
+                            <Link href="/onBoardingScreens">
+                                <Button type='button' className='w-[250px] h-[50px] rounded-[13px] p-[10px] gap-[10px] bg-[#FE5722] border-0'>
+                                    <h3 className='font-sans font-bold text-lg text-white'>Get Started</h3>
                                 </Button>
                             </Link>
                         </div>
-                        {/* <Image
-                            // style={{
-                            //     width: '376px',
-                            //     height: '394px',
-                            //     top: '44px',
-                            //     left: '903px',
-                            // }} 
-                            // src={images.img02}
-                            alt={'image'} /> */}
+                        <Image
+                            src="/user05.png"
+                            width={100}
+                            height={100}
+                            alt="Picture of the author"
+                            className='w-fit h-full flex self-end rounded-4xl '
+                        />
                     </div>
-                    <div
-                        style={{
-                            marginTop: '188px',
-                            width: 'auto',
-                            height: 'auto',
-                            backgroundColor: '#11375C',
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-around',
-                            paddingTop: '76px',
-                            paddingBottom: '171.18px'
-                        }}>
+                    <div className='mt-[188px] w-auto h-auto bg-[#11375C] flex flex-col lg:flex-row justify-between pt-[76px] pb-[60px] pl-3 md:pl-20 lg:pl-25 xl:pl-30 pr-3 md:pr-7 xl:pr-20'>
                         {/* company info */}
-                        <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'left' }}>
-
-                            <h3 style={{
-                                width: '162',
-                                height: '44',
-                                fontFamily: 'lexend',
-                                // fontWeight: '700',
-                                fontSize: '35px',
-                                lineHeight: '100%',
-                                letterSpacing: '0%',
-                                color: '#fff',
-                                margin: '0px',
-                                paddingBottom: '39px'
-                            }}>Tasksync</h3>
-                            <h5 style={{
-                                width: '415px',
-                                margin: '0px',
-                                fontFamily: 'lexend',
-                                fontWeight: '600',
-                                fontSize: '17px',
-                                lineHeight: '100%',
-                                letterSpacing: '0%',
-                                color: '#fff'
-                            }}>We offer comfortable spaces, and well tailored
+                        <div className='flex flex-col text-center md:text-left'>
+                            <h3 className='w-full md:w-[162px] font-sans font-bold text-[35px] text-white m-0 pb-[39px]'>Tasksync</h3>
+                            <h5 className='w-full md:w-[370px] font-sans font-normal text-[17px] text-white m-0'>We offer comfortable spaces, and well tailored
                                 task management and analytics tools aimed at
                                 ensuring efficiency and ease and many more for
                                 your best work space and meetings</h5>
-
                             {/* socials */}
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', gap: '30px', color: '#fff', paddingTop: '27.29px' }}>
+                            <div className='flex items-center justify-evenly flex-row gap-[30px] w-full md:justify-start text-white mt-[27.29px] mb-10 '>
                                 <Instagram />
                                 <YouTube />
                                 <Facebook />
                             </div>
                         </div>
 
-                        {/* company action area */}
-                        <div style={{ display: ' flex', flexDirection: 'row', textAlign: 'left', gap: '30px' }}>
-                            <div style={{ display: ' flex', flexDirection: 'column', gap: '10px' }}>
-                                <h3 style={{ color: '#fff' }}>Company</h3>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>About Us</Link>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>Pricing</Link>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>Careers</Link>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>Press</Link>
+                        {/* company action area gap-[8px] md:gap-[30px]*/}
+                        <div className='flex flex-row w-full lg:w-110 lg:gap-x-10 xl:gap-x-30 justify-between lg:justify-center text-left mt-10 lg:mt-0'>
+                            <div className='flex flex-col gap-[10px] pr-3'>
+                                <h3 className='text-white'>Company</h3>
+                                <Link href="/login" className='w-5 sm:w-20 list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>About Us</Link>
+                                <Link href="/login" className='list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>Pricing</Link>
+                                <Link href="/login" className='list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>Careers</Link>
+                                <Link href="/login" className='list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>Press</Link>
                             </div>
                             {/* support */}
-                            <div style={{ display: ' flex', flexDirection: 'column', gap: '10px' }}>
-                                <h3 style={{ color: '#fff' }}>Support</h3>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>FAQs</Link>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>Privacy Policy</Link>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>Help</Link>
+                            <div className='flex flex-col gap-[10px]'>
+                                <h3 className='text-white'>Support</h3>
+                                <Link href="/login" className='list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>FAQs</Link>
+                                <Link href="/login" className='w-5 sm:w-auto list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>Privacy Policy</Link>
+                                <Link href="/login" className='list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>Help</Link>
                             </div>
                             {/* contact us */}
-                            <div style={{ display: ' flex', flexDirection: 'column', gap: '10px' }}>
-                                <h3 style={{ color: '#fff' }}>Contact Us</h3>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>E.  info@tasksync.com</Link>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>A.  No. 201 V.I Court Ikeja
-                                    Lagos,  Nigeria,</Link>
-                                <Link href="/login" style={{ textDecoration: 'none', listStyle: 'none', color: '#fff' }}>P.   (+234) 678907789</Link>
+                            <div className='flex flex-col gap-[10px]'>
+                                <h3 className='text-white'>Contact Us</h3>
+                                <Link href="/login" className='w-5 sm:w-auto list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>E. info@tasksync.com</Link>
+                                <Link href="/login" className='w-30 sm:w-50 list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300 text-wrap '>A.  No. 201 V.I Court Ikeja Lagos, Nigeria,</Link>
+                                <Link href="/login" className='list-none text-sm sm:text-md md:text-lg text-extrabold text-zinc-300'>P.   (+234) 678907789</Link>
                             </div>
                         </div>
-
                     </div>
-                </Item >
-            </Grid >
-        </Box >
+                </div >
+            </div >
+        </div >
     )
 }

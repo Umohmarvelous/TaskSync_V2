@@ -43,18 +43,7 @@ export default function FirstPage() {
                         color: '#0D2C49',
                         margin: '0px',
                     }}>Who will be using Tasksync?</h3>
-                    {/* ------------------------> */}
-                    {/* <Link to='./Pages/onBoardingScreens/login' >Hey</Link> */}
-                    {/* <Button type='button' onClick={() => navigate('SignUp')}
-                            style={{
-                                backgroundColor: '#FE5722',
-                                color: 'white',
-                                width: '153px',
-                                height: '56px',
-                                borderRadius: '20px',
-                                border: 'hidden'
-                            }} >Get Started</Button> */}
-                    {/* ------------------> */}
+                    
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -63,7 +52,7 @@ export default function FirstPage() {
                         <NoSsr>
 
                             <a
-                                href='/onBoardingScreens/teamLogin'
+                                href='/onBoardingScreens/signin'
                                 type='button'
                                 className="hover:shadow-lg transition-shadow cursor-pointer"
                                 style={{
@@ -285,7 +274,7 @@ export default function FirstPage() {
                         </NoSsr>
                         <NoSsr>
                             <a
-                                href='/onBoardingScreens/teamLogin'
+                                href='/onBoardingScreens/signin'
                                 type='button'
                                 className="hover:shadow-lg transition-shadow cursor-pointer"
                                 style={{

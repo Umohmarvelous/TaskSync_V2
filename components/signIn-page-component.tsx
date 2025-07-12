@@ -6,36 +6,20 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Header } from "./header"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { FacebookOutlined, FacebookTwoTone, Google, X } from "@mui/icons-material"
-import { signIn } from "next-auth/react"
+import { FacebookOutlined, Google, X } from "@mui/icons-material"
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-
-      if (result?.ok) {
-        router.push("/dashboardPage/dashboardHomePage");
-        router.refresh();
-      } else {
-        router.push("/errorPage");
-      }
-    } catch (error) {
+    // Dummy validation: you can replace with real API call
+    if (email === "user@example.com" && password === "password123") {
+      router.push("/dashboardPage/dashboardHomePage");
+    } else {
       router.push("/errorPage");
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -57,30 +41,12 @@ export default function Login() {
           <form className="space-y-6 w-80 flex flex-col items-center justify-self-center" onSubmit={handleSubmit}>
             <div className="w-full">
               <Label htmlFor="email" className="mb-3">Email Address</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter email"
-                required
-                className="mt-1"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                disabled={isLoading}
-              />
+              <Input id="email" type="email" placeholder="Enter email" required className="mt-1" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
 
             <div className="w-full">
               <Label htmlFor="password" className="mb-3">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Enter your password"
-                required
-                className="mt-1"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                disabled={isLoading}
-              />
+              <Input id="password" type="password" placeholder="Enter your password" required className="mt-1" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
 
             <div className="flex items-center justify-between w-full mt-0">
@@ -95,13 +61,7 @@ export default function Login() {
               </a>
             </div>
 
-            <button
-              type="submit"
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isLoading}
-            >
-              {isLoading ? "Signing in..." : "Sign in"}
-            </button>
+            <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2">Sign in</button>
 
             <div className="relative flex items-center justify-center w-full mt-5 text-sm">
               <hr className="w-full border-gray-500" />

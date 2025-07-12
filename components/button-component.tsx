@@ -14,9 +14,9 @@ const CustomButton = ({ buttonName, style, onClick }: {
             style={{
                 backgroundColor: '#FE5722',
                 color: 'white',
-                width: '153px',
-                height: '56px',
-                borderRadius: '20px',
+                width: '128px',
+                height: '45px',
+                borderRadius: '12px',
                 border: 'hidden'
             }}
         > {buttonName}
