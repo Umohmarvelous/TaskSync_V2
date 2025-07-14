@@ -124,7 +124,7 @@ export default function Welcome() {
 
                     <div className='flex items-center justify-center flex-row mt-[35px] space-x-[10px]'>
                         <Link href="/onBoardingScreens"><ButtonComp buttonName="Get Started" /></Link>
-                        <Link href="/onBoardingScreens/firstpage"><ButtonComp buttonName="Go to Dashboard" /></Link>
+                        <Link href="/onBoardingScreens"><ButtonComp buttonName="Go to Dashboard" /></Link>
                     </div>
                 </div>
 
@@ -168,7 +168,7 @@ export default function Welcome() {
                 <div className='p-20 w-full h-[542px] relative flex items-center justify-center flex-col text-white bg-[#101010] rounded-0'>
                     <h6 className='w-fit auto font-normal text-[25px] text-center mb-[94px]'>Core solutions that span across <br /> All other platforms linked in <span className='font-sans font-extrabold text-[25px] align-center'> ONE WORK SPACE. </span>
                     </h6>
-                    <PlayArrowOutlined className='relative rounded-[20px] border-3 border-white text-white' style={{width:'76px', height:'76px'}} />
+                    <PlayArrowOutlined className='relative rounded-[20px] border-3 border-white text-white' style={{ width: '76px', height: '76px' }} />
                 </div>
 
 
@@ -270,6 +270,39 @@ export default function Welcome() {
                             ))}
                         </CarouselContent>
                     </Carousel>
+                    {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                    {
+                        title: "Create Profile",
+                        description: "Set up your profile to personalize your workspace",
+                        bg: "bg-blue-50 border-blue-200",
+                    },
+                    {
+                        title: "Add your Team mates",
+                        description: "Invite your team to start collaborating seamlessly",
+                        bg: "border-2 border-gray-300",
+                    },
+                    {
+                        title: "Set milestones and goals",
+                        description: "Define your goals and milestones to track progress effortlessly",
+                        bg: "bg-purple-50 border-purple-200",
+                    },
+                ].map((card, index) => (
+                    <div key={index} className="relative overflow-hidden rounded-lg">
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shimmer-slow"></div>
+                        <Card className={card.bg}>
+                            <CardHeader>
+                                <CardTitle className="text-lg">{card.title}</CardTitle>
+                                <p className="text-sm text-gray-600">{card.description}</p>
+                            </CardHeader>
+                            <CardContent>
+                                <Button className="bg-slate-800 hover:bg-slate-700 text-white">Add members</Button>
+                            </CardContent>
+                        </Card>
+                    </div>
+                ))}
+            </div> */}
+
                 </div>
 
 

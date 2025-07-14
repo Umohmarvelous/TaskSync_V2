@@ -1,142 +1,111 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, BarChart3 } from "lucide-react"
-import Image from "next/image"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { ArrowUpRight } from "lucide-react"
 
 export function HomeContent() {
-    return (
-        <div className="p-6 space-y-8 min-h-screen bg-gray-50 w-auto">
-            <div className="flex items-center space-x-4 mb-8">
-                <Avatar className="w-16 h-16">
-                    <AvatarImage src="/placeholder-user.jpg" alt="Jane Smith" />
-                    <AvatarFallback>JS</AvatarFallback>
-                </Avatar>
-                <div>
-                    <h1 className="text-2xl font-bold">Jane Smith</h1>
-                    <p className="text-gray-600">Freelancer</p>
-                </div>
-            </div>
+  return (
+    <div className="p-6 mb-8">
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Welcome, Jane!</h1>
 
-            <div className="bg-gradient-to-r h-fit w-auto from-blue-100 to-[#c9d4dd] rounded-lg flex items-center justify-between relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r z-90 from-transparent via-white/20 to-transparent -skew-x-12 animate-shimmer"></div>
-                <div className="p-6 py-2 lg:py-6 ">
-                    <h2 className="text-2xl font-bold mb-2">Welcome</h2>
-                    <h3 className="text-xl font-semibold mb-2">To TaskSync</h3>
-                    <p className="text-gray-600">Simplifying task, enhancing productivity</p>
-                </div>
-                <div className="hidden md:block h-fit w-fit">
-                    <div className="w-48 h-32 bg-gradient-to-br from-pink-200 to-blue-200 rounded-lg flex items-center justify-center">
-                        <div className="text-center w-full h-fit">
-                            <Image src="/dummy-image.PNG" alt="User with phone" width={550} height={400} className="h-fit w-full relative object-cover rounded-2xl" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+      {/* Action Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <Card className="bg-[#cde1fe] ">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-xl font-semibold text-gray-900">Create Profile</CardTitle>
+            <CardDescription className="text-gray-600">
+              Set up your profile to personalize your workspace
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="w-full flex items-center justify-end">
+            <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Add members</Button>
+          </CardContent>
+        </Card>
 
-            {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                    {
-                        title: "Create Profile",
-                        description: "Set up your profile to personalize your workspace",
-                        bg: "bg-blue-50 border-blue-200",
-                    },
-                    {
-                        title: "Add your Team mates",
-                        description: "Invite your team to start collaborating seamlessly",
-                        bg: "border-2 border-gray-300",
-                    },
-                    {
-                        title: "Set milestones and goals",
-                        description: "Define your goals and milestones to track progress effortlessly",
-                        bg: "bg-purple-50 border-purple-200",
-                    },
-                ].map((card, index) => (
-                    <div key={index} className="relative overflow-hidden rounded-lg">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shimmer-slow"></div>
-                        <Card className={card.bg}>
-                            <CardHeader>
-                                <CardTitle className="text-lg">{card.title}</CardTitle>
-                                <p className="text-sm text-gray-600">{card.description}</p>
-                            </CardHeader>
-                            <CardContent>
-                                <Button className="bg-slate-800 hover:bg-slate-700 text-white">Add members</Button>
-                            </CardContent>
-                        </Card>
-                    </div>
-                ))}
-            </div> */}
+        <Card className="border-2 border-gray-900">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-xl font-semibold text-gray-900">Add your Team mates</CardTitle>
+            <CardDescription className="text-gray-600">
+              Invite your team to start collaborating seamlessly
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="w-full flex items-center justify-end">
+            <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Add members</Button>
+          </CardContent>
+        </Card>
 
-            <div className="space-y-6 pb-8">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold">My workspace</h2>
-                    <Button variant="ghost" className="text-blue-600 hover:text-blue-700">
-                        View All <ArrowRight className="w-4 h-4 ml-1" />
-                    </Button>
-                </div>
+        <Card className="bg-[#dac3da]">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-xl font-semibold text-gray-900">Set milestones and goals</CardTitle>
+            <CardDescription className="text-gray-600">
+              Define your goals and milestones to track progress effortlessly
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="w-full flex items-center justify-end">
+            <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Create goals</Button>
+          </CardContent>
+        </Card>
+      </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[
-                        { title: "Landing page", priority: "High", color: "bg-yellow-100 text-yellow-800" },
-                        { title: "CPM", priority: "Low", color: "bg-green-100 text-green-800" },
-                        { title: "Landing page", priority: "Middle", color: "bg-orange-100 text-orange-800" },
-                    ].map((project, index) => (
-                        <Card key={index} className="bg-blue-50">
-                            <CardContent className="p-6">
-                                <div className="flex items-center justify-between mb-4">
-                                    <div>
-                                        <p className="text-sm text-gray-600">22 Sep 2022</p>
-                                        <h3 className="font-semibold">{project.title}</h3>
-                                        <p className="text-sm text-gray-600">In progress</p>
-                                    </div>
-                                    <Badge variant="secondary" className={project.color}>
-                                        {project.priority}
-                                    </Badge>
-                                </div>
-                                <div className="flex -space-x-2">
-                                    <Avatar className="w-6 h-6 border-2 border-white">
-                                        <AvatarFallback className="text-xs">JS</AvatarFallback>
-                                    </Avatar>
-                                    <Avatar className="w-6 h-6 border-2 border-white">
-                                        <AvatarFallback className="text-xs">AB</AvatarFallback>
-                                    </Avatar>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
-            </div>
-
-            <div className="space-y-6 pb-8">
-                <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-semibold">My Task</h2>
-                    <Button variant="ghost" className="text-blue-600 hover:text-blue-700">
-                        View All <ArrowRight className="w-4 h-4 ml-1" />
-                    </Button>
-                </div>
-
-                <div className="space-y-4">
-                    {[1, 2, 3].map((i) => (
-                        <div key={i} className="flex items-center space-x-4 p-4 bg-white rounded-lg border">
-                            <Avatar className="w-8 h-8">
-                                <AvatarFallback>JS</AvatarFallback>
-                            </Avatar>
-                            <div className="flex-1">
-                                <div className="flex items-center space-x-2">
-                                    <span className="text-sm font-medium">CPM 1</span>
-                                    <span className="text-sm text-gray-500">Add menu ✏️</span>
-                                </div>
-                            </div>
-                            <div className="text-sm text-gray-500">Restaurant Profile</div>
-                            <Badge variant="outline">To Do</Badge>
-                            <Badge className="bg-red-100 text-red-800">High</Badge>
-                        </div>
-                    ))}
-                </div>
-            </div>
+      {/* Dashboard Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+        <div className="lg:col-span-1 bg-transparent flex flex-col items-center justify-between pb-4">
+          <h2 className="p-0 m-0 text-xl text-left font-semibold text-gray-900">Your all-in-one workspace</h2>
+          <p className="text-sm text-gray-600 p-0 m-0 text-left font-semibold">Use TaskSync to keep track of leads, projects and tasks</p>
         </div>
-    )
+
+
+        <Card className="bg-[#e3e3e3] hover:bg-gray-100 cursor-pointer flex flex-col items-center justify-between">
+          <CardHeader className="mb-2 w-full">
+            <CardTitle className="text-xl font-semibold text-left text-gray-900">Projects</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-row items-center justify-between pb-2">
+            <p className="text-sm text-gray-600 text-left">Project updates will show here</p>
+            <ArrowUpRight className="h-5 w-5 text-gray-400" />
+          </CardContent>
+        </Card>
+        <Card className="bg-[#e3e3e3] hover:bg-gray-100 cursor-pointer flex flex-col items-center justify-between">
+          <CardHeader className="mb-2 w-full">
+            <CardTitle className="text-xl font-semibold text-left text-gray-900">Board</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-row items-center justify-between pb-2">
+            <p className="text-sm text-gray-600 text-left">No new ideas</p>
+            <ArrowUpRight className="h-5 w-5 text-gray-400" />
+          </CardContent>
+        </Card>
+        <Card className="bg-[#e3e3e3] hover:bg-gray-100 cursor-pointer flex flex-col items-center justify-between">
+          <CardHeader className="mb-2 w-full">
+            <CardTitle className="text-xl font-semibold text-left text-gray-900">Tasks</CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-row items-center justify-between pb-2">
+            <p className="text-sm text-gray-600 text-left">Your tasks will show here</p>
+            <ArrowUpRight className="h-5 w-5 text-gray-400" />
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Task Progress */}
+      <div>
+        <hr className="my-4" />
+        <div className="flex gap-2">
+          <Button variant="outline" size="sm" className="text-sm bg-transparent">
+            7 days
+          </Button>
+          <Button size="sm" className="bg-[#1e3a5f] hover:bg-[#2a4a6b] text-white text-sm">
+            30 days
+          </Button>
+          <Button variant="outline" size="sm" className="text-sm bg-transparent">
+            1 year
+          </Button>
+        </div>
+        <div>
+          <h1 className="text-xl font-semibold text-gray-900 text-left my-3">Task Progress</h1>
+          <Card className="border-none border-transparent bg-transparent shadow-none flex flex-col items-start m-0 p-0">
+            <CardTitle className="text-md font-normal text-gray-600 text-left flex self-start justify-self-start">Incoming tasks will show here</CardTitle>
+          </Card>
+        </div>
+      </div>
+    </div>
+  )
 }

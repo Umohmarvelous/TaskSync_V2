@@ -2,10 +2,6 @@
 import NoSsr from '@mui/material/NoSsr';
 
 
-import { Button } from "@mui/material";
-import Box from "@mui/material/Box";
-import Grid from '@mui/material/Grid';
-
 export default function FirstPage() {
 
     return (
@@ -43,7 +39,7 @@ export default function FirstPage() {
                         color: '#0D2C49',
                         margin: '0px',
                     }}>Who will be using Tasksync?</h3>
-                    
+
                     <div style={{
                         display: 'flex',
                         flexDirection: 'row',
@@ -52,7 +48,7 @@ export default function FirstPage() {
                         <NoSsr>
 
                             <a
-                                href='/onBoardingScreens/signin'
+                                href='/onBoardingScreens/individualsignin'
                                 type='button'
                                 className="hover:shadow-lg transition-shadow cursor-pointer"
                                 style={{
@@ -274,7 +270,7 @@ export default function FirstPage() {
                         </NoSsr>
                         <NoSsr>
                             <a
-                                href='/onBoardingScreens/signin'
+                                href='/onBoardingScreens/teamsignin'
                                 type='button'
                                 className="hover:shadow-lg transition-shadow cursor-pointer"
                                 style={{

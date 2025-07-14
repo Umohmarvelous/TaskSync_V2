@@ -5,10 +5,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
 import { Header } from "./header"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 
 export function ForgotPassword() {
     const router = useRouter()
+
+    const pathname = usePathname()
+    const BackButton = pathname !== '/'
 
     const formSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -37,9 +40,13 @@ export function ForgotPassword() {
                         <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white">Submit</Button>
 
                         <div className="text-center">
-                            <a href="/onBoardingScreens/signin" className="text-sm text-gray-600 hover:text-gray-900">
-                                {"< Back to Login"}
-                            </a>
+                            {BackButton && (
+                                <Button onClick={() => router.back()}
+                                    variant={"link"}
+                                    className="text-sm text-gray-600 hover:text-gray-900">
+                                    {"< Back to Login"}
+                                </Button>
+                            )}
                         </div>
                     </form>
                 </Card>

@@ -1,8 +1,15 @@
+"use client"
 import { Button } from "@/components/ui/button"
 import { Header } from "./header"
-import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
+
 
 export function ErrorPage() {
+    const router = useRouter()
+
+    const pathname = usePathname()
+    const showBackButton = pathname !== "/"
+
     return (
         <div className="min-h-screen bg-gray-50">
             <Header />
@@ -14,9 +21,14 @@ export function ErrorPage() {
                         <br />
                         DOES NOT match!
                     </p>
-                    <Link href="/onBoardingScreens/signin">
-                        <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8">{"< Back to Login"}</Button>
-                    </Link>
+                    {showBackButton && (
+
+                        <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8"
+                            onClick={() => router.back()}
+                        >
+                            {"< Back to Login"}
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>

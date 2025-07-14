@@ -7,8 +7,9 @@ import { Header } from "./header"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { FacebookOutlined, Google, X } from "@mui/icons-material"
+import Link from "next/link"
 
-export default function Login() {
+export default function PersonalSignin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -17,7 +18,7 @@ export default function Login() {
     e.preventDefault();
     // Dummy validation: you can replace with real API call
     if (email === "user@example.com" && password === "password123") {
-      router.push("/dashboardPage/dashboardHomePage");
+      router.push("/personalDashboard/homePage");
     } else {
       router.push("/errorPage");
     }
@@ -32,7 +33,7 @@ export default function Login() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Sign into Tasksync</h1>
             <p className="text-gray-600 m-4 mb-6 mt-1">
               Don't have an account?{" "}
-              <a href="/onBoardingScreens/signup" className="text-gray-900 hover:underline font-medium">
+              <a href="/onBoardingScreens/individualsignupScreen/signup01" className="text-gray-900 hover:underline font-medium">
                 Create a free account
               </a>
             </p>
@@ -56,9 +57,9 @@ export default function Login() {
                   Remember me
                 </Label>
               </div>
-              <a href="/forgotPasswordPage" className="text-sm text-gray-600 hover:text-gray-900">
+              <Link href="/forgotPasswordPage" className="text-sm text-gray-600 hover:text-gray-900">
                 Forgot password?
-              </a>
+              </Link>
             </div>
 
             <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2">Sign in</button>
