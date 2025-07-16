@@ -1,13 +1,5 @@
-
-
-export default function IndividualSignupScreen({
-    children,
-}: {
-    children: React.ReactNode
-}) {
+export default function IndividualSignupScreenPage() {
     return (
-        <div>
-            <main>{children}</main>
-        </div>
-    );
+        <></>
+    )
 }
