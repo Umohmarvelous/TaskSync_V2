@@ -20,13 +20,12 @@ import {
 import ShimmerCard from "./shimmer-card"
 import MotionContainer from "./motion-component"
 import { useEffect, useRef, useState } from "react"
-import AddTaskContent from "@/app/personalDashboard/addTaskPage/page"
+import { AddTaskContent } from "./addTask-component"
 
 interface Task {
     id: string;
     title: string;
     description: string;
-    // Add other fields if needed
 }
 
 export default function TaskSummaryContent() {

@@ -38,7 +38,7 @@ export default function WorkspaceContent() {
 
     return (
         <div className="bg-gray-50">
-            <div className="px-6 pb-2 space-y-6 pb-0 m-0 bg-white">
+            <div className="px-6 pb-2 space-y-6 m-0 bg-white">
                 {/* Header */}
                 <MotionContainer>
                     <div className="space-y-4">

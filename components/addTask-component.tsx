@@ -8,21 +8,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogContent } from "@mui/material"
 import { useState } from "react"
 
-export default function AddTaskPage() {
-    const [open, setOpen] = useState(true);
+interface AddTaskContentProps {
+    open: boolean;
+    onClose: () => void;
+    onTaskAdded: () => void | Promise<void>;
+}
+
+export function AddTaskContent({ open, onClose, onTaskAdded }: AddTaskContentProps) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-
-    const handleClose = () => {
-        setOpen(false);
-    };
-
-    const handleTaskAdded = () => {
-        // Handle task added - could redirect or show success message
-        console.log("Task added successfully");
-    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -37,8 +33,8 @@ export default function AddTaskPage() {
             if (!response.ok) throw new Error("Failed to add task");
             setTitle("");
             setDescription("");
-            handleTaskAdded();
-            handleClose();
+            onTaskAdded();
+            onClose();
         } catch (err: any) {
             setError(err.message || "Error adding task");
         } finally {
@@ -47,7 +43,7 @@ export default function AddTaskPage() {
     };
 
     return (
-        <Dialog open={open} onClose={handleClose} className="p-6 max-w-4xl mx-auto">
+        <Dialog open={open} onClose={onClose} className="p-6 max-w-4xl mx-auto">
             <DialogContent>
                 <div className="flex items-center space-x-4 mb-8">
                     <Avatar className="w-16 h-16">
@@ -129,4 +125,4 @@ export default function AddTaskPage() {
             </DialogContent>
         </Dialog>
     );
-}
+} 
