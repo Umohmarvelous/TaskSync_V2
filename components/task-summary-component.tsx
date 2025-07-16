@@ -19,7 +19,7 @@ import {
 } from "lucide-react"
 import { ShimmerCard } from "./shimmer-card"
 import { MotionContainer } from "./motion-component"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const taskItems = [
     {
@@ -45,9 +45,17 @@ const taskItems = [
     },
 ]
 
-export function TaskSummaryContent() {
+interface DemoProps { }
+
+export function TaskSummaryContent({ }: DemoProps) {
     const [isTaskFlowExpanded, setIsTaskFlowExpanded] = useState(true)
     const [isSubtaskExpanded, setIsSubtaskExpanded] = useState(true)
+
+    const inputRef = useRef<HTMLInputElement | null>(null)
+
+    useEffect(() => {
+        inputRef.current?.focus()
+    }, [])
 
     return (
         <div className="p-6 space-y-6 min-h-screen bg-gray-50">
@@ -61,7 +69,7 @@ export function TaskSummaryContent() {
                         <div className="flex items-center space-x-4">
                             <div className="relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                                <Input placeholder="Search" className="pl-10 w-64" />
+                                <Input ref={inputRef} placeholder="Search" className="pl-10 w-64" />
                             </div>
 
                             <div className="flex -space-x-2">
@@ -102,6 +110,8 @@ export function TaskSummaryContent() {
                     </div>
                 </div>
             </MotionContainer>
+
+
 
             {/* CPM Task Flow Section */}
             <ShimmerCard shimmerIntensity="light">

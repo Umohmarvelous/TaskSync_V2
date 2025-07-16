@@ -39,7 +39,7 @@ export default function TeamLayout({
                             <PersonalSidebar />
                         </div>
                     )}
-                    <main className="pt-0">
+                    <main className="pt-25">
                         {children}
                     </main>
                 </div>

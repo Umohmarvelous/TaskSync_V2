@@ -5,11 +5,14 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { usePathname, useRouter } from "next/navigation"
+import Link from "next/link"
 
 export function PersonalDashboardHeader() {
     const pathname = usePathname()
     const router = useRouter()
     const showBackButton = pathname !== "/"
+
+
 
     return (
         <header
@@ -34,14 +37,17 @@ export function PersonalDashboardHeader() {
                 </div>
             </div>
 
-            <Button variant="ghost" size="icon">
+            <Link href="#" >
                 <Bell className="w-5 h-5" />
-            </Button>
+            </Link>
 
-            <Button className="bg-slate-800 hover:bg-slate-700 text-white">
+            <Link
+                href="/personalDashboard/addTaskPage"
+                className="flex flex-row items-center rounded-xl p-2 bg-slate-800 hover:bg-slate-700 text-white">
                 <Plus className="w-4 h-4 mr-2" />
+
                 Add Task
-            </Button>
+            </Link>
 
             <div className="flex items-center space-x-3">
                 <Avatar>
