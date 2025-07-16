@@ -1,4 +1,4 @@
-export function TrashContent() {
+export default function TrashContent() {
     return (
         <div className="flex flex-col items-center justify-center h-full p-6 ">
             <div className="text-center space-y-6 mt-30">

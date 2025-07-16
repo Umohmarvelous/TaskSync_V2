@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
-import { Header } from "./header"
+import Header from "./header"
 import { useRouter, usePathname } from "next/navigation"
 
-export function ForgotPassword() {
+export default function ForgotPassword() {
     const router = useRouter()
 
     const pathname = usePathname()

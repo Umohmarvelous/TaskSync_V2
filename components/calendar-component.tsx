@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ChevronLeft, ChevronRight, X } from "lucide-react"
 import { useState } from "react"
-import { ShimmerCard } from "./shimmer-card"
+import ShimmerCard from "./shimmer-card"
 
 const events = [
     { date: 10, title: "12am Dinner", color: "bg-green-100 text-green-800" },
@@ -20,7 +20,7 @@ const events = [
 
 const viewModes = ["Month", "Week", "Day", "List"]
 
-export function CalendarContent() {
+export default function CalendarContent() {
     const [selectedView, setSelectedView] = useState("Month")
     const [showEventDetails, setShowEventDetails] = useState(false)
 

@@ -1,13 +1,9 @@
-
-
-export default function TeamSignupScreen({
-    children,
-}: {
-    children: React.ReactNode
-}) {
+export default function TeamSignupScreen() {
     return (
         <div>
-            <main>{children}</main>
+            <main>
+                {/* Your signup form or content goes here */}
+            </main>
         </div>
     );
 }

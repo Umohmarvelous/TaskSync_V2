@@ -38,7 +38,7 @@ const navigation = [
 // ]
 
 
-export function PersonalSidebar() {
+export default function PersonalSidebar() {
     const pathname = usePathname()
 
     return (

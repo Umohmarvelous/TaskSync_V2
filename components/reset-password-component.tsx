@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card } from "@/components/ui/card"
-import { DashboardHeader } from "@/components/personal-dashboard-header-component"
+import DashboardHeader from "@/components/personal-dashboard-header-component"
 
-export function PasswordReset() {
+export default function PasswordReset() {
     return (
         <div className="min-h-screen bg-gray-50">
             <DashboardHeader />

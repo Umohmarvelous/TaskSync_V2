@@ -7,7 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 
-export function PersonalDashboardHeader() {
+export default function PersonalDashboardHeader() {
     const pathname = usePathname()
     const router = useRouter()
     const showBackButton = pathname !== "/"

@@ -3,12 +3,12 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ShimmerCard } from "./shimmer-card"
-import { MotionContainer } from "./motion-component"
+import ShimmerCard from "./shimmer-card"
+import MotionContainer from "./motion-component"
 import { Textarea } from "./ui/textarea"
 
 
-export function MyTasksContent() {
+export default function MyTasksContent() {
     return (
         <div className="p-6 space-y-8 min-h-screen bg-gray-50 w-90 sm:w-full">
             {/* Header */}

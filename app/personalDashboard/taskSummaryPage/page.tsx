@@ -1,4 +1,4 @@
-import { TaskSummaryContent } from "@/components/task-summary-component"
+import TaskSummaryContent from "@/components/task-summary-component"
 
 export default function TaskSummaryPage() {
     return (

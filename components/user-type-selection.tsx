@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card"
 
-export function UserTypeSelection() {
+export default function UserTypeSelection() {
     return (
         <div className="min-h-screen flex">
             {/* Left side - TaskSync branding */}

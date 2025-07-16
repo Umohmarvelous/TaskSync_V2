@@ -1,5 +1,5 @@
 
-export default function IndividualSignupScreenPage() {
+export default function personalDashboardPage() {
     return (
         <div>
             <main>

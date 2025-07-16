@@ -32,7 +32,7 @@ const files = [
     },
 ]
 
-export function DocumentationContent() {
+export default function DocumentationContent() {
     return (
         <div className="p-6 space-y-6">
             {/* Action Buttons */}

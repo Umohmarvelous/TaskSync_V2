@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { usePathname } from "next/navigation"
 
-export function TeamDashboardHeader() {
+export default function TeamDashboardHeader() {
     const pathname = usePathname()
 
     return (

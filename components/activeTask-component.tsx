@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2 } from "lucide-react"
-import { ShimmerCard } from "./shimmer-card"
+import ShimmerCard from "./shimmer-card"
 
 const taskColumns = [
     {
@@ -32,7 +32,7 @@ const taskColumns = [
     },
 ]
 
-export function ActiveTaskContent() {
+export default function ActiveTaskContent() {
     return (
         <div className="p-6 space-y-6">
             {/* Header */}

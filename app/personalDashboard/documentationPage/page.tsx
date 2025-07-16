@@ -1,4 +1,4 @@
-import { DocumentationContent } from "@/components/documentation-component"
+import DocumentationContent from "@/components/documentation-component"
 
 export default function DocumentationPage() {
     return (

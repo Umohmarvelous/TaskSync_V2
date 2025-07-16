@@ -29,7 +29,7 @@ const navigation = [
 ]
 
 
-export function TeamSidebar() {
+export default function TeamSidebar() {
     const pathname = usePathname()
 
     return (

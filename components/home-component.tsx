@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ArrowUpRight } from "lucide-react"
 
-export function HomeContent() {
+export default function HomeContent() {
   return (
     <div className="p-6 mb-8">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Welcome, Jane!</h1>

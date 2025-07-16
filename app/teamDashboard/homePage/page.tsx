@@ -1,4 +1,4 @@
-import { HomeContent } from "@/components/home-component";
+import HomeContent from "@/components/home-component";
 
 
 export default function DashboardHome() {

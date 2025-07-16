@@ -1,4 +1,4 @@
-import { ImportContent } from "@/components/import-component"
+import ImportContent from "@/components/import-component"
 
 export default function ImportPage() {
     return (

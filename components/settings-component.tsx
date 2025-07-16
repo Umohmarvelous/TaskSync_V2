@@ -2,8 +2,8 @@
 
 import { Switch } from "@/components/ui/switch"
 import { ChevronRight } from "lucide-react"
-import { ShimmerCard } from "./shimmer-card"
-import { MotionContainer } from "./motion-component"
+import ShimmerCard from "./shimmer-card"
+import MotionContainer from "./motion-component"
 import { useState } from "react"
 
 const settingsNavigation = [
@@ -41,7 +41,7 @@ const notificationSettings = [
     },
 ]
 
-export function SettingsContent() {
+export default function SettingsContent() {
     const [toggleStates, setToggleStates] = useState<Record<string, boolean>>({
         "Daily productivity updates": true,
         "New event created": true,

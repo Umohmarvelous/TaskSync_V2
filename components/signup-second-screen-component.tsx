@@ -8,7 +8,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 import { ChevronLeft } from "@mui/icons-material"
 
-export function SignupSecondScreen() {
+export default function SignupSecondScreen() {
     const [userName, setUserName] = useState('')
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')

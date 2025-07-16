@@ -1,7 +1,7 @@
 import { CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Header } from "./header"
+import Header  from "./header"
 import Link from "next/link"
 
 export default function SuccessPage() {

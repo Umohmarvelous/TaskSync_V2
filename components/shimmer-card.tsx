@@ -9,7 +9,7 @@ interface ShimmerCardProps {
     shimmerIntensity?: "light" | "medium" | "strong"
 }
 
-export function ShimmerCard({ children, className = "", shimmerIntensity = "medium" }: ShimmerCardProps) {
+export default function ShimmerCard({ children, className = "", shimmerIntensity = "medium" }: ShimmerCardProps) {
     const shimmerOpacity = {
         light: "via-white/10",
         medium: "via-white/20",

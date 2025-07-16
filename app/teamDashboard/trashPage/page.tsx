@@ -1,4 +1,4 @@
-import { TrashContent } from "@/components/trash-component"
+import TrashContent from "@/components/trash-component"
 
 export default function TrashPage() {
     return (

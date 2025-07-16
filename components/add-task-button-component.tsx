@@ -1,8 +1,7 @@
-// "use client"
+"use client"
 import { Plus } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
-// import { AddTaskContent } from "./addTask-component"
 
 
 export default function AddButton() {

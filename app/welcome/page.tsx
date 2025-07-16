@@ -1,14 +1,11 @@
 "use client";
 import Link from 'next/link'
 import ButtonComp from '@/components/button-component';
-// import React, { createContext } from 'react';
 import Image from "next/image"
 
 
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 
 // From Shadcnx
 import { Button } from "@/components/ui/button"
@@ -37,7 +34,6 @@ const div = styled(Paper)(({ theme }) => ({
     }),
 }));
 
-import SimpleCarousel from "@/components/SimpleCarousel";
 import { CalendarDaysIcon, HomeIcon } from 'lucide-react';
 
 

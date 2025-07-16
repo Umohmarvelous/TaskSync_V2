@@ -4,8 +4,8 @@ import "./globals.css";
 import { useState } from "react";
 import { CloseSharp } from "@mui/icons-material";
 import { MenuIcon } from "lucide-react";
-import { PersonalSidebar } from "@/components/personal-dashboard-side-bar-component";
-import { PersonalDashboardHeader } from "@/components/personal-dashboard-header-component";
+import PersonalSidebar from "@/components/personal-dashboard-side-bar-component";
+import PersonalDashboardHeader from "@/components/personal-dashboard-header-component";
 
 export default function TeamLayout({
     children,

@@ -1,7 +1,7 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { MotionContainer } from "./motion-component"
+import MotionContainer from "./motion-component"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
 import MessageLayout from "@/app/teamDashboard/workspacePage/message/page"
@@ -14,7 +14,7 @@ const workspaceTabs = [
     { name: "Board", active: false, },
 ]
 
-export function WorkspaceContent() {
+export default function WorkspaceContent() {
     const pathname = usePathname()
     const [activeTab, setActiveTab] = useState("Overview")
 

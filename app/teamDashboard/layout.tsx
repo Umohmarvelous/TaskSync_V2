@@ -1,8 +1,8 @@
 
 "use client"
-import { TeamDashboardHeader } from "@/components/team-dashboard-header-component";
+import TeamDashboardHeader from "@/components/team-dashboard-header-component";
 import "./globals.css";
-import { TeamSidebar } from "@/components/team-side-bar-component";
+import TeamSidebar from "@/components/team-side-bar-component";
 import { useState } from "react";
 import { CloseSharp } from "@mui/icons-material";
 import { MenuIcon } from "lucide-react";

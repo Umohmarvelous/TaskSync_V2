@@ -8,7 +8,7 @@ interface MotionContainerProps {
     delay?: number
 }
 
-export function MotionContainer({ children, className = "" }: MotionContainerProps) {
+export default function MotionContainer({ children, className = "" }: MotionContainerProps) {
     return (
         <div className={`relative overflow-hidden ${className}`}>
             {children}

@@ -1,10 +1,10 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { Header } from "./header"
+import Header from "./header"
 import { usePathname, useRouter } from "next/navigation"
 
 
-export function ErrorPage() {
+export default function ErrorPage() {
     const router = useRouter()
 
     const pathname = usePathname()

@@ -1,4 +1,4 @@
-import { ShimmerCard } from "@/components/shimmer-card";
+import ShimmerCard from "@/components/shimmer-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
@@ -22,7 +22,7 @@ export default function MessageLayout() {
                         </div>
                         <Input
                             placeholder="Send message to members"
-                            className="flex-1 border-0 bg-transparent focus-visible:ring-0 text-gray-600 border border-gray-200 px-4"
+                            className="flex-1 border-0 bg-transparent focus-visible:ring-0 text-gray-600 border-gray-200 px-4"
                         />
                     </div>
                 </div>

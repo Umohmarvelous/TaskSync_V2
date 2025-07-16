@@ -1,6 +1,6 @@
 "use client"
 
-export function ReportContent() {
+export default function ReportContent() {
     return (
         <div className="flex flex-col items-center justify-center h-full p-6">
             <div className="text-center space-y-6 relative overflow-hidden rounded-lg p-8 mt-30">

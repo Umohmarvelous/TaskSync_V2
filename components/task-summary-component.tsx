@@ -17,43 +17,38 @@ import {
     Share2,
     UserPlus2,
 } from "lucide-react"
-import { ShimmerCard } from "./shimmer-card"
-import { MotionContainer } from "./motion-component"
+import ShimmerCard from "./shimmer-card"
+import MotionContainer from "./motion-component"
 import { useEffect, useRef, useState } from "react"
+import AddTaskContent from "@/app/personalDashboard/addTaskPage/page"
 
-const taskItems = [
-    {
-        id: "HTT1",
-        title: "Add To Cart",
-        profile: "Restaurant Profile",
-        status: "To Do",
-        priority: "High",
-    },
-    {
-        id: "HTT2",
-        title: "Menu",
-        profile: "Restaurant Profile",
-        status: "To Do",
-        priority: "High",
-    },
-    {
-        id: "HTT3",
-        title: "Payment screen",
-        profile: "Restaurant Profile",
-        status: "To Do",
-        priority: "High",
-    },
-]
+interface Task {
+    id: string;
+    title: string;
+    description: string;
+    // Add other fields if needed
+}
 
-interface DemoProps { }
-
-export function TaskSummaryContent({ }: DemoProps) {
+export default function TaskSummaryContent() {
     const [isTaskFlowExpanded, setIsTaskFlowExpanded] = useState(true)
     const [isSubtaskExpanded, setIsSubtaskExpanded] = useState(true)
-
+    const [tasks, setTasks] = useState<Task[]>([])
+    const [addModalOpen, setAddModalOpen] = useState(false)
     const inputRef = useRef<HTMLInputElement | null>(null)
 
+    const fetchTasks = async () => {
+        try {
+            const response = await fetch("http://localhost:3000/tasks");
+            if (!response.ok) throw new Error("Failed to fetch tasks");
+            const data = await response.json();
+            setTasks(data);
+        } catch (err) {
+            // Optionally handle error
+        }
+    }
+
     useEffect(() => {
+        fetchTasks();
         inputRef.current?.focus()
     }, [])
 
@@ -152,7 +147,7 @@ export function TaskSummaryContent({ }: DemoProps) {
                     )}
 
                     <div className="mt-6">
-                        <Button className="bg-slate-800 hover:bg-slate-700 text-white">
+                        <Button className="bg-slate-800 hover:bg-slate-700 text-white" onClick={() => setAddModalOpen(true)}>
                             <Plus className="w-4 h-4 mr-2" />
                             Add Task
                         </Button>
@@ -182,7 +177,7 @@ export function TaskSummaryContent({ }: DemoProps) {
 
                     {isSubtaskExpanded && (
                         <div className="space-y-4">
-                            {taskItems.map((task) => (
+                            {tasks.map((task) => (
                                 <div
                                     key={task.id}
                                     className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
@@ -190,33 +185,26 @@ export function TaskSummaryContent({ }: DemoProps) {
                                     <Avatar className="w-8 h-8">
                                         <AvatarFallback>JS</AvatarFallback>
                                     </Avatar>
-
                                     <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
                                         <span className="text-white text-xs">✓</span>
                                     </div>
-
                                     <div className="flex-1 flex items-center space-x-4">
                                         <span className="font-medium">{task.id}</span>
                                         <span className="text-gray-700">{task.title}</span>
                                     </div>
-
-                                    <Badge className="bg-slate-800 text-white mr-40">{task.profile}</Badge>
-
+                                    <Badge className="bg-slate-800 text-white mr-40">Profile</Badge>
                                     <Badge variant="outline" className="border-gray-300">
-                                        {task.status}
+                                        To Do
                                         <ChevronDown className="w-3 h-3 ml-1" />
                                     </Badge>
-
                                     <Button variant="ghost" size="icon" className="w-6 h-6">
                                         <span className="text-gray-400">⭐</span>
                                     </Button>
-
-                                    <Badge className="bg-red-100 text-red-800">{task.priority}</Badge>
+                                    <Badge className="bg-red-100 text-red-800">High</Badge>
                                 </div>
                             ))}
-
                             <div className="pt-4">
-                                <Button className="bg-slate-800 hover:bg-slate-700 text-white">
+                                <Button className="bg-slate-800 hover:bg-slate-700 text-white" onClick={() => setAddModalOpen(true)}>
                                     <Plus className="w-4 h-4 mr-2" />
                                     Add Task
                                 </Button>
@@ -225,6 +213,7 @@ export function TaskSummaryContent({ }: DemoProps) {
                     )}
                 </div>
             </ShimmerCard>
+            <AddTaskContent open={addModalOpen} onClose={() => setAddModalOpen(false)} onTaskAdded={fetchTasks} />
         </div>
     )
 }
