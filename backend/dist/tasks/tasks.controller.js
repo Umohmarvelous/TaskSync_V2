@@ -16,24 +16,63 @@ exports.TasksController = void 0;
 const common_1 = require("@nestjs/common");
 const tasks_service_1 = require("./tasks.service");
 let TasksController = class TasksController {
-    tasksService;
     constructor(tasksService) {
         this.tasksService = tasksService;
     }
-    create(task) {
-        return this.tasksService.create(task);
+    async create(task) {
+        try {
+            return await this.tasksService.create(task);
+        }
+        catch (error) {
+            if (error instanceof common_1.HttpException) {
+                throw error;
+            }
+            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    findAll() {
-        return this.tasksService.findAll();
+    async findAll() {
+        try {
+            return await this.tasksService.findAll();
+        }
+        catch (error) {
+            if (error instanceof common_1.HttpException) {
+                throw error;
+            }
+            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    findOne(id) {
-        return this.tasksService.findOne(+id);
+    async findOne(id) {
+        try {
+            return await this.tasksService.findOne(+id);
+        }
+        catch (error) {
+            if (error instanceof common_1.HttpException) {
+                throw error;
+            }
+            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    update(id, updateData) {
-        return this.tasksService.update(+id, updateData);
+    async update(id, updateData) {
+        try {
+            return await this.tasksService.update(+id, updateData);
+        }
+        catch (error) {
+            if (error instanceof common_1.HttpException) {
+                throw error;
+            }
+            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    remove(id) {
-        return this.tasksService.remove(+id);
+    async remove(id) {
+        try {
+            return await this.tasksService.remove(+id);
+        }
+        catch (error) {
+            if (error instanceof common_1.HttpException) {
+                throw error;
+            }
+            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 };
 exports.TasksController = TasksController;
@@ -42,20 +81,20 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TasksController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TasksController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TasksController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
@@ -63,14 +102,14 @@ __decorate([
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TasksController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], TasksController.prototype, "remove", null);
 exports.TasksController = TasksController = __decorate([
     (0, common_1.Controller)('tasks'),

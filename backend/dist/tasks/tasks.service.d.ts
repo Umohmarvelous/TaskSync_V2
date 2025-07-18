@@ -5,7 +5,7 @@ export declare class TasksService {
     constructor(tasksRepository: Repository<Task>);
     create(task: Partial<Task>): Promise<Task>;
     findAll(): Promise<Task[]>;
-    findOne(id: number): Promise<Task | null>;
-    update(id: number, updateData: Partial<Task>): Promise<import("typeorm").UpdateResult>;
-    remove(id: number): Promise<import("typeorm").DeleteResult>;
+    findOne(id: number): Promise<Task>;
+    update(id: number, updateData: Partial<Task>): Promise<Task>;
+    remove(id: number): Promise<void>;
 }

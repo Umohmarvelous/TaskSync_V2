@@ -1,12 +1,18 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Dialog, DialogContent } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react";
+import { Dialog, DialogContent } from "@mui/material";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface AddTaskContentProps {
     open: boolean;
@@ -14,18 +20,52 @@ interface AddTaskContentProps {
     onTaskAdded: () => void | Promise<void>;
 }
 
+interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
+}
+
 export function AddTaskContent({ open, onClose, onTaskAdded }: AddTaskContentProps) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [userName, setUserName] = useState("Jane S,masith");
+    const [userRole, setUserRole] = useState("Freelaasncer");
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userId = localStorage.getItem("userId");
+                if (!userId) {
+                    setLoading(false);
+                    return;
+                }
+                const response = await fetch(`http://localhost:3001/api/users/${userId}`);
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user data");
+                }
+                const userData: User = await response.json();
+                const fullName = `${userData.firstName} ${userData.lastName}`.trim();
+                if (fullName) setUserName(fullName);
+
+            } catch (error) {
+                setUserName("Jane Smith");
+                setUserRole("Freelancer");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchUserData();
+    }, []);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
         setError("");
         try {
-            const response = await fetch("http://localhost:3000/tasks", {
+            const response = await fetch("http://localhost:3001/api/tasks", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ title, description }),
@@ -47,12 +87,18 @@ export function AddTaskContent({ open, onClose, onTaskAdded }: AddTaskContentPro
             <DialogContent>
                 <div className="flex items-center space-x-4 mb-8">
                     <Avatar className="w-16 h-16">
-                        <AvatarImage src="/placeholder-user.jpg" alt="Jane Smith" />
-                        <AvatarFallback>JS</AvatarFallback>
+                        <AvatarImage src="/placeholder-user.jpg" alt={userName} />
+                        <AvatarFallback>
+                            {userName
+                                .split(" ")
+                                .map((n) => n[0])
+                                .join("")
+                                .toUpperCase()}
+                        </AvatarFallback>
                     </Avatar>
                     <div>
-                        <h2 className="text-xl font-semibold">Jane Smith</h2>
-                        <p className="text-gray-600">Freelancer</p>
+                        <h2 className="text-xl font-semibold">{userName}</h2>
+                        <p className="text-gray-600">{userRole}</p>
                     </div>
                 </div>
                 <form className="space-y-15" onSubmit={handleSubmit}>
@@ -60,7 +106,13 @@ export function AddTaskContent({ open, onClose, onTaskAdded }: AddTaskContentPro
                         <div className="flex justify-between items-center">
                             <div className="flex flex-col space-y-2">
                                 <label className="text-lg font-semibold">Title</label>
-                                <Input value={title} onChange={e => setTitle(e.target.value)} required placeholder="Landing page" className="h-12 border-2 border-[#f9a488] text-black" />
+                                <Input
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    required
+                                    placeholder="Landing page"
+                                    className="h-12 border-2 border-[#f9a488] text-black"
+                                />
                             </div>
                             <div className="flex flex-col space-y-2">
                                 <label className="text-lg font-semibold">Priority</label>
@@ -109,7 +161,7 @@ export function AddTaskContent({ open, onClose, onTaskAdded }: AddTaskContentPro
                         <label className="text-lg font-semibold">Description</label>
                         <Textarea
                             value={description}
-                            onChange={e => setDescription(e.target.value)}
+                            onChange={(e) => setDescription(e.target.value)}
                             required
                             placeholder="Lorem ipsum dolor sit amet consectetur..."
                             className="min-h-32 resize-none border-2 border-[#f9a488]"
@@ -117,7 +169,11 @@ export function AddTaskContent({ open, onClose, onTaskAdded }: AddTaskContentPro
                     </div>
                     {error && <div className="text-red-500">{error}</div>}
                     <div className="flex justify-end">
-                        <Button type="submit" className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 text-lg" disabled={loading}>
+                        <Button
+                            type="submit"
+                            className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 text-lg"
+                            disabled={loading}
+                        >
                             {loading ? "Saving..." : "Save"}
                         </Button>
                     </div>
@@ -125,4 +181,4 @@ export function AddTaskContent({ open, onClose, onTaskAdded }: AddTaskContentPro
             </DialogContent>
         </Dialog>
     );
-} 
+}

@@ -5,7 +5,7 @@ export declare class TasksController {
     constructor(tasksService: TasksService);
     create(task: Partial<Task>): Promise<Task>;
     findAll(): Promise<Task[]>;
-    findOne(id: string): Promise<Task | null>;
-    update(id: string, updateData: Partial<Task>): Promise<import("typeorm").UpdateResult>;
-    remove(id: string): Promise<import("typeorm").DeleteResult>;
+    findOne(id: string): Promise<Task>;
+    update(id: string, updateData: Partial<Task>): Promise<Task>;
+    remove(id: string): Promise<void>;
 }

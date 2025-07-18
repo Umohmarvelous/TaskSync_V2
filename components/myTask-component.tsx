@@ -6,15 +6,63 @@ import { Badge } from "@/components/ui/badge"
 import ShimmerCard from "./shimmer-card"
 import MotionContainer from "./motion-component"
 import { Textarea } from "./ui/textarea"
+import { useEffect, useState } from "react"
 
+interface User {
+    id: number;
+    firstname: string;
+    lastname: string;
+}
 
 export default function MyTasksContent() {
+    const [userName, setUserName] = useState("--")
+    const [loading, setLoading] = useState(true)
+    const [currentDate, setCurrentDate] = useState("");
+
+    useEffect(() => {
+        // Set current date on mount
+        const today = new Date();
+        const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+        setCurrentDate(today.toLocaleDateString(undefined, options));
+
+        const fetchUserData = async () => {
+            try {
+                const userId = localStorage.getItem('userId')
+                if (!userId) {
+                    setLoading(false)
+                    return
+                }
+
+                // Fetch user from mySql database
+                const response = await fetch(`http://localhost:3001/api/users/${userId}`)
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user data')
+                }
+                const userData: User = await response.json()
+                const fullName = `${userData.firstname} ${userData.lastname}`.trim()
+
+                if (fullName) { setUserName(fullName) }
+
+            } catch (error) {
+                console.error('Error fetching user data:', error)
+                setUserName("No userss")
+
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchUserData()
+
+    }, [])
+
     return (
         <div className="p-6 space-y-8 min-h-screen bg-gray-50 w-90 sm:w-full">
             {/* Header */}
             <MotionContainer className="text-center space-y-2">
-                <p className="text-gray-600">Monday October 21st</p>
-                <h1 className="text-2xl font-bold">Good morning, Lola</h1>
+                <p className="text-gray-600">{currentDate}</p>
+                <h1 className="text-2xl font-bold">{`Good Morining ${userName}`}</h1>
             </MotionContainer>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 min-h-auto">

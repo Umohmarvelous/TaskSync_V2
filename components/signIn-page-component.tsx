@@ -25,35 +25,35 @@ export default function PersonalSignin() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-auto h-full bg-gray-50">
       <Header />
-      <div className="flex items-center justify-center min-h-[calc(100vh-88px)] p-8 pt-2">
-        <div className="w-full max-w-md space-y-6">
-          <div className="text-center">
+      <div className="flex items-center justify-center min-h-auto pt-5 md:pt-3 mb-7">
+        <div className="w-full max-w-md space-y-6 flex items-center justify-center flex-col">
+          <div className="text-center w-full">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">Sign into Tasksync</h1>
             <p className="text-gray-600 m-4 mb-6 mt-1">
               Don't have an account?{" "}
-              <a href="/onBoardingScreens/individualsignupScreen/signup01" className="text-gray-900 hover:underline font-medium">
+              <a href="/onBoardingScreens/individualsignupScreen/signup01" className="text-red-700 hover:underline font-medium">
                 Create a free account
               </a>
             </p>
           </div>
 
-          <form className="space-y-6 w-80 flex flex-col items-center justify-self-center" onSubmit={handleSubmit}>
+          <form className="space-y-6 w-65 sm:w-75 md:w-80 flex flex-col items-center justify-self-center" onSubmit={handleSubmit}>
             <div className="w-full">
-              <Label htmlFor="email" className="mb-3">Email Address</Label>
+              <Label htmlFor="email" className="mb-2 font-normal">Email Address</Label>
               <Input id="email" type="email" placeholder="Enter email" required className="mt-1" value={email} onChange={e => setEmail(e.target.value)} />
             </div>
 
             <div className="w-full">
-              <Label htmlFor="password" className="mb-3">Password</Label>
+              <Label htmlFor="password" className="mb-2 font-normal">Password</Label>
               <Input id="password" type="password" placeholder="Enter your password" required className="mt-1" value={password} onChange={e => setPassword(e.target.value)} />
             </div>
 
             <div className="flex items-center justify-between w-full mt-0">
               <div className="flex items-center space-x-2">
-                <Checkbox id="remember" />
-                <Label htmlFor="remember" className="text-sm">
+                <Checkbox id="remember" className="border-1 border-black" />
+                <Label htmlFor="remember" className="text-sm font-normal">
                   Remember me
                 </Label>
               </div>
@@ -62,7 +62,7 @@ export default function PersonalSignin() {
               </Link>
             </div>
 
-            <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2">Sign in</button>
+            <button type="submit" className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2 mt-10">Sign in</button>
 
             <div className="relative flex items-center justify-center w-full mt-5 text-sm">
               <hr className="w-full border-gray-500" />

@@ -18,25 +18,133 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const task_entity_1 = require("./task.entity");
 let TasksService = class TasksService {
-    tasksRepository;
     constructor(tasksRepository) {
         this.tasksRepository = tasksRepository;
     }
-    create(task) {
-        const newTask = this.tasksRepository.create(task);
-        return this.tasksRepository.save(newTask);
+    async create(task) {
+        if (!task.title || !task.description || !task.priority || !task.statusCategory || !task.assignedTo) {
+            throw new common_1.BadRequestException('All fields (title, description, priority, statusCategory, assignedTo) are required');
+        }
+        if (task.title.length > 255) {
+            throw new common_1.BadRequestException('Title cannot exceed 255 characters');
+        }
+        if (task.description.length > 1000) {
+            throw new common_1.BadRequestException('Description cannot exceed 1000 characters');
+        }
+        const validPriorities = ['high', 'medium', 'low'];
+        if (!validPriorities.includes(task.priority)) {
+            throw new common_1.BadRequestException('Priority must be one of: high, medium, low');
+        }
+        const validStatusCategories = ['todo', 'inprogress', 'done'];
+        if (!validStatusCategories.includes(task.statusCategory)) {
+            throw new common_1.BadRequestException('Status category must be one of: todo, inprogress, done');
+        }
+        if (task.assignedTo.length > 100) {
+            throw new common_1.BadRequestException('Assigned to field cannot exceed 100 characters');
+        }
+        try {
+            const newTask = this.tasksRepository.create(task);
+            return await this.tasksRepository.save(newTask);
+        }
+        catch (error) {
+            if (error.code === 'ER_DUP_ENTRY') {
+                throw new common_1.BadRequestException('Task with this information already exists');
+            }
+            throw new common_1.BadRequestException('Failed to create task. Please try again.');
+        }
     }
-    findAll() {
-        return this.tasksRepository.find();
+    async findAll() {
+        try {
+            return await this.tasksRepository.find();
+        }
+        catch (error) {
+            throw new common_1.BadRequestException('Failed to retrieve tasks. Please try again.');
+        }
     }
-    findOne(id) {
-        return this.tasksRepository.findOneBy({ id });
+    async findOne(id) {
+        if (!id || isNaN(id) || id <= 0) {
+            throw new common_1.BadRequestException('Invalid task ID provided');
+        }
+        try {
+            const task = await this.tasksRepository.findOneBy({ id });
+            if (!task) {
+                throw new common_1.NotFoundException(`Task with ID ${id} not found`);
+            }
+            return task;
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            throw new common_1.BadRequestException('Failed to retrieve task. Please try again.');
+        }
     }
-    update(id, updateData) {
-        return this.tasksRepository.update(id, updateData);
+    async update(id, updateData) {
+        if (!id || isNaN(id) || id <= 0) {
+            throw new common_1.BadRequestException('Invalid task ID provided');
+        }
+        if (Object.keys(updateData).length === 0) {
+            throw new common_1.BadRequestException('No update data provided');
+        }
+        if (updateData.title && updateData.title.length > 255) {
+            throw new common_1.BadRequestException('Title cannot exceed 255 characters');
+        }
+        if (updateData.description && updateData.description.length > 1000) {
+            throw new common_1.BadRequestException('Description cannot exceed 1000 characters');
+        }
+        if (updateData.priority) {
+            const validPriorities = ['high', 'medium', 'low'];
+            if (!validPriorities.includes(updateData.priority)) {
+                throw new common_1.BadRequestException('Priority must be one of: high, medium, low');
+            }
+        }
+        if (updateData.statusCategory) {
+            const validStatusCategories = ['todo', 'inprogress', 'done'];
+            if (!validStatusCategories.includes(updateData.statusCategory)) {
+                throw new common_1.BadRequestException('Status category must be one of: todo, inprogress, done');
+            }
+        }
+        if (updateData.assignedTo && updateData.assignedTo.length > 100) {
+            throw new common_1.BadRequestException('Assigned to field cannot exceed 100 characters');
+        }
+        try {
+            const task = await this.tasksRepository.findOneBy({ id });
+            if (!task) {
+                throw new common_1.NotFoundException(`Task with ID ${id} not found`);
+            }
+            await this.tasksRepository.update(id, updateData);
+            return await this.findOne(id);
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            if (error.code === 'ER_DUP_ENTRY') {
+                throw new common_1.BadRequestException('Task with this information already exists');
+            }
+            throw new common_1.BadRequestException('Failed to update task. Please try again.');
+        }
     }
-    remove(id) {
-        return this.tasksRepository.delete(id);
+    async remove(id) {
+        if (!id || isNaN(id) || id <= 0) {
+            throw new common_1.BadRequestException('Invalid task ID provided');
+        }
+        try {
+            const task = await this.tasksRepository.findOneBy({ id });
+            if (!task) {
+                throw new common_1.NotFoundException(`Task with ID ${id} not found`);
+            }
+            await this.tasksRepository.delete(id);
+        }
+        catch (error) {
+            if (error instanceof common_1.NotFoundException) {
+                throw error;
+            }
+            if (error.code === 'ER_ROW_IS_REFERENCED_2') {
+                throw new common_1.BadRequestException('Cannot delete task. Task has associated data.');
+            }
+            throw new common_1.BadRequestException('Failed to delete task. Please try again.');
+        }
     }
 };
 exports.TasksService = TasksService;

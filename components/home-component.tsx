@@ -3,11 +3,58 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ArrowUpRight } from "lucide-react"
+import { useEffect, useState } from "react"
+
+interface User {
+  id: number;
+  // firstName: string;
+  lastName: string;
+
+}
 
 export default function HomeContent() {
+  const [userName, setUserName] = useState("Jane Smith")
+  const [loading, setLoading] = useState(true)
+
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = localStorage.getItem('userId')
+        if (!userId) {
+          setLoading(false)
+          return
+        }
+
+        const response = await fetch(`http://localhost:3001/api/users/${userId}`)
+        if (!response) {
+          throw new Error('Failed to fetch user data')
+        }
+
+        const userData: User = await response.json()
+        const lastName = `${userData.lastName}`
+
+        if (lastName) {
+          setUserName(lastName)
+        }
+
+      } catch (error) {
+        console.error('Error fetching user data:', error)
+        // Fallback to default values
+        setUserName("Jane")
+        // setUserRole("Freelancer")
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchUserData()
+  }, [])
+
+
   return (
     <div className="p-6 mb-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Welcome, Jane!</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">Welcome,  {userName}</h1>
 
       {/* Action Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

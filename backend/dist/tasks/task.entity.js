@@ -12,9 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Task = void 0;
 const typeorm_1 = require("typeorm");
 let Task = class Task {
-    id;
-    title;
-    description;
 };
 exports.Task = Task;
 __decorate([
@@ -29,6 +26,18 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Task.prototype, "description", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Task.prototype, "priority", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Task.prototype, "statusCategory", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Task.prototype, "assignedTo", void 0);
 exports.Task = Task = __decorate([
     (0, typeorm_1.Entity)()
 ], Task);

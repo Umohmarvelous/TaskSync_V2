@@ -32,19 +32,19 @@ export default function SignupSecondScreen() {
         setMail('')
         setPassword('')
         setConfirmPassword('')
-        router.push('/onBoardingScreens/teamsignupScreen/signupSuccessPage')
+        router.push('/onBoardingScreens/individualsignupScreen/signupSuccessPage')
     }
 
 
     return (
         <div className="min-h-screen flex">
             {/* Left side - User photo */}
-            <div className=" m-3 w-140 h-auto relative">
+            <div className="m-3 w-180 md:w-140 hidden md:flex h-auto relative">
                 <Image src="/user-photo.PNG" alt="User with phone" fill className="relative object-cover rounded-2xl" />
             </div>
 
             {/* Right side - Registration form */}
-            <div className="flex-1 bg-white flex items-center justify-center p-8 pt-2 pb-0">
+            <div className="flex items-center justify-center px-6 pt-2 pb-15">
                 <div className="w-full max-w-md space-y-6">
                     {ShowBackButton && (
                         <Button onClick={() => router.back()}
@@ -61,7 +61,7 @@ export default function SignupSecondScreen() {
                         </p>
                     </div>
 
-                    <form className="space-y-4 w-100 max-w-md flex flex-col items-center justify-self-center"
+                    <form className="space-y-4 w-80 md:w-85 lg:w-100 max-w-md flex flex-col items-center justify-self-center"
                         onSubmit={formSubmit}
                     >
                         <div className="w-full">

@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useState } from "react"
 import {
     Home,
     CheckSquare,
@@ -13,17 +14,27 @@ import {
     Activity,
     PlusSquare,
     Workflow,
+    ChevronDown,
+    ChevronRight,
+    Plus,
+    PenLineIcon,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
-
 
 const navigation = [
     { name: "Home", href: "/personalDashboard/homePage", icon: Home },
-    { name: "My Tasks", href: "/personalDashboard/myTaskPage", icon: CheckSquare },
-    { name: "Add Project", href: "/personalDashboard/addprojectPage", icon: Workflow },
-    { name: "Add Tasks", href: "/personalDashboard/addTaskPage", icon: PlusSquare },
+    {
+        name: "My Tasks",
+        href: null, // No href since it's just a dropdown header
+        icon: PenLineIcon,
+        hasDropdown: true,
+        subItems: [
+            { name: "View all Task", href: "/personalDashboard/myTaskPage", icon: CheckSquare },
+            // { name: "Add Tasks", href: "/personalDashboard/addTaskPage", icon: PlusSquare },
+            { name: "Create New Project", href: "/personalDashboard/addprojectPage", icon: Workflow },
+        ]
+    },
     { name: "Task Summary", href: "/personalDashboard/taskSummaryPage", icon: FileText },
     { name: "Active Task", href: "/personalDashboard/activeTaskPage", icon: Activity },
     { name: "Documentation", href: "/personalDashboard/documentationPage", icon: FileText },
@@ -32,14 +43,20 @@ const navigation = [
     { name: "Import", href: "/personalDashboard/importPage", icon: Download },
     { name: "Trash", href: "/personalDashboard/trashPage", icon: Trash2 },
 ]
-// const dropdownNavigation = [
-//     { name: "My Tasks", high: "high", medium: "medium", low: "low", href: "/personalDashboard/myTaskPage", icon: CheckSquare },
-
-// ]
-
 
 export default function PersonalSidebar() {
     const pathname = usePathname()
+    const [expandedItems, setExpandedItems] = useState<string[]>([])
+
+    const toggleDropdown = (itemName: string) => {
+        setExpandedItems(prev =>
+            prev.includes(itemName)
+                ? prev.filter(name => name !== itemName)
+                : [...prev, itemName]
+        )
+    }
+
+    const isDropdownExpanded = (itemName: string) => expandedItems.includes(itemName)
 
     return (
         <div className="fixed left-0 top-0 z-40 flex flex-col w-3xs sm:h-[3000px] sm:space-y-7 lg:w-64 min-h-full justify-between md:space-y-0 md:justify-around md:h-auto bg-slate-800 text-white">
@@ -48,53 +65,97 @@ export default function PersonalSidebar() {
             </div>
 
             <nav className="flex px-6 pl-3 py-2 pb-0 flex-col space-y-1">
-                {/* {dropdownNavigation.map((dropitem) => {
-                    const Icon = dropitem.icon
-                    const isActive = pathname === dropitem.href
-                    return (
-                        <div>
-                            <Select defaultValue="high">
-
-                                <SelectTrigger>
-                                    <Link
-                                        key={dropitem.name}
-                                        href={dropitem.href} className={cn(
-                                            "h-12 border-none flex items-center px-3 py-2 text-[12px] font-normal rounded-md transition-colors",
-                                            isActive ? "bg-slate-700 text-red-400" : "text-slate-300 hover:bg-slate-700 hover:text-white",
-                                            // item.name === "Home" && "text-red-400 hover:text-red-300",
-                                        )}
-                                    >
-                                        <Icon className="w-4 h-4 mr-3" />
-                                        <SelectValue />
-                                    </Link>
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="high">{dropitem.high}</SelectItem>
-                                    <SelectItem value="medium">{dropitem.medium}</SelectItem>
-                                    <SelectItem value="low">{dropitem.low}</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    )
-                })} */}
                 {navigation.map((item) => {
                     const Icon = item.icon
                     const isActive = pathname === item.href
+                    const hasDropdown = item.hasDropdown
+                    const isExpanded = hasDropdown ? isDropdownExpanded(item.name) : false
+
                     return (
+                        <div key={item.name}>
+                            <div className="flex items-center">
+                                {item.href ? (
                         <Link
-                            key={item.name}
                             href={item.href}
                             className={cn(
-                                "flex items-center px-3 py-2 text-[12px] font-normal rounded-md transition-colors",
+                                            "flex items-center px-3 py-2 text-[12px] font-normal rounded-md transition-colors flex-1",
                                 isActive ? "bg-slate-700 text-red-400" : "text-slate-300 hover:bg-slate-700 hover:text-white",
-                                // item.name === "Home" && "text-red-400 hover:text-red-300",
                             )}>
                             <Icon className="w-4 h-4 mr-3" />
                             {item.name}
                         </Link>
+                                ) : (
+                                    <div className="flex items-center px-3 py-2 text-[12px] font-normal text-slate-300 flex-1 cursor-pointer">
+                                        <Icon className="w-4 h-4 mr-3" />
+                                        {item.name}
+                                    </div>
+                                )}
+                                {hasDropdown && (
+                                    <button
+                                        onClick={() => toggleDropdown(item.name)}
+                                        className="p-1 text-slate-300 hover:text-white"
+                                    >
+                                        {isExpanded ? (
+                                            <ChevronDown className="w-4 h-4" />
+                                        ) : (
+                                            <ChevronRight className="w-4 h-4" />
+                                        )}
+                                    </button>
+                                )}
+                            </div>
+
+                            {hasDropdown && isExpanded && item.subItems && (
+                                <div className="ml-6 mt-1 bg-gray-300 p-2 rounded-md flex flex-col justify-between space-y-5 items-start">
+                                    <div className="text-xs font-medium text-black mb-5 p-4 pl-2">
+                                        <h2>
+                                            Recent
+                                        </h2>
+                                    </div>
+                                    <div className="space-y-2">
+                                        {item.subItems.map((subItem) => {
+                                            const SubIcon = subItem.icon
+                                            const isSubActive = pathname === subItem.href
+                                            const isCreateProject = subItem.name === "Create New Project"
+                                            const isViewAllTask = subItem.name === "View all Task"
+
+                                            return (
+                                                <Link
+                                                    key={subItem.name}
+                                                    href={subItem.href}
+                                                    className={cn(
+                                                        "flex items-center px-2 py-2 text-[11px] font-normal rounded-md  transition-colors",
+                                                        isCreateProject
+                                                            ? "w-35 border-none bg-slate-400 hover:bg-slate-500 text-black font-medium shadow-sm"
+                                                            : isViewAllTask
+                                                                ? "w-45 border-none bg-gray-400 hover:bg-gray-500 text-black font-medium shadow-sm"
+                                                                : isSubActive
+                                                                    ? "bg-slate-700 text-red-400"
+                                                                    : "text-slate-300 hover:bg-slate-700 hover:text-black",
+                                                    )}>
+                                                    {isCreateProject ? (
+                                                        <>
+                                                            <Plus className="w-3 h- 3 mr-3" />
+                                                            {subItem.name}
+                                                        </>
+                                                    ) : isViewAllTask ? (
+                                                        <>
+                                                            {subItem.name}
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <SubIcon className="w-3 h-3 mr-3" />
+                                                            {subItem.name}
+                                                        </>
+                                                    )}
+                                                </Link>
+                                            )
+                                        })}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     )
                 })}
-
             </nav>
 
             <div className="p-4 pt-2 border-t border-slate-700">
