@@ -10,8 +10,8 @@ import { useEffect, useState } from "react"
 
 interface User {
     id: number;
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
 }
 
 export default function MyTasksContent() {
@@ -40,7 +40,7 @@ export default function MyTasksContent() {
                     throw new Error('Failed to fetch user data')
                 }
                 const userData: User = await response.json()
-                const fullName = `${userData.firstname} ${userData.lastname}`.trim()
+                const fullName = `${userData.firstName} ${userData.lastName}`.trim()
 
                 if (fullName) { setUserName(fullName) }
 
