@@ -1,4 +1,5 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+![Image Alt](https://github.com/Umohmarvelous/Transfomer-based-ML-model/blob/56799c0b00bc052635b3f577cab7551419388578/tranformer-ML-model.png)
 
 ## Getting Started
 
