@@ -13,7 +13,7 @@ interface User {
 }
 
 export default function HomeContent() {
-  const [userName, setUserName] = useState("Jane Smith")
+  const [userName, setUserName] = useState("No user")
   const [loading, setLoading] = useState(true)
 
 
@@ -57,46 +57,47 @@ export default function HomeContent() {
       <h1 className="text-3xl font-bold text-gray-900 mb-8">Welcome,  {userName}</h1>
 
       {/* Action Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="bg-[#cde1fe] ">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-xl font-semibold text-gray-900">Create Profile</CardTitle>
-            <CardDescription className="text-gray-600">
-              Set up your profile to personalize your workspace
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="w-full flex items-center justify-end">
-            <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Add members</Button>
-          </CardContent>
-        </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-3 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
+          <Card className="bg-[#cde1fe]">
+            <CardHeader className="sm:pb-4 pb-0 ">
+              <CardTitle className="text-xl font-semibold text-gray-900">Create Profile</CardTitle>
+              <CardDescription className="text-gray-600">
+                Set up your profile to personalize your workspace
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="w-full flex items-center justify-center sm:justify-end">
+              <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Add members</Button>
+            </CardContent>
+          </Card>
 
-        <Card className="border-2 border-gray-900">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-xl font-semibold text-gray-900">Add your Team mates</CardTitle>
-            <CardDescription className="text-gray-600">
-              Invite your team to start collaborating seamlessly
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="w-full flex items-center justify-end">
-            <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Add members</Button>
-          </CardContent>
-        </Card>
+          <Card className="border-2 border-gray-900">
+            <CardHeader className="sm:pb-4 pb-0 ">
+              <CardTitle className="text-xl font-semibold text-gray-900">Add your Team mates</CardTitle>
+              <CardDescription className="text-gray-600">
+                Invite your team to start collaborating seamlessly
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="w-full flex items-center justify-center sm:justify-end">
+              <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Add members</Button>
+            </CardContent>
+          </Card>
+        </div>
 
         <Card className="bg-[#dac3da]">
-          <CardHeader className="pb-4">
+          <CardHeader className="sm:pb-4 pb-0 ">
             <CardTitle className="text-xl font-semibold text-gray-900">Set milestones and goals</CardTitle>
             <CardDescription className="text-gray-600">
               Define your goals and milestones to track progress effortlessly
             </CardDescription>
           </CardHeader>
-          <CardContent className="w-full flex items-center justify-end">
+          <CardContent className="w-full flex items-center justify-center sm:justify-end">
             <Button className="bg-[#0d2c49] hover:bg-[#2a4a6b] text-white">Create goals</Button>
           </CardContent>
         </Card>
       </div>
-
       {/* Dashboard Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div className="lg:col-span-1 bg-transparent flex flex-col items-center justify-between pb-4">
           <h2 className="p-0 m-0 text-xl text-left font-semibold text-gray-900">Your all-in-one workspace</h2>
           <p className="text-sm text-gray-600 p-0 m-0 text-left font-semibold">Use TaskSync to keep track of leads, projects and tasks</p>

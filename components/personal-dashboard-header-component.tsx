@@ -20,7 +20,7 @@ export default function PersonalDashboardHeader() {
     const pathname = usePathname()
     const router = useRouter()
     const showBackButton = pathname !== "/"
-    const [userName, setUserName] = useState("Jane Smith")
+    const [userName, setUserName] = useState("No user")
     const [userRole, setUserRole] = useState("Freelancer")
     const [loading, setLoading] = useState(true)
 
@@ -52,7 +52,7 @@ export default function PersonalDashboardHeader() {
             } catch (error) {
                 console.error('Error fetching user data:', error)
                 // Fallback to default values
-                setUserName("Jane Smith")
+                setUserName("No user")
                 setUserRole("Freelancer")
             } finally {
                 setLoading(false)
@@ -64,38 +64,33 @@ export default function PersonalDashboardHeader() {
 
     return (
         <header
-            className="fixed top-0 right-0 z-30 flex items-center justify-between h-16 px-6 bg-white border-b border-gray-200"
-            style={{ width: "calc(100% - 16rem)" }}
-        >
+            className="fixed top-0 right-0 z-30 flex items-center justify-between w-full sm:w-[75%] xl:w-[82.7%] 2xl:w-[170%] h-16 px-6 bg-white border-b border-gray-200">
+            {showBackButton && (
+                <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => router.back()}
+                    className="rounded-full bg-slate-800 text-white hover:bg-slate-700"
+                    name="button" title="Back to Home"
+                >
+                    <ArrowLeft className="w-4 h-4" />
+                </Button>
+            )}
             <div className="flex items-center space-x-4">
-                {showBackButton && (
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => router.back()}
-                        className="rounded-full bg-slate-800 text-white hover:bg-slate-700"
-                        name="button" title="Back to Home"
-                    >
-                        <ArrowLeft className="w-4 h-4" />
-                    </Button>
-                )}
-                <div className="relative flex-1 max-w-md w-2xl">
+                <div className="relative max-w-md w-90">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <Input type="search" placeholder="Search" id="search" className="pl-10 bg-gray-50 border-gray-200 rounded-full" />
                 </div>
+                <Link href="#" >
+                    <Bell className="w-5 h-5" />
+                </Link>
             </div>
 
-            <Link href="#" >
-                <Bell className="w-5 h-5" />
-            </Link>
 
-            <Link
-                href="/personalDashboard/addTaskPage"
-                className="flex flex-row items-center rounded-xl p-2 bg-slate-800 hover:bg-slate-700 text-white">
+            <Button className="bg-slate-800 hover:bg-slate-700 text-white" onClick={() => router.push("/personalDashboard/addTaskPage?modal=true")}>
                 <Plus className="w-4 h-4 mr-2" />
-
                 Add Task
-            </Link>
+            </Button>
 
             <div className="flex items-center space-x-3">
                 <Avatar>

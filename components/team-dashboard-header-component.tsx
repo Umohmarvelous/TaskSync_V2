@@ -28,7 +28,7 @@ export default function TeamDashboardHeader() {
                             <AvatarFallback className="bg-gray-300">JS</AvatarFallback>
                         </Avatar>
                         <div className="text-sm">
-                            <div className="font-semibold text-gray-900">Jane Smith</div>
+                            <div className="font-semibold text-gray-900">No user</div>
                             <div className="text-gray-500">Freelancer</div>
                         </div>
                     </div>

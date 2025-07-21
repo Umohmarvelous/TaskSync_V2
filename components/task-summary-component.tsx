@@ -1,5 +1,5 @@
 "use client"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -8,8 +8,7 @@ import ShimmerCard from "./shimmer-card"
 import MotionContainer from "./motion-component"
 import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import ProjectDetails from "./project-details-component"
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogHeader, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -27,9 +26,9 @@ import {
     Share,
     ThumbsUp,
     Settings,
-    X,
     Calendar,
     BadgeCheckIcon,
+    XIcon,
 } from "lucide-react"
 
 interface Task {
@@ -88,7 +87,7 @@ export default function TaskSummaryContent() {
             } catch (error) {
                 console.error('Error fetching user data:', error)
                 // Fallback to default values
-                setUserName("No User")
+                setUserName("No user")
             } finally {
                 setLoading(false)
             }
@@ -162,9 +161,9 @@ export default function TaskSummaryContent() {
                     {/* Action Bar */}
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
                         <div className="flex items-center space-x-4">
-                            <div className="relative">
+                            <div className="relative flex max-w-md w-auto">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                                <Input ref={inputRef} placeholder="Search" className="pl-10 w-64" />
+                                <Input type="search" placeholder="Search" id="search" className="pl-10 bg-gray-50 border-gray-200 rounded-lg" />
                             </div>
 
                             <div className="flex -space-x-2">
@@ -224,14 +223,22 @@ export default function TaskSummaryContent() {
             )}
 
             <Dialog open={isProjectDetailsOpen} onOpenChange={setIsProjectDetailsOpen}>
-                <DialogContent style={{ maxWidth: '200%', border: '3px solid blue' }} className="h-full max-w-200 w-200 overflow-y-scroll p-0 m-0 border-none rounded-xl">
+                <DialogOverlay className="bg-black opacity-80 h-full" />
+                <DialogContent style={{ maxWidth: '200%' }} className="h-full max-w-200 w-200 overflow-y-scroll pt-8 m-0 border-none rounded-xl">
                     {/* Right Sidebar */}
-                    <div className="w-200 bg-white border-l p-4 pt-3">
-                        <div className="flex items-center justify-between mb-6 pr-5">
-                            <div className="flex items-center gap-2">
-                                <Badge className="bg-blue-500 text-white text-xs px-2 py-1">HTT-1</Badge>
-                                <span className="text-gray-400">/</span>
-                                <Badge className="bg-orange-500 text-white text-xs px-2 py-1">HTT2</Badge>
+                    <div className="w-full bg-white p-2">
+                        <div className=" border-2 border-amber-500 flex items-center justify-between mb-6 pr-5">
+                            <div className="flex">
+                                {tasks.map((task) => (
+                                    <div key={task.id} className="flex flex-row items-center">
+                                        <div className="w-6 h-6  rounded-full flex items-center justify-center bg-amber-600">
+                                            <BadgeCheckIcon className=" text-white " />
+                                        </div>
+                                        <span className="pl-2 font-normal text-sm">{`HTT-${task.id}`}
+                                        </span>
+                                        {/* <h6 className="px-2 font-bold">/</h6> */}
+                                    </div>
+                                ))}
                             </div>
                             <div className="flex items-center gap-1">
                                 <Button variant="ghost" size="icon" className="h-6 w-6">
@@ -250,9 +257,7 @@ export default function TaskSummaryContent() {
                                 <Button variant="ghost" size="icon" className="h-6 w-6">
                                     <MoreHorizontal className="h-3 w-3" />
                                 </Button>
-                                {/* <Button variant="ghost" size="icon" className="h-6 w-6">
-                                    <X className="h-3 w-3" />
-                                </Button> */}
+
                             </div>
                         </div>
 

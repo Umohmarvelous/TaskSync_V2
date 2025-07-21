@@ -31,8 +31,8 @@ export default function AddTaskPage() {
     const searchParams = useSearchParams();
     const [showSuccess, setShowSuccess] = useState(false);
 
-    const [userName, setUserName] = useState("Jane S,masith");
-    const [last, setLast] = useState("davidss")
+    const [userName, setUserName] = useState("- -");
+    const [last, setLast] = useState("- -")
     const [userRole, setUserRole] = useState("Freelacncer");
 
 
@@ -60,9 +60,9 @@ export default function AddTaskPage() {
                 if (lastData) setLast(lastData)
 
             } catch (error) {
-                setUserName("Jane Smith");
+                setUserName("- -");
                 setUserRole("Freelancer");
-                setLast("davison")
+                setLast("- -")
             } finally {
                 setLoading(false);
             }
@@ -211,7 +211,7 @@ export default function AddTaskPage() {
                             type="button"
                             variant="outline"
                             onClick={handleClose}
-                            style={{border:'0px'}}
+                            style={{ border: '0px' }}
                             className="px-8 py-3 text-lg "
                         >
                             <h3 className="text-sm font-normal">

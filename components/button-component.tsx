@@ -10,16 +10,10 @@ const CustomButton = ({ buttonName, style, onClick }: {
 }) => {
     return (
         < Button
+            className='w-30 sm:w-32 h-9 sm:h-11 text-gray-50 rounded-lg border-hidden bg-[#FE5722] text-sm font-normal'
             onClick={onClick}
-            style={{
-                backgroundColor: '#FE5722',
-                color: 'white',
-                width: '128px',
-                height: '45px',
-                borderRadius: '12px',
-                border: 'hidden'
-            }}
-        > {buttonName}
+        >
+            {buttonName}
         </Button >
     )
 }
