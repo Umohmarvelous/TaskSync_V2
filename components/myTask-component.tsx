@@ -138,43 +138,43 @@ export default function MyTasksContent() {
             {/* Tasks Table */}
             <div className="h-full">
                 {/* <ShimmerCard shimmerIntensity="strong" className="flex-1"> */}
-                    <Card className="h-full px-5 sm:px-5">
-                        <CardHeader className="p-0">
-                            <CardTitle>Tasks</CardTitle>
-                        </CardHeader>
-                        <CardContent className="flex-1 p-0">
-                            <div className="overflow-x-auto">
-                                <table className="w-full sm:w-full flex flex-col items-center justify-between">
-                                    <thead className="w-full">
-                                        <tr className="w-full flex flex-row border-b space-x-4">
-                                            <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Task name</th>
-                                            <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Status</th>
-                                            <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Assigned</th>
-                                            <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Due</th>
-                                            <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Priority</th>
-                                            <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Summary</th>
+                <Card className="h-full px-5 sm:px-5">
+                    <CardHeader className="p-0">
+                        <CardTitle>Tasks</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex-1 p-0">
+                        <div className="overflow-x-auto">
+                            <table className="w-full sm:w-full flex flex-col items-center justify-between">
+                                <thead className="w-full">
+                                    <tr className="w-full flex flex-row border-b space-x-4">
+                                        <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Task name</th>
+                                        <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Status</th>
+                                        <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Assigned</th>
+                                        <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Due</th>
+                                        <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Priority</th>
+                                        <th className="w-full text-left py-2 sm:py-3 px-0 sm:px-4 font-medium text-gray-600 text-[14px] sm:text-lg">Summary</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="w-full">
+                                    {tasks.map((task) => (
+                                        <tr key={task.id} className="border-b w-full flex flex-row space-x-4">
+                                            <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg">{task.title}</td>
+                                            <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg">{task.statusCategory}</td>
+                                            <td className="w-full py-2 sm:py-3 px-0 sm:px-4">
+                                                <Badge className="bg-purple-100 text-purple-800 py-1 sm:py-2 px-1 sm:px-2 text-[14px] sm:text-lg">{task.assignedTo}</Badge>
+                                            </td>
+                                            <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg"></td>
+                                            <td className="w-full py-2 sm:py-3 px-0 sm:px-4">
+                                                <Badge className="bg-yellow-100 text-yellow-800 py-1 sm:py-2 px-1 sm:px-2 text-[14px] sm:text-lg">{task.priority}</Badge>
+                                            </td>
+                                            <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg overflow-x-auto">{task.description}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody className="w-full">
-                                        {tasks.map((task) => (
-                                            <tr key={task.id} className="border-b w-full flex flex-row space-x-4">
-                                                <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg">{task.title}</td>
-                                                <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg">{task.statusCategory}</td>
-                                                <td className="w-full py-2 sm:py-3 px-0 sm:px-4">
-                                                    <Badge className="bg-purple-100 text-purple-800 py-1 sm:py-2 px-1 sm:px-2 text-[14px] sm:text-lg">{task.assignedTo}</Badge>
-                                                </td>
-                                                <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg"></td>
-                                                <td className="w-full py-2 sm:py-3 px-0 sm:px-4">
-                                                    <Badge className="bg-yellow-100 text-yellow-800 py-1 sm:py-2 px-1 sm:px-2 text-[14px] sm:text-lg">{task.priority}</Badge>
-                                                </td>
-                                                <td className="w-full py-2 sm:py-3 px-0 sm:px-4 text-[14px] sm:text-lg overflow-x-auto">{task.description}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </CardContent>
-                    </Card>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </CardContent>
+                </Card>
                 {/* </ShimmerCard> */}
             </div>
         </div>

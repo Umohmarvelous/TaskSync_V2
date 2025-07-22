@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 
 // From Shadcnx
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import {
     Carousel,
     CarouselContent,
@@ -18,7 +18,7 @@ import {
 
 
 // Icon
-import { Facebook, Instagram, PlayArrowOutlined, YouTube } from '@mui/icons-material';
+import { Facebook, Instagram, YouTube } from '@mui/icons-material';
 
 
 // 
@@ -37,25 +37,31 @@ const div = styled(Paper)(({ theme }) => ({
 import { CalendarDaysIcon, HomeIcon, PlaySquare } from 'lucide-react';
 import Header from '@/components/header';
 
-
+// interface detailsProps {
+//     title: string;
+// }
 
 export default function Welcome() {
 
-    const ProfileContent = ({ title }: any) => {
+    const ProfileContent = ({ title }: React) => {
         return (
-            <div className='w-full flex align-center justify-start flex-row gap-2 sm:gap-3'>
-                <Image
-                    src="/user-photo.png"
-                    width={100}
-                    height={100}
-                    alt="Picture of the author"
-                    className='w-10 sm:w-15 h-10 sm:h-15 flex self-end rounded-4xl'
-                />
-                <div className='text-white space-y-0 text-bold flex items-start justify-end flex-col'>
-                    <h3 className='text-[13px] sm:text-[15px] font-bold'>Pedro Ibanez</h3>
-                    <h4 className='text-[13px] sm:text-[15px] font-normal'>UI Designer at Perxels</h4>
-                </div>
-            </div>
+            <>
+                {inks.map((thing, index) => {
+                    <div key={index} className={thing.bg}>
+                        <Image
+                            src={thing.user_image_source}
+                            width={100}
+                            height={100}
+                            alt="Picture of the author"
+                            className='w-10 sm:w-15 h-10 sm:h-15 flex self-end rounded-4xl'
+                        />
+                        <div className={thing.text_style}>
+                            <h3 className='text-[13px] sm:text-[15px] font-bold'>{thing.user_name}</h3>
+                            <h4 className='text-[13px] sm:text-[15px] font-normal'>{thing.user_role}</h4>
+                        </div>
+                    </div>
+                })}
+            </>
         )
 
     }
@@ -64,19 +70,35 @@ export default function Welcome() {
 
         {
             name: "Our team has been working on tasksync for almost 2 months because our office still closed. It's been an AWESOME! experience for me. \n Thank you Tasksync and team",
-            icon: HomeIcon,
+            bg: "w-full flex align-center justify-start flex-row gap-2 sm:gap-3",
+            user_image_source: "/user-photo.png",
+            text_style: "text-white space-y-0 text-bold flex items-start justify-end flex-col",
+            user_name: "Pedro Ibanez",
+            user_role: "UI Designer at Perxels"
         },
         {
             name: "I got the best experience when managing my tasks on tasksync. The interaction between other platforms are seamless and fast. I'd definitely recommend it anytime!",
-            icon: CalendarDaysIcon,
+            bg: "w-full flex align-center justify-start flex-row gap-2 sm:gap-3",
+            user_image_source: "/user-photo.png",
+            text_style: "text-white space-y-0 text-bold flex items-start justify-end flex-col",
+            user_name: "Eld Lanvon",
+            user_role: "Sofware Engineer"
         },
         {
             name: "Just Three words : Tasksync is awesome!",
-            icon: CalendarDaysIcon,
+            bg: "w-full flex align-center justify-start flex-row gap-2 sm:gap-3",
+            user_image_source: "/user-photo.png",
+            text_style: "text-white space-y-0 text-bold flex items-start justify-end flex-col",
+            user_name: "Coby Von",
+            user_role: "Graphics Designer"
         },
         {
             name: "Can't stop using tasksync!",
-            icon: CalendarDaysIcon,
+            bg: "w-full flex align-center justify-start flex-row gap-2 sm:gap-3",
+            user_image_source: "/user-photo.png",
+            text_style: "text-white space-y-0 text-bold flex items-start justify-end flex-col",
+            user_name: "Jobri Dan",
+            user_role: "Scientist"
 
         }
     ];
