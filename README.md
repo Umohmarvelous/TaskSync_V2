@@ -3,6 +3,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+![Image Alt](https://github.com/Umohmarvelous/TaskSync_V2/blob/a7f878a005fdd88e84089e17f9379eb6b9f8f5a0/Screenshot%20(678).png)
+
 First, run the development server:
 
 npm run dev
