@@ -34,38 +34,10 @@ const div = styled(Paper)(({ theme }) => ({
     }),
 }));
 
-import { CalendarDaysIcon, HomeIcon, PlaySquare } from 'lucide-react';
+import { PlaySquare } from 'lucide-react';
 import Header from '@/components/header';
 
-// interface detailsProps {
-//     title: string;
-// }
-
 export default function Welcome() {
-
-    const ProfileContent = ({ title }: any) => {
-        return (
-            <>
-                {inks.map((thing, index) => {
-                    <div key={index} className={thing.bg}>
-                        <Image
-                            src={thing.user_image_source}
-                            width={100}
-                            height={100}
-                            alt="Picture of the author"
-                            className='w-10 sm:w-15 h-10 sm:h-15 flex self-end rounded-4xl'
-                        />
-                        <div className={thing.text_style}>
-                            <h3 className='text-[13px] sm:text-[15px] font-bold'>{thing.user_name}</h3>
-                            <h4 className='text-[13px] sm:text-[15px] font-normal'>{thing.user_role}</h4>
-                        </div>
-                    </div>
-                })}
-            </>
-        )
-
-    }
-
     const inks = [
 
         {
@@ -282,7 +254,19 @@ export default function Welcome() {
                                         <CardContent className='overflow-hidden h-auto font-sans font-normal text-[15px] text-white mb-0 pt-0 sm:pt-5 px-0 sm:px-3'>
                                             {item.name}
                                         </CardContent>
-                                        <ProfileContent title={item} />
+                                        <div key={index} className={item.bg}>
+                                            <Image
+                                                src={item.user_image_source}
+                                                width={100}
+                                                height={100}
+                                                alt="Picture of the author"
+                                                className='w-10 sm:w-15 h-10 sm:h-15 flex self-end rounded-4xl'
+                                            />
+                                            <div className={item.text_style}>
+                                                <h3 className='text-[13px] sm:text-[15px] font-bold'>{item.user_name}</h3>
+                                                <h4 className='text-[13px] sm:text-[15px] font-normal'>{item.user_role}</h4>
+                                            </div>
+                                        </div>
                                     </Card>
                                 </CarouselItem>
                             ))}
