@@ -260,7 +260,7 @@ export default function Welcome() {
                                                 width={100}
                                                 height={100}
                                                 alt="Picture of the author"
-                                                className='w-10 sm:w-15 h-10 sm:h-15 flex self-end rounded-4xl'
+                                                className='w-10 sm:w-13 h-10 sm:h-13 flex self-end rounded-4xl'
                                             />
                                             <div className={item.text_style}>
                                                 <h3 className='text-[13px] sm:text-[15px] font-bold'>{item.user_name}</h3>
@@ -272,39 +272,6 @@ export default function Welcome() {
                             ))}
                         </CarouselContent>
                     </Carousel>
-                    {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {[
-                            {
-                                title: "Create Profile",
-                                description: "Set up your profile to personalize your workspace",
-                                bg: "bg-blue-50 border-blue-200",
-                            },
-                            {
-                                title: "Add your Team mates",
-                                description: "Invite your team to start collaborating seamlessly",
-                                bg: "border-2 border-gray-300",
-                            },
-                            {
-                                title: "Set milestones and goals",
-                                description: "Define your goals and milestones to track progress effortlessly",
-                                bg: "bg-purple-50 border-purple-200",
-                            },
-                        ].map((card, index) => (
-                            <div key={index} className="relative overflow-hidden rounded-lg">
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shimmer-slow"></div>
-                                <Card className={card.bg}>
-                                    <CardHeader>
-                                        <CardTitle className="text-lg">{card.title}</CardTitle>
-                                        <p className="text-sm text-gray-600">{card.description}</p>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <Button className="bg-slate-800 hover:bg-slate-700 text-white">Add members</Button>
-                                    </CardContent>
-                                </Card>
-                            </div>
-                        ))}
-                    </div> */}
-
                 </div>
 
 

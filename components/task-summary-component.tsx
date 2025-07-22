@@ -29,6 +29,7 @@ import {
     Calendar,
     BadgeCheckIcon,
     XIcon,
+    Trash2,
 } from "lucide-react"
 
 interface Task {
@@ -105,8 +106,23 @@ export default function TaskSummaryContent() {
 
     }
 
+    const handleDeleteTask = async (taskId: string) => {
+        try {
+            const response = await fetch(`http://localhost:3001/api/tasks/${taskId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) throw new Error('Failed to delete task');
+            // Refetch tasks from backend to ensure UI and DB are in sync
+            fetchTasks();
+        } catch (error) {
+            alert('Error deleting task');
+        }
+    };
+
+
     useEffect(() => {
         fetchTasks();
+        // handleDeleteTask()
         inputRef.current?.focus()
     }, [])
 
@@ -116,6 +132,7 @@ export default function TaskSummaryContent() {
     const handleCloseProjectDetails = () => {
         setIsProjectDetailsOpen(false);
     };
+
 
     // Export tasks as CSV (keep this for download)
     const handleExport = () => {
@@ -471,6 +488,14 @@ export default function TaskSummaryContent() {
                                         </div>
                                         <Badge className="bg-slate-800 text-white">Profile</Badge>
                                     </div>
+                                    <Button
+                                        variant="ghost"
+                                        size="icon"
+                                        onClick={() => handleDeleteTask(task.id)}
+                                        aria-label="Delete task"
+                                    >
+                                        <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-600" />
+                                    </Button>
                                     {/*  */}
                                     < div className=" flex items-center justify-end space-x-2 w-70" >
                                         <Badge variant="outline" className="border-gray-300 ">

@@ -6,6 +6,19 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2 } from "lucide-react"
 import ShimmerCard from "./shimmer-card"
+import { useEffect, useState, useRef, use } from 'react'
+import Link from "next/link"
+import { Modal } from "@mui/material"
+
+const baseUrl = 'http://localhost:3001/api/users'
+
+interface User {
+    id: number;
+    firstName: string;
+    lastName: string;
+    company?: string;
+    purpose?: string;
+}
 
 const taskColumns = [
     {
@@ -33,6 +46,42 @@ const taskColumns = [
 ]
 
 export default function ActiveTaskContent() {
+    const [userName, setUserName] = useState("No user")
+    const [loading, setLoading] = useState(true)
+    // const [tasks, setTasks] = useState<Task[]>([])
+    const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
+    const [feedback, setFeedback] = useState("")
+
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const userId = localStorage.getItem('userId')
+                if (!userId) {
+                    setLoading(false)
+                    return
+                }
+
+                const response = await fetch(`${baseUrl}/${userId}`)
+                const userData: User = await response.json() as User
+                const fullName = `${userData.firstName} ${userData.lastName}`.trim()
+
+                if (fullName) {
+                    setUserName(fullName)
+                }
+            } catch (error) {
+                setUserName("No User")
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchUserData()
+    }, [])
+
+    //     // Removed unused function stubs for setOpenFeedbackModal and setFeedback
+    //     throw new Error("Function not implemented.")
+    // }
+
     return (
         <div className="p-6 space-y-6">
             {/* Header */}
@@ -51,24 +100,88 @@ export default function ActiveTaskContent() {
                                 className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg bg-gray-50 text-sm"
                             />
                         </div>
-                        <div className="flex -space-x-2">
-                            <Avatar className="w-8 h-8 border-2 border-white">
-                                <AvatarFallback>JS</AvatarFallback>
+                        <div className="flex -space-x-3">
+                            <Avatar className="w-8 h-8">
+                                <AvatarFallback className="text-gray-600 text-sm bg-slate-200">{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
                             </Avatar>
-                            <Avatar className="w-8 h-8 border-2 border-white bg-slate-800 text-white">
-                                <AvatarFallback>I</AvatarFallback>
+                            <Avatar className="w-8 h-8 border-2 border-gray-50 bg-slate-800 text-white">
+                                <AvatarFallback className="text-gray-600 text-sm">I</AvatarFallback>
                             </Avatar>
                         </div>
-                        <Button variant="outline" className="rounded-full bg-slate-400" size="sm">
-                            <UserPlus2 className="w-3 h-3 " />
-                        </Button>
+                        <Link href="/personalDashboard/addprojectPage"
+                            className="flex items-center justify-center rounded-full bg-slate-200 w-8 h-8 text-black">
+                            <UserPlus2 className="w-4 h-4" />
+                        </Link>
                     </div>
 
                     <div className="flex items-center space-x-2">
-                        <Button variant="ghost" size="sm">
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setOpenFeedbackModal(true)}
+                        >
                             <MessageSquare className="w-4 h-4 mr-2" />
                             Give feedback
                         </Button>
+                        {/* Feedback Modal */}
+                        <Modal
+                            open={openFeedbackModal}
+                            onClose={() => setOpenFeedbackModal(false)}
+                            aria-labelledby="feedback-modal-title"
+                            aria-describedby="feedback-modal-description"
+                        >
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    transform: 'translate(-50%, -50%)',
+                                    background: 'white',
+                                    padding: 24,
+                                    borderRadius: 8,
+                                    boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
+                                    minWidth: 320,
+                                }}
+                            >
+                                <h2 id="feedback-modal-title" style={{ marginBottom: 16, fontWeight: 600 }}>
+                                    Give Feedback
+                                </h2>
+                                <input
+                                    type="text"
+                                    placeholder="Your feedback"
+                                    value={feedback}
+                                    onChange={e => setFeedback(e.target.value)}
+                                    style={{
+                                        width: '100%',
+                                        padding: 8,
+                                        marginBottom: 16,
+                                        border: '1px solid #ccc',
+                                        borderRadius: 4,
+                                    }}
+                                />
+                                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+                                    <Button
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setOpenFeedbackModal(false)}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        variant="default"
+                                        size="sm"
+                                        onClick={() => {
+                                            // handle feedback submit here
+                                            setOpenFeedbackModal(false)
+                                            setFeedback("")
+                                        }}
+                                    >
+                                        Submit
+                                    </Button>
+                                </div>
+                            </div>
+                        </Modal>
+                        {/* Modal Ends Here... */}
                         <Button variant="ghost" size="sm">
                             <Share className="w-4 h-4 mr-2" />
                             Export
@@ -81,7 +194,7 @@ export default function ActiveTaskContent() {
             </div>
 
             <div className="flex justify-end">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white">Complete Task floweeeee</Button>
+                <Button className="bg-blue-600 hover:bg-blue-700 text-white">Complete Task flow</Button>
             </div>
 
             {/* Kanban Board */}
@@ -102,7 +215,7 @@ export default function ActiveTaskContent() {
                                         <CardContent className="p-4">
                                             <div className="flex items-start space-x-3">
                                                 <Avatar className="w-8 h-8">
-                                                    <AvatarFallback>JS</AvatarFallback>
+                                                    <AvatarFallback className="text-gray-600 text-sm bg-slate-200">{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
                                                 </Avatar>
                                                 <div className="flex-1 space-y-2">
                                                     <div>
