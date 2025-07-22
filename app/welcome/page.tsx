@@ -43,7 +43,7 @@ import Header from '@/components/header';
 
 export default function Welcome() {
 
-    const ProfileContent = ({ title }: React) => {
+    const ProfileContent = ({ title }: any) => {
         return (
             <>
                 {inks.map((thing, index) => {
