@@ -31,6 +31,10 @@ import {
     XIcon,
     Trash2,
 } from "lucide-react"
+import { Box, Modal } from "@mui/material";
+
+
+const baseUrl = 'http://localhost:3001/api/tasks'
 
 interface Task {
     id: string;
@@ -61,6 +65,8 @@ export default function TaskSummaryContent() {
     const [isProjectDetailsOpen, setIsProjectDetailsOpen] = useState(false);
     const [shareMessage, setShareMessage] = useState("");
     const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+    const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -73,7 +79,7 @@ export default function TaskSummaryContent() {
                 }
 
                 // Fetch user data from backend (MySQL)
-                const response = await fetch(`http://localhost:3001/api/users/${userId}`)
+                const response = await fetch(`${baseUrl}/${userId}`)
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data')
                 }
@@ -99,30 +105,15 @@ export default function TaskSummaryContent() {
 
     // Fetching Tasks
     const fetchTasks = async () => {
-        const response = await fetch("http://localhost:3001/api/tasks");
+        const response = await fetch(`${baseUrl}`);
         if (!response.ok) throw new Error("Failed to fetch tasks");
         const data = await response.json();
         setTasks(data);
 
     }
 
-    const handleDeleteTask = async (taskId: string) => {
-        try {
-            const response = await fetch(`http://localhost:3001/api/tasks/${taskId}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) throw new Error('Failed to delete task');
-            // Refetch tasks from backend to ensure UI and DB are in sync
-            fetchTasks();
-        } catch (error) {
-            alert('Error deleting task');
-        }
-    };
-
-
     useEffect(() => {
         fetchTasks();
-        // handleDeleteTask()
         inputRef.current?.focus()
     }, [])
 
@@ -167,6 +158,25 @@ export default function TaskSummaryContent() {
         }
     };
 
+    const handleDeleteTask = async (taskId: string) => {
+        try {
+            const response = await fetch(`${baseUrl}/${taskId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) throw new Error('Failed to delete task');
+            fetchTasks(); // Refetch tasks after delete
+            // Add notification to header (use context or callback)
+            // if (typeof addNotification === "function") {
+            //     addNotification({
+            //         id: Date.now(),
+            //         message: "You deleted a task",
+            //         type: "info"
+            //     });
+            // }
+        } catch (error) {
+            alert('Error deleting task');
+        }
+    };
 
     return (
         <div className="p-6 space-y-6 min-h-screen bg-gray-50">
@@ -469,6 +479,8 @@ export default function TaskSummaryContent() {
                                     <Avatar className="w-8 h-8 ">
                                         <AvatarFallback>{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
                                     </Avatar>
+
+
                                     {/*  */}
                                     <div className=" flex items-center justify-self-start justify-between space-x-2 w-full pr-20">
                                         {/*  */}
@@ -491,7 +503,10 @@ export default function TaskSummaryContent() {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        onClick={() => handleDeleteTask(task.id)}
+                                        onClick={() => {
+                                            setSelectedTaskId(task.id);
+                                            setConfirmDeleteOpen(true);
+                                        }}
                                         aria-label="Delete task"
                                     >
                                         <Trash2 className="w-4 h-4 text-gray-400 hover:text-red-600" />
@@ -521,6 +536,49 @@ export default function TaskSummaryContent() {
                     }
                 </div >
             </ShimmerCard >
+
+            <Modal
+                open={confirmDeleteOpen}
+                onClose={() => setConfirmDeleteOpen(false)}
+                aria-labelledby="confirm-delete-title"
+            >
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        bgcolor: 'background.paper',
+                        boxShadow: 24,
+                        p: 3,
+                        borderRadius: 2,
+                        minWidth: 320,
+                    }}
+                >
+                    <h2 id="confirm-delete-title" style={{ marginBottom: 16, fontWeight: 600 }}>
+                        Confirm Delete
+                    </h2>
+                    <p>Are you sure you want to delete this task?</p>
+                    <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8, marginTop: 24 }}>
+                        <Button variant="outline" size="sm" onClick={() => setConfirmDeleteOpen(false)}>
+                            Cancel
+                        </Button>
+                        <Button
+                            variant="default"
+                            size="sm"
+                            color="error"
+                            onClick={async () => {
+                                if (selectedTaskId) {
+                                    await handleDeleteTask(selectedTaskId);
+                                    setConfirmDeleteOpen(false);
+                                }
+                            }}
+                        >
+                            Delete
+                        </Button>
+                    </div>
+                </Box>
+            </Modal>
         </div >
     )
 }
