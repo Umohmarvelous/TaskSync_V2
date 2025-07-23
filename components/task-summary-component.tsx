@@ -30,8 +30,10 @@ import {
     BadgeCheckIcon,
     XIcon,
     Trash2,
+    Unlock,
 } from "lucide-react"
 import { Box, Modal } from "@mui/material";
+import Link from "next/link"
 
 
 const baseUrl = 'http://localhost:3001/api/tasks'
@@ -187,26 +189,29 @@ export default function TaskSummaryContent() {
 
                     {/* Action Bar */}
                     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0">
-                        <div className="flex items-center space-x-4">
-                            <div className="relative flex max-w-md w-auto">
+                        <div className="flex items-center space-x-2">
+                            <div className="relative">
                                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-                                <Input type="search" placeholder="Search" id="search" className="pl-10 bg-gray-50 border-gray-200 rounded-lg" />
+                                <input
+                                    type="search"
+                                    placeholder="Search"
+                                    className="pl-10 pr-4 py-2 border border-gray-200 rounded-lg bg-gray-50 text-sm"
+                                />
+                            </div>
+                            <div className="flex -space-x-3">
+                                <Avatar className="w-8 h-8">
+                                    <AvatarFallback className="text-gray-600 text-sm bg-slate-200">{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
+                                </Avatar>
+                                <Avatar className="w-8 h-8 border-2 border-gray-50 bg-slate-800 text-white">
+                                    <AvatarFallback className="text-gray-600 text-sm">I</AvatarFallback>
+                                </Avatar>
                             </div>
 
-                            <div className="flex -space-x-2">
-                                <Avatar className="w-8 h-8 border-2 border-white">
-                                    <AvatarFallback>{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
-                                </Avatar>
-                                <Avatar className="w-8 h-8 border-2 border-white bg-slate-800 text-white">
-                                    <AvatarFallback>I</AvatarFallback>
-                                </Avatar>
-                            </div>
-
-                            <Button variant="outline" className="rounded-full bg-slate-400" size="sm">
-                                <UserPlus2 className="w-3 h-3 " />
-                            </Button>
+                            <Link href="/personalDashboard/addprojectPage"
+                                className="flex items-center justify-center rounded-full bg-slate-200 w-8 h-8 text-black">
+                                <UserPlus2 className="w-4 h-4" />
+                            </Link>
                         </div>
-
                         <div className="flex items-center space-x-2">
                             <Button variant="outline" size="sm">
                                 Status Category
@@ -254,7 +259,7 @@ export default function TaskSummaryContent() {
                 <DialogContent style={{ maxWidth: '200%' }} className="h-full max-w-200 w-200 overflow-y-scroll pt-8 m-0 border-none rounded-xl">
                     {/* Right Sidebar */}
                     <div className="w-full bg-white p-2">
-                        <div className=" border-2 border-amber-500 flex items-center justify-between mb-6 pr-5">
+                        <div className="flex items-center justify-between mb-6 pr-5">
                             <div className="flex">
                                 {tasks.map((task) => (
                                     <div key={task.id} className="flex flex-row items-center">
@@ -263,25 +268,24 @@ export default function TaskSummaryContent() {
                                         </div>
                                         <span className="pl-2 font-normal text-sm">{`HTT-${task.id}`}
                                         </span>
-                                        {/* <h6 className="px-2 font-bold">/</h6> */}
                                     </div>
                                 ))}
                             </div>
-                            <div className="flex items-center gap-1">
-                                <Button variant="ghost" size="icon" className="h-6 w-6">
-                                    <Lock className="h-3 w-3" />
+                            <div className="flex items-center space-x-3">
+                                <Button variant="ghost" size="icon" className="h-auto w-auto p-2 ">
+                                    <Unlock className="h-3 w-3" />
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-6 w-6">
-                                    <Eye className="h-3 w-3" />
+                                <Button variant="ghost" size="icon" className="h-auto w-auto p-2 space-x-0 flex flex-row items-center">
+                                    <Eye className="h-3 w-3 flex self-end" />
+                                    <span className="text-[12px] text-gray-500 ">2</span>
                                 </Button>
-                                <span className="text-sm text-gray-500 mx-1">2</span>
-                                <Button variant="ghost" size="icon" className="h-6 w-6">
+                                <Button variant="ghost" size="icon" className="h-auto w-auto p-2">
                                     <ThumbsUp className="h-3 w-3" />
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-6 w-6">
-                                    <Share className="h-3 w-3" />
+                                <Button variant="ghost" size="icon" className="h-auto w-auto p-2">
+                                    <Share2 className="h-3 w-3" />
                                 </Button>
-                                <Button variant="ghost" size="icon" className="h-6 w-6">
+                                <Button variant="ghost" size="icon" className="h-auto w-auto p-2">
                                     <MoreHorizontal className="h-3 w-3" />
                                 </Button>
 
@@ -289,12 +293,14 @@ export default function TaskSummaryContent() {
                         </div>
 
                         <div className="space-y-6">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-[#1e3a5f] rounded-full flex items-center justify-center text-white font-bold text-sm">
-                                    AT
+                            <div className="flex flex-col items-start space-y-2">
+                                <div className="flex flx-row items-center justify-center space-x-2">
+                                    <div className="w-10 h-10 bg-[#1e3a5f] rounded-full flex items-center justify-center text-white font-bold text-sm">
+                                        AT
+                                    </div>
+                                    <h3 className="font-semibold text-gray-900">Add Task</h3>
                                 </div>
                                 <div>
-                                    <h3 className="font-semibold text-gray-900">Add Task</h3>
                                     <div className="flex gap-2 mt-2">
                                         <Button size="sm" className="bg-[#1e3a5f] hover:bg-[#2a4a6b] text-white text-xs px-3 py-1 h-7">
                                             <Plus className="h-3 w-3 mr-1" />
@@ -329,7 +335,7 @@ export default function TaskSummaryContent() {
                             <div>
                                 <h4 className="font-medium mb-2 text-gray-900">Description</h4>
                                 <Textarea
-                                    placeholder="Lorem ipsum dolor sit amet consectetur. Sed elementum id purus nisl at ac nisl in. Faucibus scelerisque in amet ac. Et tristique velit mus egestas purus justo libero sit congue. Hendrerit aliquam morbi magna vel quam volutpat elementum sed neque. Elementum sollicitudin vitae quis elit ultrices dictum. Ut id augue molestue pulvinar."
+                                    placeholder="Write a description here..."
                                     className="min-h-[100px] text-sm"
                                 />
                             </div>

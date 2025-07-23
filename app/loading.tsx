@@ -1,18 +1,17 @@
 
 "use client"
-
 import * as React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 // import Button from '@mui/material/Button';
 
 export default function Loading() {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const handleClose = () => {
-    setOpen(true);
+    setOpen(false);
   };
   const handleOpen = () => {
-    setOpen(false);
+    setOpen(true);
   };
 
   return (
@@ -23,9 +22,8 @@ export default function Loading() {
         open={open}
         onClick={handleClose}
         className='flex items-center justify-center flex-row space-x-3'
-
       >
-        <CircularProgress color="inherit" /><h3>Loading...</h3>
+        <CircularProgress color="inherit" /><h3> Loading...</h3>
       </Backdrop>
     </div>
   );

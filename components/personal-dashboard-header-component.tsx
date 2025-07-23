@@ -137,7 +137,8 @@ export default function PersonalDashboardHeader() {
             <div className="flex items-center space-x-3">
                 <Avatar>
                     <AvatarImage src="/placeholder-user.jpg" alt={userName} />
-                    <AvatarFallback>{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
+                    <AvatarFallback className="text-black text-sm bg-slate-200">{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
+
                 </Avatar>
                 <div className="hidden md:block">
                     <p className="text-sm font-medium">{userName}</p>

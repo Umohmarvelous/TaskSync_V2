@@ -13,12 +13,14 @@ export default function SignupSecondScreen() {
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [loading, setLoading] = useState(true)
     const router = useRouter()
     const pathname = usePathname()
     const ShowBackButton = pathname !== '/'
 
     const formSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault()
+
         // Simple password match validation
         if (password !== confirmPassword) {
             router.push('/errorPage')
@@ -32,6 +34,8 @@ export default function SignupSecondScreen() {
         setMail('')
         setPassword('')
         setConfirmPassword('')
+        setLoading(false)
+
         router.push('/onBoardingScreens/individualsignupScreen/signupSuccessPage')
     }
 
@@ -98,9 +102,10 @@ export default function SignupSecondScreen() {
 
                         <button
                             type="submit"
+                            disabled={loading}
                             className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2 mt-2"
                         >
-                            Create Account
+                            {loading ? "Creating Account" : "Create Account"}
                         </button>
 
                         {/* <Link href="/signupSuccessPage" className="w-full">

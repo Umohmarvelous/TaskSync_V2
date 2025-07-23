@@ -4,11 +4,13 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2 } from "lucide-react"
+import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2, Upload, Router } from "lucide-react"
 import ShimmerCard from "./shimmer-card"
 import { useEffect, useState, useRef, use } from 'react'
 import Link from "next/link"
 import { Modal } from "@mui/material"
+import { Textarea } from "./ui/textarea"
+import { useRouter } from "next/navigation"
 
 const baseUrl = 'http://localhost:3001/api/users'
 
@@ -19,6 +21,7 @@ interface User {
     company?: string;
     purpose?: string;
 }
+
 
 const taskColumns = [
     {
@@ -46,12 +49,59 @@ const taskColumns = [
 ]
 
 export default function ActiveTaskContent() {
+    const router = useRouter()
     const [userName, setUserName] = useState("No user")
+    const [feedbackUserName, setFeedbackUserName] = useState("")
+    const [feedbackUserRole, setFeedbackUserRole] = useState("")
+    const [feedbackUserDetails, setFeedbackUserDetails] = useState("")
     const [loading, setLoading] = useState(true)
-    // const [tasks, setTasks] = useState<Task[]>([])
     const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
     const [feedback, setFeedback] = useState("")
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+    const [error, setError] = useState("")
 
+    // Create an endpoint to store Feedback users to Database
+    const feedbackFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        setLoading(true)
+        setError("")
+
+        // if (feedbackUserName === '' && feedbackUserRole === '' && feedbackUserDetails === '') {
+        // }
+
+        try {
+            const response = await fetch("http://localhost:3001/api/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    feedbackUserName,
+                    feedbackUserRole,
+                    feedbackUserDetails
+                })
+            })
+
+            const userData = await response.json();
+
+            // Store user ID in localStorage for future reference
+            localStorage.setItem('userId', userData.id.toString());
+
+
+        } catch (err: any) {
+            setError(err.message || "Invalid User")
+            console.error('error message:', err)
+        } finally {
+            setLoading(false)
+            // setOpenFeedbackModal(false)
+            setFeedbackUserName("")
+            setFeedbackUserRole("")
+            setFeedbackUserDetails("")
+            // router.push('#')
+        }
+
+
+    }
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -78,9 +128,26 @@ export default function ActiveTaskContent() {
         fetchUserData()
     }, [])
 
-    //     // Removed unused function stubs for setOpenFeedbackModal and setFeedback
-    //     throw new Error("Function not implemented.")
-    // }
+    // Export tasks as CSV (keep this for download)
+    const handleExport = () => {
+        // Instead of exporting, open file picker for import
+        fileInputRef.current?.click();
+    };
+
+    // Handle file input change
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const text = e.target?.result;
+            alert(`File name: ${file.name}\nFirst 100 chars: ${typeof text === 'string' ? text.slice(0, 100) : ''}`);
+            // You can add your custom file processing logic here
+        };
+        reader.readAsText(file);
+        // Reset input so same file can be selected again
+        event.target.value = '';
+    };
 
     return (
         <div className="p-6 space-y-6">
@@ -129,37 +196,43 @@ export default function ActiveTaskContent() {
                             onClose={() => setOpenFeedbackModal(false)}
                             aria-labelledby="feedback-modal-title"
                             aria-describedby="feedback-modal-description"
+                            className="flex self-center justify-self-center"
                         >
-                            <div
+                            <form
+                                className="flex justify-center items-center space-y-6 flex-col bg-white p-[24px] rounded-lg"
+                                onSubmit={feedbackFormSubmit}
                                 style={{
-                                    position: 'absolute',
-                                    top: '50%',
-                                    left: '50%',
-                                    transform: 'translate(-50%, -50%)',
-                                    background: 'white',
-                                    padding: 24,
-                                    borderRadius: 8,
+                                    // transform: 'translate(-50%, -50%)',
                                     boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
                                     minWidth: 320,
-                                }}
-                            >
-                                <h2 id="feedback-modal-title" style={{ marginBottom: 16, fontWeight: 600 }}>
+                                }}>
+                                <h2 id="feedback-modal-title" className='flex self-start' style={{ marginBottom: 16, fontWeight: 600 }}>
                                     Give Feedback
                                 </h2>
                                 <input
                                     type="text"
-                                    placeholder="Your feedback"
-                                    value={feedback}
-                                    onChange={e => setFeedback(e.target.value)}
-                                    style={{
-                                        width: '100%',
-                                        padding: 8,
-                                        marginBottom: 16,
-                                        border: '1px solid #ccc',
-                                        borderRadius: 4,
-                                    }}
+                                    placeholder="State your name here..."
+                                    value={feedbackUserName}
+                                    required
+                                    onChange={e => setFeedbackUserName(e.target.value)}
+                                    className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
                                 />
-                                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 8 }}>
+                                <input
+                                    type="text"
+                                    placeholder="State your role here..."
+                                    value={feedbackUserRole}
+                                    required
+                                    onChange={e => setFeedbackUserRole(e.target.value)}
+                                    className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
+                                />
+                                <Textarea
+                                    placeholder="Write a feedback..."
+                                    value={feedbackUserDetails}
+                                    onChange={e => setFeedbackUserDetails(e.target.value)}
+                                    required
+                                    className="min-h-[100px] text-sm bg-white border-1 border-gray-200  rounded-lg"
+                                />
+                                <div className="w-full flex flex-row items-center justify-end space-x-3" >
                                     <Button
                                         variant="outline"
                                         size="sm"
@@ -168,24 +241,33 @@ export default function ActiveTaskContent() {
                                         Cancel
                                     </Button>
                                     <Button
+                                        type="submit"
                                         variant="default"
                                         size="sm"
+                                        disabled={loading}
                                         onClick={() => {
                                             // handle feedback submit here
-                                            setOpenFeedbackModal(false)
-                                            setFeedback("")
+                                            // setOpenFeedbackModal(false)
                                         }}
                                     >
-                                        Submit
+                                        {loading ? "Submitting Feedback..." : "Submit"}
                                     </Button>
                                 </div>
-                            </div>
+                            </form>
                         </Modal>
                         {/* Modal Ends Here... */}
-                        <Button variant="ghost" size="sm">
-                            <Share className="w-4 h-4 mr-2" />
+                        <Button variant="ghost" size="sm" onClick={handleExport}>
+                            <Upload className="w-4 h-4 mr-2" />
                             Export
                         </Button>
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            style={{ display: 'none' }}
+                            onChange={handleFileChange}
+                            multiple={false}
+                            accept="*/*"
+                        />
                         <Button variant="ghost" size="icon">
                             <MoreHorizontal className="w-4 h-4" />
                         </Button>

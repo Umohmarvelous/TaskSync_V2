@@ -22,6 +22,15 @@ export class User {
     @Column({ length: 100, nullable: true })
     purpose: string;
 
+    @Column({ length: 100 })
+    feedbackUserName: string;
+
+    @Column({ length: 100 })
+    feedbackUserRole: string;
+
+    @Column({ length: 100 })
+    feedbackUserDetails: string;
+
     @CreateDateColumn()
     createdAt: Date;
 

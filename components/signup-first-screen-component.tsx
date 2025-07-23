@@ -32,7 +32,7 @@ export default function SignupFirstScreen() {
                     firstName,
                     lastName,
                     company,
-                    purpose,
+                    purpose
                 }),
             });
 
