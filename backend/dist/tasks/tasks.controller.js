@@ -20,65 +20,25 @@ let TasksController = class TasksController {
         this.tasksService = tasksService;
     }
     async create(task) {
-        try {
-            return await this.tasksService.create(task);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.tasksService.create(task);
     }
     async findAll() {
-        try {
-            return await this.tasksService.findAll();
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.tasksService.findAll();
     }
     async findOne(id) {
-        try {
-            return await this.tasksService.findOne(+id);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.tasksService.findOne(+id);
     }
     async update(id, updateData) {
-        try {
-            return await this.tasksService.update(+id, updateData);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.tasksService.update(+id, updateData);
     }
     async remove(id) {
-        try {
-            return await this.tasksService.remove(+id);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.tasksService.remove(+id);
     }
 };
 exports.TasksController = TasksController;
 __decorate([
     (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
+    __param(0, (0, common_1.Body)(common_1.ValidationPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
@@ -91,24 +51,24 @@ __decorate([
 ], TasksController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], TasksController.prototype, "remove", null);
 exports.TasksController = TasksController = __decorate([

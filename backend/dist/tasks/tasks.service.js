@@ -22,26 +22,6 @@ let TasksService = class TasksService {
         this.tasksRepository = tasksRepository;
     }
     async create(task) {
-        if (!task.title || !task.description || !task.priority || !task.statusCategory || !task.assignedTo) {
-            throw new common_1.BadRequestException('All fields (title, description, priority, statusCategory, assignedTo) are required');
-        }
-        if (task.title.length > 255) {
-            throw new common_1.BadRequestException('Title cannot exceed 255 characters');
-        }
-        if (task.description.length > 1000) {
-            throw new common_1.BadRequestException('Description cannot exceed 1000 characters');
-        }
-        const validPriorities = ['high', 'medium', 'low'];
-        if (!validPriorities.includes(task.priority)) {
-            throw new common_1.BadRequestException('Priority must be one of: high, medium, low');
-        }
-        const validStatusCategories = ['todo', 'inprogress', 'done'];
-        if (!validStatusCategories.includes(task.statusCategory)) {
-            throw new common_1.BadRequestException('Status category must be one of: todo, inprogress, done');
-        }
-        if (task.assignedTo.length > 100) {
-            throw new common_1.BadRequestException('Assigned to field cannot exceed 100 characters');
-        }
         try {
             const newTask = this.tasksRepository.create(task);
             return await this.tasksRepository.save(newTask);
@@ -85,27 +65,6 @@ let TasksService = class TasksService {
         }
         if (Object.keys(updateData).length === 0) {
             throw new common_1.BadRequestException('No update data provided');
-        }
-        if (updateData.title && updateData.title.length > 255) {
-            throw new common_1.BadRequestException('Title cannot exceed 255 characters');
-        }
-        if (updateData.description && updateData.description.length > 1000) {
-            throw new common_1.BadRequestException('Description cannot exceed 1000 characters');
-        }
-        if (updateData.priority) {
-            const validPriorities = ['high', 'medium', 'low'];
-            if (!validPriorities.includes(updateData.priority)) {
-                throw new common_1.BadRequestException('Priority must be one of: high, medium, low');
-            }
-        }
-        if (updateData.statusCategory) {
-            const validStatusCategories = ['todo', 'inprogress', 'done'];
-            if (!validStatusCategories.includes(updateData.statusCategory)) {
-                throw new common_1.BadRequestException('Status category must be one of: todo, inprogress, done');
-            }
-        }
-        if (updateData.assignedTo && updateData.assignedTo.length > 100) {
-            throw new common_1.BadRequestException('Assigned to field cannot exceed 100 characters');
         }
         try {
             const task = await this.tasksRepository.findOneBy({ id });

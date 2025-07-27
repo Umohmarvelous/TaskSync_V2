@@ -15,85 +15,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
-const class_validator_1 = require("class-validator");
-class CreateUserDto {
-}
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "firstName", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "lastName", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "company", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateUserDto.prototype, "purpose", void 0);
+const user_entity_1 = require("./user.entity");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
     }
     async create(createUserDto) {
-        try {
-            return await this.usersService.create(createUserDto);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.usersService.create(createUserDto);
     }
     async findAll() {
-        try {
-            return await this.usersService.findAll();
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.usersService.findAll();
     }
     async findOne(id) {
-        try {
-            return await this.usersService.findById(+id);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.usersService.findById(+id);
     }
     async update(id, updateUserDto) {
-        try {
-            return await this.usersService.update(+id, updateUserDto);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.usersService.update(+id, updateUserDto);
     }
     async remove(id) {
-        try {
-            return await this.usersService.remove(+id);
-        }
-        catch (error) {
-            if (error instanceof common_1.HttpException) {
-                throw error;
-            }
-            throw new common_1.HttpException('Internal server error', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.usersService.remove(+id);
     }
 };
 exports.UsersController = UsersController;
@@ -101,7 +41,7 @@ __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [CreateUserDto]),
+    __metadata("design:paramtypes", [user_entity_1.User]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "create", null);
 __decorate([
@@ -112,24 +52,24 @@ __decorate([
 ], UsersController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "remove", null);
 exports.UsersController = UsersController = __decorate([

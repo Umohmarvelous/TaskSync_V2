@@ -22,21 +22,6 @@ let UsersService = class UsersService {
         this.usersRepository = usersRepository;
     }
     async create(createUserDto) {
-        if (!createUserDto.firstName || !createUserDto.lastName) {
-            throw new common_1.BadRequestException('First name and last name are required');
-        }
-        if (createUserDto.firstName.length > 100) {
-            throw new common_1.BadRequestException('First name cannot exceed 100 characters');
-        }
-        if (createUserDto.lastName.length > 100) {
-            throw new common_1.BadRequestException('Last name cannot exceed 100 characters');
-        }
-        if (createUserDto.company && createUserDto.company.length > 100) {
-            throw new common_1.BadRequestException('Company name cannot exceed 100 characters');
-        }
-        if (createUserDto.purpose && createUserDto.purpose.length > 100) {
-            throw new common_1.BadRequestException('Purpose cannot exceed 100 characters');
-        }
         try {
             const user = this.usersRepository.create(createUserDto);
             return await this.usersRepository.save(user);
@@ -80,18 +65,6 @@ let UsersService = class UsersService {
         }
         if (Object.keys(updateUserDto).length === 0) {
             throw new common_1.BadRequestException('No update data provided');
-        }
-        if (updateUserDto.firstName && updateUserDto.firstName.length > 100) {
-            throw new common_1.BadRequestException('First name cannot exceed 100 characters');
-        }
-        if (updateUserDto.lastName && updateUserDto.lastName.length > 100) {
-            throw new common_1.BadRequestException('Last name cannot exceed 100 characters');
-        }
-        if (updateUserDto.company && updateUserDto.company.length > 100) {
-            throw new common_1.BadRequestException('Company name cannot exceed 100 characters');
-        }
-        if (updateUserDto.purpose && updateUserDto.purpose.length > 100) {
-            throw new common_1.BadRequestException('Purpose cannot exceed 100 characters');
         }
         try {
             const user = await this.usersRepository.findOne({ where: { id } });

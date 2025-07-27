@@ -140,10 +140,10 @@ export default function PersonalDashboardHeader() {
                     <AvatarFallback className="text-black text-sm bg-slate-200">{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
 
                 </Avatar>
-                <div className="hidden md:block">
+                <Link href='/onBoardingScreens/individualsignin' className="hidden md:block">
                     <p className="text-sm font-medium">{userName}</p>
                     <p className="text-xs text-gray-500">{userRole}</p>
-                </div>
+                </Link>
             </div>
 
             {/* Notification Modal */}
@@ -200,18 +200,3 @@ export default function PersonalDashboardHeader() {
         </header>
     )
 }
-
-// Add this to your global CSS (e.g. styles/globals.css or in a <style jsx global> block)
-/*
-@keyframes bell-vibrate {
-  0% { transform: rotate(-10deg);}
-  20% { transform: rotate(10deg);}
-  40% { transform: rotate(-10deg);}
-  60% { transform: rotate(10deg);}
-  80% { transform: rotate(-10deg);}
-  100% { transform: rotate(0deg);}
-}
-.animate-bell-vibrate {
-  animation: bell-vibrate 0.5s infinite;
-}
-*/

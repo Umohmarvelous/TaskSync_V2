@@ -40,18 +40,6 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "purpose", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
-    __metadata("design:type", String)
-], User.prototype, "feedbackUserName", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
-    __metadata("design:type", String)
-], User.prototype, "feedbackUserRole", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ length: 100 }),
-    __metadata("design:type", String)
-], User.prototype, "feedbackUserDetails", void 0);
-__decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], User.prototype, "createdAt", void 0);

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
 
@@ -7,62 +7,27 @@ export class TasksController {
     constructor(private readonly tasksService: TasksService) { }
 
     @Post()
-    async create(@Body() task: Partial<Task>) {
-        try {
-            return await this.tasksService.create(task);
-        } catch (error) {
-            if (error instanceof HttpException) {
-                throw error;
-            }
-            throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    async create(@Body(ValidationPipe) task: Partial<Task>) {
+        return await this.tasksService.create(task);
     }
 
     @Get()
     async findAll() {
-        try {
-            return await this.tasksService.findAll();
-        } catch (error) {
-            if (error instanceof HttpException) {
-                throw error;
-            }
-            throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return await this.tasksService.findAll();
     }
 
     @Get(':id')
-    async findOne(@Param('id') id: string) {
-        try {
-            return await this.tasksService.findOne(+id);
-        } catch (error) {
-            if (error instanceof HttpException) {
-                throw error;
-            }
-            throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    async findOne(@Param('id', ParseIntPipe) id: number) {
+        return await this.tasksService.findOne(+id);
     }
 
     @Patch(':id')
-    async update(@Param('id') id: string, @Body() updateData: Partial<Task>) {
-        try {
-            return await this.tasksService.update(+id, updateData);
-        } catch (error) {
-            if (error instanceof HttpException) {
-                throw error;
-            }
-            throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    async update(@Param('id', ParseIntPipe) id: number, @Body() updateData: Partial<Task>) {
+        return await this.tasksService.update(+id, updateData);
     }
 
     @Delete(':id')
-    async remove(@Param('id') id: string) {
-        try {
-            return await this.tasksService.remove(+id);
-        } catch (error) {
-            if (error instanceof HttpException) {
-                throw error;
-            }
-            throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    async remove(@Param('id', ParseIntPipe) id: number) {
+        return await this.tasksService.remove(+id);
     }
 } 

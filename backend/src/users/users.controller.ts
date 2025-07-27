@@ -1,85 +1,34 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete,  ParseIntPipe } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { IsNotEmpty, IsString } from 'class-validator';
 
-class CreateUserDto {
-  @IsString()
-  @IsNotEmpty()
-  firstName: string;
-
-  @IsString()
-  @IsNotEmpty()
-  lastName: string;
-
-  @IsString()
-  company?: string;
-
-  @IsString()
-  purpose?: string;
-}
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    try {
-      return await this.usersService.create(createUserDto);
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+  async create(@Body() createUserDto: User): Promise<User> {
+    return await this.usersService.create(createUserDto);
   }
 
   @Get()
   async findAll(): Promise<User[]> {
-    try {
-      return await this.usersService.findAll();
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    return await this.usersService.findAll();
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<User> {
-    try {
-      return await this.usersService.findById(+id);
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+  async findOne(@Param('id', ParseIntPipe) id: number): Promise<User> {
+    return await this.usersService.findById(+id);
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: Partial<User>): Promise<User> {
-    try {
-      return await this.usersService.update(+id, updateUserDto);
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: Partial<User>): Promise<User> {
+    return await this.usersService.update(+id, updateUserDto);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string): Promise<void> {
-    try {
-      return await this.usersService.remove(+id);
-    } catch (error) {
-      if (error instanceof HttpException) {
-        throw error;
-      }
-      throw new HttpException('Internal server error', HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return await this.usersService.remove(+id);
   }
 } 

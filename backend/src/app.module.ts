@@ -5,6 +5,11 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
+import { FeedbackUsersModule } from './feedbackuser/feedbackusers.module';
+// import { User } from './users/user.entity';
+// import { Task } from './tasks/task.entity';
+// import { Feedbackuser } from './feedbackuser/feedbackuser.entity';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -18,13 +23,15 @@ import { UsersModule } from './users/users.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      entities: [],
+      // entities: [User, Task, Feedbackuser],
+      entities: [join(process.cwd(), 'dist/**/*.entity.js')],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV !== 'production', // Set to false in production!
       logging: process.env.NODE_ENV !== 'production',
     }),
     TasksModule,
     UsersModule,
+    FeedbackUsersModule
   ],
   controllers: [AppController],
   providers: [AppService],

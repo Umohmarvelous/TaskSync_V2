@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
-import { Button } from "./ui/button"
+import { Button } from "@/components/ui/button"
 import { ChevronLeft } from "@mui/icons-material"
 
 export default function SignupSecondScreen() {
@@ -13,14 +13,16 @@ export default function SignupSecondScreen() {
     const [mail, setMail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const router = useRouter()
     const pathname = usePathname()
     const ShowBackButton = pathname !== '/'
 
-    const formSubmit = (e: { preventDefault: () => void }) => {
-        e.preventDefault()
+    const formSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        // setLoading(false);
 
+        console.log('clicked')
         // Simple password match validation
         if (password !== confirmPassword) {
             router.push('/errorPage')
@@ -34,7 +36,7 @@ export default function SignupSecondScreen() {
         setMail('')
         setPassword('')
         setConfirmPassword('')
-        setLoading(false)
+        setLoading(true)
 
         router.push('/onBoardingScreens/individualsignupScreen/signupSuccessPage')
     }
@@ -100,22 +102,15 @@ export default function SignupSecondScreen() {
                             </Label>
                         </div>
 
-                        <button
+                        <Button
                             type="submit"
                             disabled={loading}
                             className="w-full bg-orange-500 hover:bg-orange-600 text-white rounded-md py-2 mt-2"
                         >
                             {loading ? "Creating Account" : "Create Account"}
-                        </button>
+                        </Button>
 
-                        {/* <Link href="/signupSuccessPage" className="w-full">
-                            <Button
-                                // type="submit"
-                                // disabled={!userName && !mail}
-                                className="w-full bg-orange-500 hover:bg-orange-600 text-white">
-                                Create Account
-                            </Button>
-                        </Link> */}
+                        
                     </form>
                 </div>
             </div>

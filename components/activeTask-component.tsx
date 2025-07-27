@@ -11,8 +11,8 @@ import Link from "next/link"
 import { Modal } from "@mui/material"
 import { Textarea } from "./ui/textarea"
 import { useRouter } from "next/navigation"
+import { Input } from "./ui/input"
 
-const baseUrl = 'http://localhost:3001/api/users'
 
 interface User {
     id: number;
@@ -50,59 +50,46 @@ const taskColumns = [
 
 export default function ActiveTaskContent() {
     const router = useRouter()
-    const [userName, setUserName] = useState("No user")
+
+    const [userName, setUserName] = useState("")
     const [feedbackUserName, setFeedbackUserName] = useState("")
     const [feedbackUserRole, setFeedbackUserRole] = useState("")
     const [feedbackUserDetails, setFeedbackUserDetails] = useState("")
-    const [loading, setLoading] = useState(true)
+
+    const [loading, setLoading] = useState(false)
     const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
-    const [feedback, setFeedback] = useState("")
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const [error, setError] = useState("")
 
     // Create an endpoint to store Feedback users to Database
     const feedbackFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-        setLoading(true)
-        setError("")
+        event.preventDefault();
+        setLoading(true);
+        router.back();
 
-        // if (feedbackUserName === '' && feedbackUserRole === '' && feedbackUserDetails === '') {
-        // }
+        const response = await fetch("http://localhost:3001/api/feedbackuser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                feedbackUserName,
+                feedbackUserRole,
+                feedbackUserDetails
+            }),
+        });
 
-        try {
-            const response = await fetch("http://localhost:3001/api/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    feedbackUserName,
-                    feedbackUserRole,
-                    feedbackUserDetails
-                })
-            })
-
-            const userData = await response.json();
-
-            // Store user ID in localStorage for future reference
-            localStorage.setItem('userId', userData.id.toString());
-
-
-        } catch (err: any) {
-            setError(err.message || "Invalid User")
-            console.error('error message:', err)
-        } finally {
-            setLoading(false)
-            // setOpenFeedbackModal(false)
+        if (response.ok) {
             setFeedbackUserName("")
-            setFeedbackUserRole("")
-            setFeedbackUserDetails("")
-            // router.push('#')
+            setFeedbackUserRole("");
+            setFeedbackUserDetails("");
+            // router.back()
+
+        } else {
+            const errorData = await response.json();
+            setError(errorData.message || "Failed to add task");
         }
 
-
-    }
-
+        setLoading(false);
+    };
     useEffect(() => {
         const fetchUserData = async () => {
             try {
@@ -112,7 +99,7 @@ export default function ActiveTaskContent() {
                     return
                 }
 
-                const response = await fetch(`${baseUrl}/${userId}`)
+                const response = await fetch(`http://localhost:3001/api/users/${userId}`)
                 const userData: User = await response.json() as User
                 const fullName = `${userData.firstName} ${userData.lastName}`.trim()
 
@@ -209,35 +196,36 @@ export default function ActiveTaskContent() {
                                 <h2 id="feedback-modal-title" className='flex self-start' style={{ marginBottom: 16, fontWeight: 600 }}>
                                     Give Feedback
                                 </h2>
-                                <input
+                                <Input
                                     type="text"
                                     placeholder="State your name here..."
                                     value={feedbackUserName}
+                                    id="feedbackUserName"
                                     required
-                                    onChange={e => setFeedbackUserName(e.target.value)}
+                                    onChange={(e) => setFeedbackUserName(e.target.value)}
                                     className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
                                 />
-                                <input
+                                <Input
                                     type="text"
                                     placeholder="State your role here..."
                                     value={feedbackUserRole}
+                                    id="feedbackUserRole"
                                     required
-                                    onChange={e => setFeedbackUserRole(e.target.value)}
+                                    onChange={(e) => setFeedbackUserRole(e.target.value)}
                                     className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
                                 />
                                 <Textarea
                                     placeholder="Write a feedback..."
                                     value={feedbackUserDetails}
-                                    onChange={e => setFeedbackUserDetails(e.target.value)}
+                                    id="feedbackUserDetails"
+                                    onChange={(e) => setFeedbackUserDetails(e.target.value)}
                                     required
                                     className="min-h-[100px] text-sm bg-white border-1 border-gray-200  rounded-lg"
                                 />
                                 <div className="w-full flex flex-row items-center justify-end space-x-3" >
                                     <Button
                                         variant="outline"
-                                        size="sm"
-                                        onClick={() => setOpenFeedbackModal(false)}
-                                    >
+                                        size="sm" >
                                         Cancel
                                     </Button>
                                     <Button
@@ -245,10 +233,8 @@ export default function ActiveTaskContent() {
                                         variant="default"
                                         size="sm"
                                         disabled={loading}
-                                        onClick={() => {
-                                            // handle feedback submit here
-                                            // setOpenFeedbackModal(false)
-                                        }}
+                                        onClick={() => setOpenFeedbackModal(true)}
+                                        className="w-auto bg-slate-800 hover:bg-slate-300 hover:text-gray-600 text-white rounded-md"
                                     >
                                         {loading ? "Submitting Feedback..." : "Submit"}
                                     </Button>

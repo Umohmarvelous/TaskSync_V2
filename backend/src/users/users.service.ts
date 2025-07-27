@@ -10,34 +10,7 @@ export class UsersService {
         private usersRepository: Repository<User>,
     ) { }
 
-    async create(createUserDto: {
-        firstName: string;
-        lastName: string;
-        company?: string;
-        purpose?: string;
-    }): Promise<User> {
-        // Validate required fields
-        if (!createUserDto.firstName || !createUserDto.lastName) {
-            throw new BadRequestException('First name and last name are required');
-        }
-
-        // Validate field lengths
-        if (createUserDto.firstName.length > 100) {
-            throw new BadRequestException('First name cannot exceed 100 characters');
-        }
-
-        if (createUserDto.lastName.length > 100) {
-            throw new BadRequestException('Last name cannot exceed 100 characters');
-        }
-
-        if (createUserDto.company && createUserDto.company.length > 100) {
-            throw new BadRequestException('Company name cannot exceed 100 characters');
-        }
-
-        if (createUserDto.purpose && createUserDto.purpose.length > 100) {
-            throw new BadRequestException('Purpose cannot exceed 100 characters');
-        }
-
+    async create(createUserDto: User): Promise<User> {
         try {
             const user = this.usersRepository.create(createUserDto);
             return await this.usersRepository.save(user);
@@ -88,23 +61,6 @@ export class UsersService {
             throw new BadRequestException('No update data provided');
         }
 
-        // Validate field lengths for updated fields
-        if (updateUserDto.firstName && updateUserDto.firstName.length > 100) {
-            throw new BadRequestException('First name cannot exceed 100 characters');
-        }
-
-        if (updateUserDto.lastName && updateUserDto.lastName.length > 100) {
-            throw new BadRequestException('Last name cannot exceed 100 characters');
-        }
-
-        if (updateUserDto.company && updateUserDto.company.length > 100) {
-            throw new BadRequestException('Company name cannot exceed 100 characters');
-        }
-
-        if (updateUserDto.purpose && updateUserDto.purpose.length > 100) {
-            throw new BadRequestException('Purpose cannot exceed 100 characters');
-        }
-
         try {
             const user = await this.usersRepository.findOne({ where: { id } });
             if (!user) {
@@ -129,6 +85,7 @@ export class UsersService {
         if (!id || isNaN(id) || id <= 0) {
             throw new BadRequestException('Invalid user ID provided');
         }
+
 
         try {
             const user = await this.usersRepository.findOne({ where: { id } });

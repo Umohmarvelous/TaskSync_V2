@@ -35,7 +35,8 @@ const div = styled(Paper)(({ theme }) => ({
     }),
 }));
 
-interface FeedbackUserProp {
+interface Feedbackuser {
+    id: number;
     feedbackUserName: string;
     feedbackUserRole: string;
     feedbackUserDetails: string;
@@ -43,23 +44,24 @@ interface FeedbackUserProp {
 
 export default function Welcome() {
     const [loading, setLoading] = useState(true)
-    const [feedbackUserName, setFeedbackUserName] = useState("No user")
-    const [feedbackUserRole, setFeedbackUserRole] = useState("")
-    const [feedbackUserDetails, setFeedbackUserDetails] = useState("")
-    const [feedbackUser, setFeedbackUser] = useState<FeedbackUserProp[]>([])
+    const [feedbackusers, setFeedbackusers] = useState<Feedbackuser[]>([])
+
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchFeedbackuserData = async () => {
             try {
                 const userId = localStorage.getItem('userId')
                 if (!userId) {
                     setLoading(false)
+                    return
                 }
 
-                const response = await fetch(`http:localhost:3001/api/user/${userId}`)
+                const response = await fetch(`http://localhost:3001/api/feedbackuser?page=${userId}`)
 
-                const FeedbackUserData = await response.json()
-
-                setFeedbackUser(FeedbackUserData)
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user data");
+                }
+                const userData = (await response.json()) as Feedbackuser[];
+                setFeedbackusers(userData);
 
             } catch (error) {
                 console.error('error message:', error)
@@ -68,7 +70,7 @@ export default function Welcome() {
                 setLoading(false)
             }
         }
-        fetchUserData()
+        fetchFeedbackuserData()
     }, [])
 
 
@@ -282,14 +284,16 @@ export default function Welcome() {
                     {/* Array.from({ length: 5 }) */}
                     <Carousel className="w-auto mt-8 pl-0 md:pl-10">
                         <CarouselContent className='w-auto ml-0 space-x-6'>
-                            {feedbackUser.map((user, index) => (
-                                <CarouselItem key={index} className="overflow-hidden basis-[17rem] sm:basis-1/3 md:basis-[53%] lg:basis-[40%] xl:basis-[30%] pl-0 mr-0 sm:mr-0">
+                            {feedbackusers.map((feedbackuser) => (
+                                <CarouselItem
+                                    key={feedbackuser.id}
+                                    className="overflow-hidden basis-[17rem] sm:basis-1/3 md:basis-[53%] lg:basis-[40%] xl:basis-[30%] pl-0 mr-0 sm:mr-0">
                                     {/* <div className="absolute overflow-hidden inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shimmer-slow"></div> */}
                                     <Card className="overflow-hidden flex justify-between p-6 items-center rounded-[15px] w-60 md:w-10/11 lg:max-w-10/12 h-70 sm:h-85 bg-[#11375C] cursor-pointer">
                                         <CardContent className='overflow-hidden h-auto font-sans font-normal text-[15px] text-white mb-0 pt-0 sm:pt-5 px-0 sm:px-3'>
-                                            {user.feedbackUserDetails}
+                                            {feedbackuser.feedbackUserDetails}
                                         </CardContent>
-                                        <div key={index} className="w-full flex align-center justify-start flex-row gap-2 sm:gap-3">
+                                        <div className="w-full flex align-center justify-start flex-row gap-2 sm:gap-3">
                                             <Image
                                                 src="/user-photo.png"
                                                 width={100}
@@ -297,9 +301,9 @@ export default function Welcome() {
                                                 alt="Picture of the author"
                                                 className='w-10 sm:w-13 h-10 sm:h-13 flex self-end rounded-4xl'
                                             />
-                                            <div className="text-white space-y-0 text-bold flex">
-                                                <h3 className='text-[13px] sm:text-[15px] font-bold'>{user.feedbackUserName}</h3>
-                                                <h4 className='text-[13px] sm:text-[15px] font-normal'>{user.feedbackUserRole}</h4>
+                                            <div className="text-white space-y-0 text-bold flex flex-col">
+                                                <h3 className='text-[13px] sm:text-[15px] font-bold'>{feedbackuser.feedbackUserName}</h3>
+                                                <h4 className='text-[13px] sm:text-[15px] font-normal'>{feedbackuser.feedbackUserRole}</h4>
                                             </div>
                                         </div>
                                     </Card>

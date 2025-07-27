@@ -8,9 +8,10 @@ import ShimmerCard from "./shimmer-card"
 import MotionContainer from "./motion-component"
 import { useEffect, useRef, useState } from "react"
 import { useRouter } from "next/navigation"
-import { Dialog, DialogClose, DialogContent, DialogHeader, DialogOverlay, DialogPortal } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogOverlay } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Input } from "./ui/input"
+
 import {
     Search,
     MessageSquare,
@@ -36,7 +37,6 @@ import { Box, Modal } from "@mui/material";
 import Link from "next/link"
 
 
-const baseUrl = 'http://localhost:3001/api/tasks'
 
 interface Task {
     id: string;
@@ -55,9 +55,15 @@ interface User {
     purpose?: string;
 }
 export default function TaskSummaryContent() {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
 
-    const [userName, setUserName] = useState("No user")
-    const [loading, setLoading] = useState(true)
+    const [userName, setUserName] = useState("")
+    const [feedbackUserName, setFeedbackUserName] = useState("")
+    const [feedbackUserRole, setFeedbackUserRole] = useState("")
+    const [feedbackUserDetails, setFeedbackUserDetails] = useState("")
+
+    const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
 
     const [isTaskFlowExpanded, setIsTaskFlowExpanded] = useState(true)
     const [isSubtaskExpanded, setIsSubtaskExpanded] = useState(true)
@@ -70,18 +76,49 @@ export default function TaskSummaryContent() {
     const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
     const [selectedTaskId, setSelectedTaskId] = useState<string | null>(null);
 
+
+
+    // Create an endpoint to store Feedback users to Database
+    const feedbackFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setLoading(true);
+        router.back();
+
+        const response = await fetch("http://localhost:3001/api/feedbackuser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                feedbackUserName,
+                feedbackUserRole,
+                feedbackUserDetails
+            }),
+        });
+
+        if (response.ok) {
+            setFeedbackUserName("")
+            setFeedbackUserRole("");
+            setFeedbackUserDetails("");
+            // router.back()
+
+        } else {
+            const errorData = await response.json();
+            setError(errorData.message || "Failed to add task");
+        }
+
+        setLoading(false);
+    };
     useEffect(() => {
         const fetchUserData = async () => {
             try {
                 // Get user ID from localStorage
                 const userId = localStorage.getItem('userId')
                 if (!userId) {
-                    setLoading(false)
+                    setLoading(true)
                     return
                 }
 
                 // Fetch user data from backend (MySQL)
-                const response = await fetch(`${baseUrl}/${userId}`)
+                const response = await fetch(`http://localhost:3001/api/users/${userId}`)
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data')
                 }
@@ -107,7 +144,7 @@ export default function TaskSummaryContent() {
 
     // Fetching Tasks
     const fetchTasks = async () => {
-        const response = await fetch(`${baseUrl}`);
+        const response = await fetch('http://localhost:3001/api/tasks');
         if (!response.ok) throw new Error("Failed to fetch tasks");
         const data = await response.json();
         setTasks(data);
@@ -122,9 +159,7 @@ export default function TaskSummaryContent() {
     const handleOpenProjectDetails = () => {
         setIsProjectDetailsOpen(true);
     };
-    const handleCloseProjectDetails = () => {
-        setIsProjectDetailsOpen(false);
-    };
+
 
 
     // Export tasks as CSV (keep this for download)
@@ -162,7 +197,7 @@ export default function TaskSummaryContent() {
 
     const handleDeleteTask = async (taskId: string) => {
         try {
-            const response = await fetch(`${baseUrl}/${taskId}`, {
+            const response = await fetch(`http://localhost:3001/api/tasks/${taskId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Failed to delete task');
@@ -217,10 +252,80 @@ export default function TaskSummaryContent() {
                                 Status Category
                                 <ChevronDown className="w-3 h-3 ml-1" />
                             </Button>
-                            <Button variant="ghost" size="sm">
+                            <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => setOpenFeedbackModal(true)}
+                            >
                                 <MessageSquare className="w-4 h-4 mr-2" />
                                 Give feedback
                             </Button>
+                            {/* Feedback Modal */}
+                            <Modal
+                                open={openFeedbackModal}
+                                onClose={() => setOpenFeedbackModal(false)}
+                                aria-labelledby="feedback-modal-title"
+                                aria-describedby="feedback-modal-description"
+                                className="flex self-center justify-self-center"
+                            >
+                                <form
+                                    className="flex justify-center items-center space-y-6 flex-col bg-white p-[24px] rounded-lg"
+                                    onSubmit={feedbackFormSubmit}
+                                    style={{
+                                        // transform: 'translate(-50%, -50%)',
+                                        boxShadow: '0 2px 16px rgba(0,0,0,0.2)',
+                                        minWidth: 320,
+                                    }}>
+                                    <h2 id="feedback-modal-title" className='flex self-start' style={{ marginBottom: 16, fontWeight: 600 }}>
+                                        Give Feedback
+                                    </h2>
+                                    <Input
+                                        type="text"
+                                        placeholder="State your name here..."
+                                        value={feedbackUserName}
+                                        id="feedbackUserName"
+                                        required
+                                        onChange={(e) => setFeedbackUserName(e.target.value)}
+                                        className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
+                                    />
+                                    <Input
+                                        type="text"
+                                        placeholder="State your role here..."
+                                        value={feedbackUserRole}
+                                        id="feedbackUserRole"
+                                        required
+                                        onChange={(e) => setFeedbackUserRole(e.target.value)}
+                                        className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
+                                    />
+                                    <Textarea
+                                        placeholder="Write a feedback..."
+                                        value={feedbackUserDetails}
+                                        id="feedbackUserDetails"
+                                        onChange={(e) => setFeedbackUserDetails(e.target.value)}
+                                        required
+                                        className="min-h-[100px] text-sm bg-white border-1 border-gray-200  rounded-lg"
+                                    />
+                                    <div className="w-full flex flex-row items-center justify-end space-x-3" >
+                                        <Button
+                                            variant="outline"
+                                            size="sm" >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            type="submit"
+                                            variant="default"
+                                            size="sm"
+                                            disabled={loading}
+                                            onClick={() => setOpenFeedbackModal(true)}
+                                            className="w-auto bg-slate-800 hover:bg-slate-300 hover:text-gray-600  text-white rounded-md"
+                                        >
+                                            {loading ? "Submitting Feedback..." : "Submit"}
+                                        </Button>
+                                    </div>
+                                </form>
+                            </Modal>
+                            {/* Modal Ends Here... */}
+
                             <Button variant="ghost" size="sm" onClick={handleShare}>
                                 <Share2 className="w-4 h-4 mr-2" />
                                 Share

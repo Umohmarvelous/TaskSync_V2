@@ -14,6 +14,8 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const tasks_module_1 = require("./tasks/tasks.module");
 const users_module_1 = require("./users/users.module");
+const feedbackusers_module_1 = require("./feedbackuser/feedbackusers.module");
+const path_1 = require("path");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,13 +32,14 @@ exports.AppModule = AppModule = __decorate([
                 username: process.env.DB_USERNAME,
                 password: process.env.DB_PASSWORD,
                 database: process.env.DB_DATABASE,
-                entities: [],
+                entities: [(0, path_1.join)(process.cwd(), 'dist/**/*.entity.js')],
                 autoLoadEntities: true,
                 synchronize: process.env.NODE_ENV !== 'production',
                 logging: process.env.NODE_ENV !== 'production',
             }),
             tasks_module_1.TasksModule,
             users_module_1.UsersModule,
+            feedbackusers_module_1.FeedbackUsersModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
