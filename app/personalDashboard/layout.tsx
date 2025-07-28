@@ -7,7 +7,7 @@ import { MenuIcon } from "lucide-react";
 import PersonalSidebar from "@/components/personal-dashboard-side-bar-component";
 import PersonalDashboardHeader from "@/components/personal-dashboard-header-component";
 
-export default function TeamLayout({
+export default function PersonalLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
@@ -15,21 +15,20 @@ export default function TeamLayout({
     const [toggle, setToggle] = useState(false)
     return (
         <div>
-            <div className="min-h-screen bg-gray-50 w-fit min-w-full">
-                <div className=" hidden sm:block">
+            <div className="border-4 border-red-600 min-h-auto bg-gray-50 w-fit min-w-full">
+                <div className="hidden sm:block">
                     <PersonalSidebar />
                 </div>
-                <div className="m-0 sm:ml-64">
-                    <div className="flex flex-row items-center justify-between pl-5 sm:pl-0 border-b ">
-                        <div className="block sm:hidden">
+                {/*  */}
+                <div className="m-0 sm:ml-71">
+                    <div className="fixed top-0 right-0 z-30 h-auto w-full sm:w-[70%] lg:w-[72%] xl:w-[80%] 2xl:w-[170%] flex flex-row items-center justify-between pl-2 sm:pl-0 border-b bg-white border-4 border-green-500">
+                        <div className="border-4 border-red-500 block sm:hidden">
                             {toggle ?
                                 <CloseSharp className="cursor-pointer text-xl text-black hover:bg-gray-200" onClick={() => setToggle(false)} /> :
                                 <MenuIcon className="cursor-pointer text-xl text-black hover:bg-gray-200 lg:hidden" onClick={() => setToggle(true)} />
                             }
                         </div>
-                        <div className="w-full sm:w-full">
-                            <PersonalDashboardHeader />
-                        </div>
+                        <PersonalDashboardHeader />
                     </div>
                     {toggle && (
                         <div>
@@ -39,7 +38,7 @@ export default function TeamLayout({
                             <PersonalSidebar />
                         </div>
                     )}
-                    <main className="pt-25">
+                    <main className="pt-25 border-4 border-red-500">
                         {children}
                     </main>
                 </div>

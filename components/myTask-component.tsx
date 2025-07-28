@@ -29,6 +29,9 @@ export default function MyTasksContent() {
     const [currentDate, setCurrentDate] = useState("");
     const [tasks, setTasks] = useState<Task[]>([])
 
+    const [openFeedbackModal, setOpenFeedbackModal] = useState(false)
+    const [push, setPush] = useState(false)
+
     useEffect(() => {
         // Set current date on mount
         const today = new Date();
@@ -77,6 +80,12 @@ export default function MyTasksContent() {
         fetchTasks()
     }, [])
 
+    const feedbackFormSubmit = () => {
+        setOpenFeedbackModal(false)
+    }
+
+   
+
     return (
         <div className="p-5 sm:p-6 space-y-8 min-h-screen bg-gray-50 w-full">
             {/* Header */}
@@ -84,6 +93,7 @@ export default function MyTasksContent() {
                 <p className="text-gray-600">{currentDate}</p>
                 <h1 className="text-2xl font-bold">{`Good Morining ${userName}`}</h1>
             </MotionContainer>
+
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 min-h-auto">
                 {/* Left Column */}

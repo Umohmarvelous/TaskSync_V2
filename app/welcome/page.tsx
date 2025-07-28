@@ -288,9 +288,8 @@ export default function Welcome() {
                                 <CarouselItem
                                     key={feedbackuser.id}
                                     className="overflow-hidden basis-[17rem] sm:basis-1/3 md:basis-[53%] lg:basis-[40%] xl:basis-[30%] pl-0 mr-0 sm:mr-0">
-                                    {/* <div className="absolute overflow-hidden inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 animate-shimmer-slow"></div> */}
                                     <Card className="overflow-hidden flex justify-between p-6 items-center rounded-[15px] w-60 md:w-10/11 lg:max-w-10/12 h-70 sm:h-85 bg-[#11375C] cursor-pointer">
-                                        <CardContent className='overflow-hidden h-auto font-sans font-normal text-[15px] text-white mb-0 pt-0 sm:pt-5 px-0 sm:px-3'>
+                                        <CardContent className='w-55 md:w-10/11 lg:max-w-10/12 border-2  border-red-500 overflow-hidden h-auto font-sans font-normal text-[15px] text-white mb-0 pt-0 sm:pt-5 px-0 sm:px-3'>
                                             {feedbackuser.feedbackUserDetails}
                                         </CardContent>
                                         <div className="w-full flex align-center justify-start flex-row gap-2 sm:gap-3">

@@ -4,9 +4,9 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2, Upload, Router } from "lucide-react"
+import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2, Upload } from "lucide-react"
 import ShimmerCard from "./shimmer-card"
-import { useEffect, useState, useRef, use } from 'react'
+import { useEffect, useState, useRef} from 'react'
 import Link from "next/link"
 import { Modal } from "@mui/material"
 import { Textarea } from "./ui/textarea"

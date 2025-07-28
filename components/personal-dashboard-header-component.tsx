@@ -97,29 +97,29 @@ export default function PersonalDashboardHeader() {
     const handleDeleteNotification = (id: number) => {
         setNotifications(prev => prev.filter(n => n.id !== id))
     }
-
+// sm:w-[45%] xl:w-[62.7%] 2xl:w-[170%]
     return (
         <header
-            className="fixed top-0 right-0 z-30 flex items-center justify-between w-full sm:w-[75%] xl:w-[82.7%] 2xl:w-[170%] h-16 px-6 bg-white border-b border-gray-200">
+            className="flex flex-row items-center justify-between w-full border-2 border-purple-600 h-auto px-2 sm:pr-6 bg-white border-b border-gray-200 py-3 sm:py-3">
             {showBackButton && (
                 <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => router.back()}
-                    className="rounded-full bg-slate-800 text-white hover:bg-slate-700"
+                    className="hidden sm:flex rounded-full bg-slate-800 text-white hover:bg-slate-700"
                     name="button" title="Back to Home"
                 >
                     <ArrowLeft className="w-4 h-4" />
                 </Button>
             )}
-            <div className="flex items-center space-x-4">
-                <div className="relative max-w-md w-90">
+            <div className="flex items-center space-x-1 sm:space-x-4">
+                <div className="relative max-w-md w-full">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                     <Input type="search" placeholder="Search" id="search" className="pl-10 bg-gray-50 border-gray-200 rounded-full" />
                 </div>
                 <div className="relative" ref={bellRef}>
                     <Button variant="ghost" size="icon" onClick={() => setShowNotificationModal(true)} className="relative">
-                        <Bell className="w-5 h-5" />
+                        <Bell className="w-3 sm:w-5 h-3 sm:h-5" />
                         {notifications.length > 0 && (
                             <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full px-1.5 py-0.5 min-w-[18px] text-center">
                                 {notifications.length}
@@ -129,20 +129,20 @@ export default function PersonalDashboardHeader() {
                 </div>
             </div>
 
-            <Button className="bg-slate-800 hover:bg-slate-700 text-white" onClick={() => router.push("/personalDashboard/addTaskPage?modal=true")}>
-                <Plus className="w-4 h-4 mr-2" />
-                Add Task
+            <Button className="p-1 sm:p-3 bg-slate-800 hover:bg-slate-700 text-white" onClick={() => router.push("/personalDashboard/addTaskPage?modal=true")}>
+                <Plus className="w-3 sm:w-4 h-3 sm:h-4 mr-0 sm:mr-2" />
+                <h6 className="hidden sm:flex">Add Task</h6>
             </Button>
 
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1 sm:space-x-3">
                 <Avatar>
                     <AvatarImage src="/placeholder-user.jpg" alt={userName} />
                     <AvatarFallback className="text-black text-sm bg-slate-200">{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
 
                 </Avatar>
-                <Link href='/onBoardingScreens/individualsignin' className="hidden md:block">
-                    <p className="text-sm font-medium">{userName}</p>
-                    <p className="text-xs text-gray-500">{userRole}</p>
+                <Link href='/onBoardingScreens/individualsignin' className="hidden md:flex md:items-center md:flex-col">
+                    <p className="text-[12px] sm:text-sm font-medium">{userName}</p>
+                    <p className="text-[12px] sm:text-sm text-gray-500">{userRole}</p>
                 </Link>
             </div>
 

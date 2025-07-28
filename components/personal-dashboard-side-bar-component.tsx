@@ -59,7 +59,7 @@ export default function PersonalSidebar() {
     const isDropdownExpanded = (itemName: string) => expandedItems.includes(itemName)
 
     return (
-        <div className="fixed left-0 top-0 z-40 flex flex-col w-3xs sm:h-[3000px] sm:space-y-7 lg:w-64 min-h-full justify-between md:space-y-0 md:justify-around md:h-auto bg-slate-800 text-white">
+        <div className="fixed left-0 top-0 z-40 flex flex-col  sm:h-[3000px] sm:space-y-7 min-h-full justify-between md:space-y-0 md:justify-around md:h-auto bg-slate-800 text-white">
             <div className="flex items-center h-16 px-6 border-b border-slate-700">
                 <h1 className="text-xl font-bold">TaskSync</h1>
             </div>
