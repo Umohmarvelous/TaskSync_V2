@@ -1,20 +1,21 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
 @Entity('users')
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ unique: true })
+    @IsEmail()
+    @Column({ nullable: false })
     email: string;
 
-    @Column()
+    @Column({ nullable: false })
     password: string;
 
     @IsString()
     @IsNotEmpty()
-    @Column({ length: 100 })
+    @Column({ length: 100, unique: true })
     firstName: string;
 
     @IsString()

@@ -9,23 +9,38 @@ import { useState } from "react"
 
 export default function AddProjectLayout() {
     const [loading, setLoading] = useState(false)
-    const [error, setError] = useState()
+    const [error, setError] = useState("")
+    const [projectName, setProjectName] = useState("")
+    const [projectAcronym, setProjectAcronym] = useState("")
+    const [projectDescription, setProjectDescription] = useState("")
+    const [projectVisibility, setProjectVisibility] = useState("Public")
+    const [projectType, setProjectType] = useState("My kanban Project")
 
 
     const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setLoading(true)
 
-        const response = await fetch("http://localhost:3001/api/"), {
-            method:POST,
-            headers:{"Content-Type":"application/json"},
+        const response = await fetch("http://localhost:3001/api/projects", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-
-            })
+                projectName,
+                projectAcronym,
+                projectDescription,
+                projectVisibility,
+                projectType,
+            }),
+        })
+        if (response.ok) {
+            setProjectName("")
+            setProjectAcronym("")
+            setProjectDescription("")
+            setProjectVisibility("")
+            setProjectType("")
         }
 
     }
-
 
 
     return (
@@ -38,29 +53,45 @@ export default function AddProjectLayout() {
                             {/* Title */}
                             <div className="flex flex-col space-y-3">
                                 <label className="text-lg font-semibold">Project Name</label>
-                                <Input placeholder="Landing page" className=" border-2 border-[#f9a488] h-12 text-gray-500" defaultValue="Landing page" />
+                                <Input placeholder="Landing page"
+                                    value={projectName}
+                                    onChange={e => setProjectName(e.target.value)}
+                                    required
+                                    className=" border-2 border-[#f9a488] h-12 text-black font-semibold" />
                             </div>
                             {/* Acronym */}
                             <div className="flex flex-col space-y-3">
                                 <label className="text-lg font-semibold">Acronym</label>
-                                <Input placeholder="Landing page" className=" border-2 border-[#f9a488] h-12 text-gray-500" defaultValue="Lp" />
+                                <Input placeholder="Landing page"
+                                    value={projectAcronym}
+                                    onChange={e => setProjectAcronym(e.target.value)}
+                                    required
+                                    className=" border-2 border-[#f9a488] h-12 text-black font-medium" />
                             </div>
                         </div>
 
                         {/* Project Description */}
                         <div className="flex flex-col space-y-3">
-                            <label className="text-lg font-semibold">Project Description</label>
+                            <label className="text-lg font-semibold" htmlFor="description=">Project Description</label>
                             <Textarea
+                                id="description"
+                                value={projectDescription}
+                                onChange={e => setProjectDescription(e.target.value)}
+                                required
                                 placeholder="Lorem ipsum dolor sit amet consectetur..."
-                                className="min-h-32 resize-none border-2 border-[#f9a488]"
-                                defaultValue="Lorem ipsum dolor sit amet consectetur. Sed elementum id purus nisl at ac nisl in. Faucibus scelerisque in amet ac. Et tristique velit mus egestas purus justo libero sit congue. Hendrerit aliquam morbi magna vel quam volutpat elementum sed neque. Elementum sollicitudin vitae quis elit ultrices dictum. Ut id augue molestudae pulvinar."
+                                className="min-h-32 resize-none border-2 border-[#f9a488] text-black font-medium"
+                                defaultValue="Lorem ipsum dolor sit amet consectetur. Sed elementum id purus nisl at ac nisl in. Faucibus scelerisque in amet ac."
                             />
                         </div>
                         <div className="flex justify-between items-center">
                             {/* Project Visibility */}
                             <div className="flex flex-col space-y-3">
                                 <label className="text-lg font-semibold">Project Visibility</label>
-                                <Select defaultValue="Public">
+                                <Select
+                                    defaultValue="Public"
+                                    value={projectVisibility}
+                                    onValueChange={setProjectVisibility}
+                                >
                                     <SelectTrigger className="h-12 border-2 border-[#f9a488]">
                                         <SelectValue />
                                     </SelectTrigger>
@@ -75,7 +106,11 @@ export default function AddProjectLayout() {
                             {/* Project Type */}
                             <div className="flex flex-col space-y-3">
                                 <label className="text-lg font-semibold">Project Type</label>
-                                <Select defaultValue="My Kanban Project">
+                                <Select
+                                    defaultValue="My Kanban Project"
+                                    value={projectType}
+                                    onValueChange={setProjectType}
+                                >
                                     <SelectTrigger className="h-12 border-2 border-[#f9a488]">
                                         <SelectValue />
                                     </SelectTrigger>

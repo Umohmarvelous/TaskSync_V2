@@ -7,7 +7,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
 import { FeedbackUsersModule } from './feedbackuser/feedbackusers.module';
 import { join } from 'path';
-import { UsersProjectModule } from './feedbackuser copy/projects.module';
+import { UsersProjectModule } from './projects/projects.module';
 
 @Module({
   imports: [

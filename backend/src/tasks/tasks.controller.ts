@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Param, Patch, Delete, ValidationPipe, ParseIntPipe } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Task } from './task.entity';
-import { UserProject } from '../feedbackuser copy/project.entity';
 
 @Controller('tasks')
 export class TasksController {

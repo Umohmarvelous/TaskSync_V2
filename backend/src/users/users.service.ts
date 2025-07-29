@@ -12,12 +12,14 @@ export class UsersService {
     ) { }
 
     // async createUser(dto: CreateUserDto) {
-//   const hashedPassword = await bcrypt.hash(dto.password, 10);
 
     async create(createUserDto: User): Promise<User> {
         try {
+            // const user = this.usersRepository.create(createUserDto);
+            // return await this.usersRepository.save(user);
+
+
             const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-            // Validate input data
             const user = this.usersRepository.create({ ...createUserDto, password: hashedPassword });
             return await this.usersRepository.save(user);
         } catch (error) {
@@ -70,6 +72,7 @@ export class UsersService {
             throw new BadRequestException('Invalid user ID provided');
         }
 
+
         // Validate update data
         if (Object.keys(updateUserDto).length === 0) {
             throw new BadRequestException('No update data provided');
@@ -80,8 +83,8 @@ export class UsersService {
             if (!user) {
                 throw new NotFoundException(`User with ID ${id} not found`);
             }
-
-            await this.usersRepository.update(id, updateUserDto);
+            // .update(id, updateUserDto)
+            await this.usersRepository.update(id, updateUserDto)
             return await this.findById(id);
         } catch (error) {
             if (error instanceof NotFoundException) {

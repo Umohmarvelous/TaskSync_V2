@@ -24,6 +24,8 @@ export class ProjectService {
             throw new BadRequestException('Failed to create user. Please try again.');
         }
     }
+    // Hotel peggy behind delta careers school
+    // 08057254642
 
     async findAll(): Promise<CreateProjectDto[]> {
         try {
@@ -92,6 +94,12 @@ export class ProjectService {
         if (!id || isNaN(id) || id <= 0) {
             throw new BadRequestException('Invalid feedback user ID provided');
         }
+
+        //         const removedUser = this.findOne(id)
+
+        //         this.feedbackUsers = this.feedbackUsers.filter(feedbackUser => feedbackUser.id !== id)
+
+        //         return removedUser
 
         try {
             const projectusers = await this.projectRepository.findOneBy({ id });

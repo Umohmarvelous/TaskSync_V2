@@ -5,7 +5,7 @@ import { ProjectService } from './projects.service';
 import { UpdateProjectDto } from './dto/update-userproject.dto';
 
 
-@Controller('projectusers')
+@Controller('projects')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) { }
 
@@ -31,9 +31,9 @@ export class ProjectController {
   }
 
   //   @Patch(':id') // PATCH /users/:id
-//   update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) updateFeedbackuserDto: UpdateFeedbackuserDto) {
-//     return this.feedbackService.update(id, UpdateFeedbackuserDto)
-//   }
+  //   update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) updateFeedbackuserDto: UpdateFeedbackuserDto) {
+  //     return this.feedbackService.update(id, UpdateFeedbackuserDto)
+  //   }
 
 
   @Delete(':id')
