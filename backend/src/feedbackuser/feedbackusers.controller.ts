@@ -1,6 +1,5 @@
 import { Controller, Get, Post, Body, Param, Patch, Delete, ParseIntPipe } from '@nestjs/common';
 import { FeedbackusersService } from './feedbackusers.service';
-import { Feedbackuser } from './feedbackuser.entity';
 import { CreateFeedbackuserDto } from './dto/create-feedbackuser.dto';
 
 @Controller('feedbackuser')

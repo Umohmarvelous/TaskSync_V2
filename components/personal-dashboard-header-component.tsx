@@ -97,19 +97,18 @@ export default function PersonalDashboardHeader() {
     const handleDeleteNotification = (id: number) => {
         setNotifications(prev => prev.filter(n => n.id !== id))
     }
-// sm:w-[45%] xl:w-[62.7%] 2xl:w-[170%]
     return (
         <header
-            className="flex flex-row items-center justify-between w-full border-2 border-purple-600 h-auto px-2 sm:pr-6 bg-white border-b border-gray-200 py-3 sm:py-3">
+            className="flex flex-row items-center justify-between w-full h-auto px-2 sm:pr-6 bg-white border-b border-gray-200 py-3 sm:py-3 pl-10 sm:pl-26">
             {showBackButton && (
                 <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => router.back()}
-                    className="hidden sm:flex rounded-full bg-slate-800 text-white hover:bg-slate-700"
+                    className="hidden sm:flex rounded-full bg-slate-800 text-white hover:bg-slate-700 mr-4"
                     name="button" title="Back to Home"
                 >
-                    <ArrowLeft className="w-4 h-4" />
+                    <ArrowLeft className="w-3 h-3" />
                 </Button>
             )}
             <div className="flex items-center space-x-1 sm:space-x-4">
@@ -129,18 +128,18 @@ export default function PersonalDashboardHeader() {
                 </div>
             </div>
 
-            <Button className="p-1 sm:p-3 bg-slate-800 hover:bg-slate-700 text-white" onClick={() => router.push("/personalDashboard/addTaskPage?modal=true")}>
-                <Plus className="w-3 sm:w-4 h-3 sm:h-4 mr-0 sm:mr-2" />
+            <Button className="p-2 sm:p-2 mt-0 mb-0 sm:mx-5 bg-slate-800 hover:bg-slate-700 text-white" onClick={() => router.push("/personalDashboard/addTaskPage?modal=true")}>
+                <Plus className="w-2 sm:w-3 h-2 sm:h-3 mr-0 sm:mr-2" />
                 <h6 className="hidden sm:flex">Add Task</h6>
             </Button>
 
-            <div className="flex items-center space-x-1 sm:space-x-3">
+            <div className="flex items-center text-left space-x-1 sm:space-x-3">
                 <Avatar>
                     <AvatarImage src="/placeholder-user.jpg" alt={userName} />
                     <AvatarFallback className="text-black text-sm bg-slate-200">{userName.split(' ').map(n => n[0]).join('').toUpperCase()}</AvatarFallback>
 
                 </Avatar>
-                <Link href='/onBoardingScreens/individualsignin' className="hidden md:flex md:items-center md:flex-col">
+                <Link href='/onBoardingScreens/individualsignin' className="hidden text-left md:flex md:items-start md:flex-col">
                     <p className="text-[12px] sm:text-sm font-medium">{userName}</p>
                     <p className="text-[12px] sm:text-sm text-gray-500">{userRole}</p>
                 </Link>

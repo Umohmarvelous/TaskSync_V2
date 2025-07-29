@@ -6,6 +6,12 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column({ unique: true })
+    email: string;
+
+    @Column()
+    password: string;
+
     @IsString()
     @IsNotEmpty()
     @Column({ length: 100 })

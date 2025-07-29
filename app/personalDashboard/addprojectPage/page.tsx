@@ -4,14 +4,35 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useState } from "react"
 
 
 export default function AddProjectLayout() {
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState()
+
+
+    const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        setLoading(true)
+
+        const response = await fetch("http://localhost:3001/api/"), {
+            method:POST,
+            headers:{"Content-Type":"application/json"},
+            body: JSON.stringify({
+
+            })
+        }
+
+    }
+
+
+
     return (
         <>
             <div className="p-6 max-w-4xl mx-auto">
                 {/* Form */}
-                <div className="space-y-8">
+                <form className="space-y-8" onSubmit={formSubmit}>
                     <div className="grid grid-cols-1 lg:grid-cols-1 space-y-10">
                         <div className="flex items-center justify-between">
                             {/* Title */}
@@ -72,7 +93,7 @@ export default function AddProjectLayout() {
                     <div className="flex justify-end mt-10 mb-6">
                         <Button className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-5 text-lg">Create Project</Button>
                     </div>
-                </div>
+                </form>
             </div>
         </>
     )

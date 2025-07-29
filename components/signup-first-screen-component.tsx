@@ -6,6 +6,7 @@ import { ChevronLeft } from "@mui/icons-material"
 import { usePathname, useRouter } from "next/navigation"
 import { useState } from "react"
 
+
 export default function SignupFirstScreen() {
     const router = useRouter();
     const pathname = usePathname();

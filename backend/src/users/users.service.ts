@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, BadRequestException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
@@ -10,9 +11,14 @@ export class UsersService {
         private usersRepository: Repository<User>,
     ) { }
 
+    // async createUser(dto: CreateUserDto) {
+//   const hashedPassword = await bcrypt.hash(dto.password, 10);
+
     async create(createUserDto: User): Promise<User> {
         try {
-            const user = this.usersRepository.create(createUserDto);
+            const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+            // Validate input data
+            const user = this.usersRepository.create({ ...createUserDto, password: hashedPassword });
             return await this.usersRepository.save(user);
         } catch (error) {
             if (error.code === 'ER_DUP_ENTRY') {
@@ -20,6 +26,14 @@ export class UsersService {
             }
             throw new BadRequestException('Failed to create user. Please try again.');
         }
+    }
+
+    async validateUser(email: string, password: string): Promise<User | null> {
+        const user = await this.usersRepository.findOne({ where: { email } });
+        if (user && await bcrypt.compare(password, user.password)) {
+            return user;
+        }
+        return null;
     }
 
     async findById(id: number): Promise<User> {

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Plus, Search, MessageSquare, Share, MoreHorizontal, UserPlus2, Upload } from "lucide-react"
 import ShimmerCard from "./shimmer-card"
-import { useEffect, useState, useRef} from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Link from "next/link"
 import { Modal } from "@mui/material"
 import { Textarea } from "./ui/textarea"
@@ -269,17 +269,17 @@ export default function ActiveTaskContent() {
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
                 {taskColumns.map((column) => (
                     <div key={column.title} className="space-y-4">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-start space-x-4">
                             <h3 className="font-medium text-gray-900">{column.title}</h3>
                             <Badge variant="secondary" className="bg-gray-100 text-gray-600">
                                 {column.count}
                             </Badge>
                         </div>
 
-                        <div className="space-y-3">
+                        <div className="space-y-3 bg-blue-50 p-2 px-4 rounded-sm">
                             {column.tasks.map((task) => (
                                 <ShimmerCard key={task.id} shimmerIntensity="medium">
-                                    <Card className="bg-blue-50 border-blue-100 cursor-pointer hover:shadow-md transition-shadow">
+                                    <Card className="bg-blue-200 border-blue-100 cursor-pointer hover:shadow-md transition-shadow">
                                         <CardContent className="p-4">
                                             <div className="flex items-start space-x-3">
                                                 <Avatar className="w-8 h-8">
@@ -307,7 +307,7 @@ export default function ActiveTaskContent() {
                 ))}
 
                 {/* Add Column */}
-                <div className="flex items-center justify-center">
+                <div className="flex items-start justify-center">
                     <Button
                         variant="outline"
                         size="icon"
