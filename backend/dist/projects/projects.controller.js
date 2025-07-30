@@ -31,7 +31,16 @@ let ProjectController = class ProjectController {
         return await this.projectService.findOne(id);
     }
     async update(id, updateProjectDto) {
-        return await this.projectService.update(id, updateProjectDto);
+        try {
+            const updated = await this.projectService.update(id, updateProjectDto);
+            return { message: 'User updated successfully', data: updated };
+        }
+        catch (error) {
+            if (error instanceof Error && error.message === 'users already exist') {
+                return { message: 'users already exist' };
+            }
+            throw error;
+        }
     }
     async remove(id) {
         return await this.projectService.remove(id);

@@ -10,7 +10,8 @@ export class ProjectController {
   constructor(private readonly projectService: ProjectService) { }
 
   @Post()
-  async create(@Body() createProjectDto: CreateProjectDto): Promise<CreateProjectDto> {
+  async create(@Body() createProjectDto: CreateProjectDto): Promise<CreateProjectDto[]> {
+    // Now returns all users sorted by id ascending after creation
     return await this.projectService.create(createProjectDto);
   }
 
@@ -26,18 +27,25 @@ export class ProjectController {
   }
 
   @Patch(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateProjectDto: UpdateProjectDto): Promise<UpdateProjectDto> {
-    return await this.projectService.update(id, updateProjectDto);
+  async update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateProjectDto: UpdateProjectDto
+  ): Promise<{ message: string; data?: UpdateProjectDto }> {
+    try {
+      const updated = await this.projectService.update(id, updateProjectDto);
+      return { message: 'User updated successfully', data: updated };
+    } catch (error) {
+      if (error instanceof Error && error.message === 'users already exist') {
+        return { message: 'users already exist' };
+      }
+      throw error;
+    }
   }
-
-  //   @Patch(':id') // PATCH /users/:id
-  //   update(@Param('id', ParseIntPipe) id: number, @Body(ValidationPipe) updateFeedbackuserDto: UpdateFeedbackuserDto) {
-  //     return this.feedbackService.update(id, UpdateFeedbackuserDto)
-  //   }
 
 
   @Delete(':id')
-  async remove(@Param('id', ParseIntPipe) id: number): Promise<String> {
+  async remove(@Param('id', ParseIntPipe) id: number): Promise<string> {
+    // Returns success or not found message, and updates ids
     return await this.projectService.remove(id);
   }
 }

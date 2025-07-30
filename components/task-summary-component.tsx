@@ -266,10 +266,10 @@ export default function TaskSummaryContent() {
                                 onClose={() => setOpenFeedbackModal(false)}
                                 aria-labelledby="feedback-modal-title"
                                 aria-describedby="feedback-modal-description"
-                                className="flex self-center justify-self-center"
+                                className="flex self-center justify-self-center min-h-fit"
                             >
                                 <form
-                                    className="flex justify-center items-center space-y-6 flex-col bg-white p-[24px] rounded-lg"
+                                    className="flex justify-center items-center space-y-2 flex-col bg-white p-[24px] rounded-md"
                                     onSubmit={feedbackFormSubmit}
                                     style={{
                                         // transform: 'translate(-50%, -50%)',
@@ -279,32 +279,41 @@ export default function TaskSummaryContent() {
                                     <h2 id="feedback-modal-title" className='flex self-start' style={{ marginBottom: 16, fontWeight: 600 }}>
                                         Give Feedback
                                     </h2>
-                                    <Input
-                                        type="text"
-                                        placeholder="State your name here..."
-                                        value={feedbackUserName}
-                                        id="feedbackUserName"
-                                        required
-                                        onChange={(e) => setFeedbackUserName(e.target.value)}
-                                        className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
-                                    />
-                                    <Input
-                                        type="text"
-                                        placeholder="State your role here..."
-                                        value={feedbackUserRole}
-                                        id="feedbackUserRole"
-                                        required
-                                        onChange={(e) => setFeedbackUserRole(e.target.value)}
-                                        className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[16px] rounded-lg text-sm"
-                                    />
-                                    <Textarea
-                                        placeholder="Write a feedback..."
-                                        value={feedbackUserDetails}
-                                        id="feedbackUserDetails"
-                                        onChange={(e) => setFeedbackUserDetails(e.target.value)}
-                                        required
-                                        className="min-h-[100px] text-sm bg-white border-1 border-gray-200  rounded-lg"
-                                    />
+                                    <div className="w-full">
+                                        <label htmlFor='feedbackUserName' className="text-sm my-5">Enter Name</label>
+                                        <Input
+                                            type="text"
+                                            placeholder=""
+                                            value={feedbackUserName}
+                                            id="feedbackUserName"
+                                            required
+                                            onChange={(e) => setFeedbackUserName(e.target.value)}
+                                            className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[6px] rounded-sm text-sm"
+                                        />
+                                    </div>
+                                    <div className="w-full">
+                                        <label htmlFor='feedbackUserRole' className="text-sm my-5">Enter Role</label>
+                                        <Input
+                                            type="text"
+                                            placeholder=""
+                                            value={feedbackUserRole}
+                                            id="feedbackUserRole"
+                                            required
+                                            onChange={(e) => setFeedbackUserRole(e.target.value)}
+                                            className="bg-white border-1 border-gray-200 w-full p-[8px] mb-[6px] rounded-sm text-sm"
+                                        />
+                                    </div>
+                                    <div className="w-full">
+                                        <label htmlFor='feedbackUserDetails' className="text-sm my-5">Enter Mesage</label>
+                                        <Textarea
+                                            placeholder=""
+                                            value={feedbackUserDetails}
+                                            id="feedbackUserDetails"
+                                            onChange={(e) => setFeedbackUserDetails(e.target.value)}
+                                            required
+                                            className="min-h-[100px] text-sm bg-white border-1 border-gray-200  rounded-sm"
+                                        />
+                                    </div>
                                     <div className="w-full flex flex-row items-center justify-end space-x-3" >
                                         <Button
                                             variant="outline"
@@ -317,7 +326,7 @@ export default function TaskSummaryContent() {
                                             size="sm"
                                             disabled={loading}
                                             onClick={() => setOpenFeedbackModal(true)}
-                                            className="w-auto bg-slate-800 hover:bg-slate-300 hover:text-gray-600  text-white rounded-md"
+                                            className="w-auto bg-slate-800 hover:bg-slate-300 hover:text-gray-600 text-white rounded-md"
                                         >
                                             {loading ? "Submitting Feedback..." : "Submit"}
                                         </Button>

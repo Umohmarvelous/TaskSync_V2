@@ -15,11 +15,10 @@ export default function PersonalLayout({
     const [toggle, setToggle] = useState(false)
     return (
         <div>
-            <div className="min-h-auto bg-gray-50 w-fit min-w-full">
-                <div className="hidden sm:block">
+            <div className="h-auto min-h-screen bg-gray-50 w-fit min-w-full overflow-x-scroll">
+                <div className="hidden sm:block z-200">
                     <PersonalSidebar />
                 </div>
-                {/*  */}
                 <div className="m-0 sm:ml-71">
                     <div className="fixed top-0 right-0 z-30 h-auto w-full sm:w-[71%] lg:w-[80%] xl:w-[80%] 2xl:w-[89%] flex flex-row items-center justify-around pl-2 sm:pl-0 border-b bg-white ">
                         <div className="px-4 block sm:hidden">
@@ -38,11 +37,12 @@ export default function PersonalLayout({
                             <PersonalSidebar />
                         </div>
                     )}
-                    <main className="pt-25 h-vh">
+                    <main className="pt-25 h-auto">
                         {children}
                     </main>
                 </div>
             </div>
         </div>
+
     )
 }

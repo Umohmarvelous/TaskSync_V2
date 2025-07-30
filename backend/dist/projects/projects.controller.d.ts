@@ -4,9 +4,12 @@ import { UpdateProjectDto } from './dto/update-userproject.dto';
 export declare class ProjectController {
     private readonly projectService;
     constructor(projectService: ProjectService);
-    create(createProjectDto: CreateProjectDto): Promise<CreateProjectDto>;
+    create(createProjectDto: CreateProjectDto): Promise<CreateProjectDto[]>;
     findAll(): Promise<CreateProjectDto[]>;
     findOne(id: number): Promise<CreateProjectDto>;
-    update(id: number, updateProjectDto: UpdateProjectDto): Promise<UpdateProjectDto>;
-    remove(id: number): Promise<String>;
+    update(id: number, updateProjectDto: UpdateProjectDto): Promise<{
+        message: string;
+        data?: UpdateProjectDto;
+    }>;
+    remove(id: number): Promise<string>;
 }

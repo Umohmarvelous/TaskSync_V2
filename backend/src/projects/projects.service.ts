@@ -1,4 +1,3 @@
-
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -12,17 +11,22 @@ export class ProjectService {
         @InjectRepository(Userproject) private readonly projectRepository: Repository<Userproject>,
     ) { }
 
-    async create(createProjectDto: CreateProjectDto): Promise<CreateProjectDto> {
-        try {
-            const user = this.projectRepository.create(createProjectDto);
+    async create(createProjectDto: CreateProjectDto): Promise<CreateProjectDto[]> {
+        // Fetch all users and sort by id ascending
+        const allUsers = await this.projectRepository.find({ order: { id: 'ASC' } });
+        // Set new id as next highest
+        const nextId = allUsers.length > 0 ? allUsers[allUsers.length - 1].id + 1 : 1;
+        const user = this.projectRepository.create({ ...createProjectDto, id: nextId });
 
-            return await this.projectRepository.save(user);
-        } catch (error) {
-            if (error.code === 'ER_DUP_ENTRY') {
-                throw new BadRequestException('User with this information already exists');
-            }
-            throw new BadRequestException('Failed to create user. Please try again.');
+        // Check for duplicate projectAcronym
+        const exists = allUsers.find(u => u.projectAcronym === createProjectDto.projectAcronym);
+        if (exists) {
+            throw new BadRequestException('User with this information already exists');
         }
+
+        await this.projectRepository.save(user);
+        // Return all users sorted by id ascending
+        return await this.projectRepository.find({ order: { id: 'ASC' } });
     }
     // Hotel peggy behind delta careers school
     // 08057254642
@@ -57,26 +61,26 @@ export class ProjectService {
     }
 
     async update(id: number, updateProjectDto: UpdateProjectDto): Promise<UpdateProjectDto> {
-        // Validate ID parameter
         if (!id || isNaN(id) || id <= 0) {
             throw new BadRequestException('Invalid feedback user ID provided');
         }
-
-        // Validate update data
         if (Object.keys(updateProjectDto).length === 0) {
             throw new BadRequestException('No update data provided');
         }
-
         try {
             const projectusers = await this.projectRepository.findOneBy({ id });
             if (!projectusers) {
                 throw new NotFoundException(`Feedback user with ID ${id} not found`);
             }
-
-            Object.assign(projectusers, updateProjectDto)
-
+            // Check for duplicate projectAcronym (excluding current user)
+            const duplicate = await this.projectRepository.findOne({
+                where: { projectAcronym: updateProjectDto.projectAcronym },
+            });
+            if (duplicate && duplicate.id !== id) {
+                throw new BadRequestException('users already exist');
+            }
+            Object.assign(projectusers, updateProjectDto);
             await this.projectRepository.update(id, updateProjectDto);
-
             return await this.findOne(id);
         } catch (error) {
             if (error instanceof NotFoundException) {
@@ -89,40 +93,29 @@ export class ProjectService {
         }
     }
 
-    async remove(id: number): Promise<String> {
-        // Validate ID parameter
+    async remove(id: number): Promise<string> {
         if (!id || isNaN(id) || id <= 0) {
             throw new BadRequestException('Invalid feedback user ID provided');
         }
-
-        //         const removedUser = this.findOne(id)
-
-        //         this.feedbackUsers = this.feedbackUsers.filter(feedbackUser => feedbackUser.id !== id)
-
-        //         return removedUser
-
         try {
             const projectusers = await this.projectRepository.findOneBy({ id });
             if (!projectusers) {
-                throw new NotFoundException(`Feedback user with ID ${id} not found`);
+                return 'No user found';
             }
-
-
             await this.projectRepository.delete(id);
-            const removedUser = (`Feedback user with ID ${id} Deleted Successful!`)
-            return removedUser
-
-
-        } catch (error) {
-            if (error instanceof NotFoundException) {
-                throw error;
+            // Reassign IDs to all users sequentially
+            const allUsers = await this.projectRepository.find({ order: { id: 'ASC' } });
+            for (let i = 0; i < allUsers.length; i++) {
+                if (allUsers[i].id !== i + 1) {
+                    await this.projectRepository.update(allUsers[i].id, { id: i + 1 } as any);
+                }
             }
+            return `user with id deleted successful`;
+        } catch (error) {
             if (error.code === 'ER_ROW_IS_REFERENCED_2') {
                 throw new BadRequestException('Cannot delete feedback user. Feedback user has associated data.');
             }
             throw new BadRequestException('Failed to delete feedback user. Please try again.');
-        } finally {
-            ('Deleted successful!')
         }
     }
 }

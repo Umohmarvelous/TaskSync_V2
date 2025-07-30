@@ -22,16 +22,15 @@ let ProjectService = class ProjectService {
         this.projectRepository = projectRepository;
     }
     async create(createProjectDto) {
-        try {
-            const user = this.projectRepository.create(createProjectDto);
-            return await this.projectRepository.save(user);
+        const allUsers = await this.projectRepository.find({ order: { id: 'ASC' } });
+        const nextId = allUsers.length > 0 ? allUsers[allUsers.length - 1].id + 1 : 1;
+        const user = this.projectRepository.create({ ...createProjectDto, id: nextId });
+        const exists = allUsers.find(u => u.projectAcronym === createProjectDto.projectAcronym);
+        if (exists) {
+            throw new common_1.BadRequestException('User with this information already exists');
         }
-        catch (error) {
-            if (error.code === 'ER_DUP_ENTRY') {
-                throw new common_1.BadRequestException('User with this information already exists');
-            }
-            throw new common_1.BadRequestException('Failed to create user. Please try again.');
-        }
+        await this.projectRepository.save(user);
+        return await this.projectRepository.find({ order: { id: 'ASC' } });
     }
     async findAll() {
         try {
@@ -71,6 +70,12 @@ let ProjectService = class ProjectService {
             if (!projectusers) {
                 throw new common_1.NotFoundException(`Feedback user with ID ${id} not found`);
             }
+            const duplicate = await this.projectRepository.findOne({
+                where: { projectAcronym: updateProjectDto.projectAcronym },
+            });
+            if (duplicate && duplicate.id !== id) {
+                throw new common_1.BadRequestException('users already exist');
+            }
             Object.assign(projectusers, updateProjectDto);
             await this.projectRepository.update(id, updateProjectDto);
             return await this.findOne(id);
@@ -92,23 +97,22 @@ let ProjectService = class ProjectService {
         try {
             const projectusers = await this.projectRepository.findOneBy({ id });
             if (!projectusers) {
-                throw new common_1.NotFoundException(`Feedback user with ID ${id} not found`);
+                return 'No user found';
             }
             await this.projectRepository.delete(id);
-            const removedUser = (`Feedback user with ID ${id} Deleted Successful!`);
-            return removedUser;
+            const allUsers = await this.projectRepository.find({ order: { id: 'ASC' } });
+            for (let i = 0; i < allUsers.length; i++) {
+                if (allUsers[i].id !== i + 1) {
+                    await this.projectRepository.update(allUsers[i].id, { id: i + 1 });
+                }
+            }
+            return `user with id deleted successful`;
         }
         catch (error) {
-            if (error instanceof common_1.NotFoundException) {
-                throw error;
-            }
             if (error.code === 'ER_ROW_IS_REFERENCED_2') {
                 throw new common_1.BadRequestException('Cannot delete feedback user. Feedback user has associated data.');
             }
             throw new common_1.BadRequestException('Failed to delete feedback user. Please try again.');
-        }
-        finally {
-            ('Deleted successful!');
         }
     }
 };
