@@ -110,18 +110,14 @@ export default function TaskSummaryContent() {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                // Get user ID from localStorage
                 const userId = localStorage.getItem('userId')
                 if (!userId) {
                     setLoading(true)
                     return
                 }
 
-                // Fetch user data from backend (MySQL)
                 const response = await fetch(`http://localhost:3001/api/users/${userId}`)
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user data')
-                }
+
 
                 const userData: User = await response.json()
                 const fullName = `${userData.firstName} ${userData.lastName}`.trim()
