@@ -15,13 +15,12 @@ import { UsersProjectModule } from './projects/projects.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'postgres', // changed from 'mysql' to 'postgres'
       host: process.env.DB_HOST,
-      port: 26120,
+      port: 5432, // default postgres port
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      // entities: [User, Task, Feedbackuser],
       entities: [join(process.cwd(), 'dist/**/*.entity.js')],
       autoLoadEntities: true,
       synchronize: process.env.NODE_ENV !== 'production', // Set to false in production!

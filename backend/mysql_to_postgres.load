@@ -1,0 +1,16 @@
+LOAD DATABASE
+     FROM mysql://root:your_mysql_password@localhost/your_mysql_db
+     INTO postgresql://your_postgres_user:your_postgres_password@localhost/your_postgres_db
+
+ WITH include no drop, create tables, create indexes, reset sequences
+
+ SET maintenance_work_mem to '128MB',
+     work_mem to '12MB',
+     search_path to 'public'
+
+ CAST type datetime to timestamptz drop default drop not null using zero-dates-to-null,
+      type date drop not null drop default using zero-dates-to-null
+
+ BEFORE LOAD DO
+ $$ create schema if not exists public; $$
+;
