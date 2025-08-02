@@ -10,7 +10,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));
   app.useGlobalFilters(new HttpExceptionFilter());
   app.enableCors();
-  app.setGlobalPrefix('api');
+  app.setGlobalPrefix('api'); 
   await app.init();
 }
 bootstrap();
