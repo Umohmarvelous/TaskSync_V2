@@ -15,9 +15,9 @@ import { UsersProjectModule } from './projects/projects.module';
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres', // changed from 'mysql' to 'postgres'
+      type: 'mysql', // changed from 'mysql' to 'postgres
       host: process.env.DB_HOST,
-      port: 5432, // default postgres port
+      port: 3306, // default postgres port
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,

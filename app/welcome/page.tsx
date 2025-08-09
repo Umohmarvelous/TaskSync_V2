@@ -126,7 +126,7 @@ export default function Welcome() {
                     <h3 className='space-x-3  w-fit sm:w-160 h-auto pb-[20px] pt-10 m-0 font-sans text-center text-[30px] sm:text-[55px] text-zinc-600 font-normal'>Your
                         <b className='font-sans font-extrabold text-[30px] sm:text-[55px]  text-black pl-2 sm:pl-5'>mobile workspace </b>
 
-                        at the palm of your hands</h3>
+                        at the palm of your hands.</h3>
 
 
                     <h4 className='w-80 sm:w-fit h-auto font-sans font-medium text-[13px] sm:text-[17px] text-center text-zinc-600 m-0 pt-[4px] sm:pt-[13px]'>"Enhance workflows and achieve clear visibility across teams to make confident strategic decisions."</h4>
