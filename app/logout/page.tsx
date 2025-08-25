@@ -18,7 +18,7 @@ export default function LogoutLayout() {
                     onClick={() => router.back()}>
                     <LogOut className="w-5 h-5 mr-3" />
 
-                    Logout......
+                    Logout.....
                 </Button>
             )}
         </>
